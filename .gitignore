@@ -1,0 +1,17 @@
+/node_modules
+/vendor
+/uploaded
+/public/hot
+/public/uploaded
+/public/images/*
+/public/storage
+/storage/*.key
+/storage/logs/*.log
+.env
+.htaccess
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log

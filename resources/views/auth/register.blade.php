@@ -1,93 +1,69 @@
-<?php
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-$lang=LaravelLocalization::setLocale();
-?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{{ URL::asset('resources/css/style.css') }}">
+</head>
+<body>
 
-@if (session('status'))
-<div class="mb-4 font-medium text-sm text-green-600">
-    {{ session('status') }}
-</div>
-@endif
-
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="{{asset('resources/assets/img/breadcrumb.jpg')}}">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="breadcrumb__text">
-                    <h2>{{__('login.register')}}</h2>
-                    <!--  <div class="breadcrumb__option">
-                            <a href="./index.php">Home</a>
-                            <span>Register</span>
-                        </div> -->
-                </div>
+            <div class="col-12">
+                <form action="" method="">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>تسجيل الدخول كمستخدم جديد</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="اسم المستخدم">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="البريد الألكتروني">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" placeholder=" كلمة المرور">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" placeholder="تأكيد كلمة المرور">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="group-radio">
+                                        <input type="radio" name="type">
+                                        <label for="">ذكر</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="group-radio">
+                                        <input type="radio" name="type">
+                                        <label for="">انثى</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
+                            <p class="or">او</p>
+                            <div class="login text-center">
+                                <p> هل لديك حساب بالفعل ! <a href="{{route('login')}}">سجل الان</a> </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</section>
-<!-- Breadcrumb Section End -->
-
-<!-- Checkout Section Begin -->
-<section class="checkout spad">
-    <div class="container">
-    <x-jet-validation-errors class="mb-4" />
-        <div class="checkout__form">
-        <form method="POST" action="{{ route('register') }}">
-                    @csrf
-                <div class="row justify-content-center @if($lang=='ar') text-right @endif">
-
-                    <div class="col-md-6">
-
-                        <div class="checkout__input">
-                            <p>{{__('login.user')}}<span>*</span></p>
-                            <x-jet-input id="name"  type="text" name="name"
-                            :value="old('name')" required autofocus autocomplete="name" />
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>{{__('login.mobile')}}<span>*</span></p>
-                                    <x-jet-input id="mobile" type="text" name="mobile"
-                            :value="old('mobile')" required />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                <p>{{__('login.email')}}<span>*</span></p>
-                                    <x-jet-input id="email" type="email" name="email"
-                            :value="old('email')" required />
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="checkout__input">
-                            <p>{{__('login.password')}}<span>*</span></p>
-                            <x-jet-input id="password" type="password"
-                            name="password" required autocomplete="new-password" />
-                        </div>
-                        <div class="checkout__input">
-                            <p>{{__('login.re_password')}}<span>*</span></p>
-                            <x-jet-input id="password" type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-                        </div>
-           
-
-                        <x-jet-button class="site-btn">
-                        {{__('login.register')}}
-                        </x-jet-button>
-
-
-
-
-                    </div>
-
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-<!-- Checkout Section End -->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script></script>
+</body>
+</html>
