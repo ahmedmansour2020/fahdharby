@@ -8,6 +8,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 class LangController extends Controller
 {
     public static function lang(){
-        return LaravelLocalization::setLocale();
+        return 'ar';
+        // return LaravelLocalization::setLocale();
     }
 }

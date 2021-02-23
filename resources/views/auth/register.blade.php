@@ -9,14 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="{{ URL::asset('resources/css/style.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('resources/assets/css/style.css') }}">
 </head>
 <body>
 
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="" method="">
+                <form action="{{route('register')}}" method="POST">
+                @csrf
                     <div class="card">
                         <div class="card-header">
                             <h2>تسجيل الدخول كمستخدم جديد</h2>
@@ -32,21 +33,17 @@
                                 <input type="password" name="password" placeholder=" كلمة المرور">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder="تأكيد كلمة المرور">
+                                <input type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور">
                             </div>
                             <div class="row">
+                            @foreach(App\Http\Controllers\HomeController::genders() as $gender)
                                 <div class="col-6">
                                     <div class="group-radio">
-                                        <input type="radio" name="type">
-                                        <label for="">ذكر</label>
+                                        <input type="radio" name="gender" value="{{$gender->id}}">
+                                        <label for="gender">{{$gender->name}}</label>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="group-radio">
-                                        <input type="radio" name="type">
-                                        <label for="">انثى</label>
-                                    </div>
-                                </div>
+                            @endforeach
                             </div>
                             <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
                             <p class="or">او</p>
