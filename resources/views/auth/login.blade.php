@@ -1,96 +1,49 @@
-<?php
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-$lang=LaravelLocalization::setLocale();
-?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{{ URL::asset('resources/css/style.css') }}">
+</head>
+<body>
 
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="{{asset('resources/assets/img/breadcrumb.jpg')}}">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="breadcrumb__text">
-                    <h2>{{__('login.login')}}</h2>
-                    <!--                         <div class="breadcrumb__option">
-                            <a href="./index.php">Home</a>
-                            <span>Login</span>
-                        </div> -->
-                </div>
+            <div class="col-12">
+                <form action="" method="">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>تسجيل الدخول</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="البريد الألكتروني">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" placeholder=" كلمة المرور">
+                            </div>
+                            <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
+
+                            <div class="register text-center">
+                                <p> هل ليس لديك حساب ! <a href="{{route('register')}}">أنشئ حساب</a> </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</section>
-<!-- Breadcrumb Section End -->
-
-<!-- Checkout Section Begin -->
-<section class="checkout spad">
-    <div class="container">
-        @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-        @endif
-        <div class="checkout__form">
-            <form method="POST" action="{{ route('login') }}">
-                <x-jet-validation-errors class="mb-4" />
-                <div class="row justify-content-center @if($lang=='ar') text-right @endif">
-
-                    <div class="col-md-4">
-
-
-
-                        @csrf
-                        <div class="checkout__input">
-                            <p>{{__('login.email')}}<span>*</span></p>
-                            <input type="email" class="form-control" id="email" name="email"
-                                aria-describedby="emailHelp" placeholder="{{__('login.email')}}" :value="old('email')"
-                                required autofocus>
-                        </div>
-
-
-                        <div class="checkout__input">
-                            <p>{{__('login.password')}}<span>*</span></p>
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="{{__('login.password')}}" required autocomplete="current-password">
-                        </div>
-                        <div class="checkout__input__checkbox">
-                        <label for="acc">
-                            {{__('login.remember')}}
-                            <input type="checkbox" class="form-check-input mx-2" id="acc" name="remember">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-
-
-
-                    <button type="submit" class="site-btn">{{__('login.login')}}</button>
-                    @if (Route::has('password.request'))
-                    <div>
-                        <br>
-
-                        <a class="underline text-sm text-gray-600 hover:text-gray-900"
-                            href="{{ route('password.request') }}">
-                            {{__('login.forget')}}
-                        </a>
-                    </div>
-                    @endif
-
-                    <p class="reg"><a href="{{ route('register') }}"> {{__('login.new_user')}}</a></p>
-
-
-                    </div>
-
-                
-                </div>
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <a class="btn btn-danger  m-1" href="{{route('login.google')}}"><i class="fa fa-google"
-                            style="color:white"></i></a>
-
-                    <a class="btn btn-primary text-primary  m-1" href="{{route('login.facebook')}}"><i
-                            class="fa fa-facebook" style="color:white"></i></a>
-                </div>
-
-            </form>
-        </div>
-    </div>
-</section>
-<!-- Checkout Section End -->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script></script>
+</body>
+</html>
