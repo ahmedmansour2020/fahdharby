@@ -16,7 +16,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="" method="">
+                <form action="{{route('register')}}" method="POST">
+                @csrf
                     <div class="card">
                         <div class="card-header">
                             <h2>تسجيل الدخول كمستخدم جديد</h2>
@@ -32,21 +33,17 @@
                                 <input type="password" name="password" placeholder=" كلمة المرور">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder="تأكيد كلمة المرور">
+                                <input type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور">
                             </div>
                             <div class="row">
+                            @foreach(App\Http\Controllers\HomeController::genders() as $gender)
                                 <div class="col-6">
                                     <div class="group-radio">
-                                        <input type="radio" name="type">
-                                        <label for="">ذكر</label>
+                                        <input type="radio" name="gender" value="{{$gender->id}}">
+                                        <label for="gender">{{$gender->name}}</label>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="group-radio">
-                                        <input type="radio" name="type">
-                                        <label for="">انثى</label>
-                                    </div>
-                                </div>
+                            @endforeach
                             </div>
                             <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
                             <p class="or">او</p>
