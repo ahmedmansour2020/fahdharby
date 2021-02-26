@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LangController;
 
 class ProductController extends Controller
@@ -23,7 +24,7 @@ class ProductController extends Controller
             leftJoin('categories as m','m.id','main_category')
             ->leftJoin('categories as s','s.id','sub_category')
             ->leftJoin('brands','brands.id','brand_id')
-            ->select('price','qty','m.name_' . LangController::lang() . ') as main_category_name','s.name_' . LangController::lang() . ') as sub_category_name','products.id', 'status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description','brands.name_' . LangController::lang() .' as brand')
+            ->select('price','qty','m.name_' . LangController::lang() . ' as main_category_name','s.name_' . LangController::lang() . ' as sub_category_name','products.id', 'status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description','brands.name_' . LangController::lang() .' as brand')
             ->get()
             ;
 
@@ -53,7 +54,7 @@ class ProductController extends Controller
     {
         $action='add';
         $main_categories=Category::whereNull('parent_id')->select('id','name_' . LangController::lang() . ' as name')->get();
-        $sub_categories=Category::whereNull('parent_id')->select('id','name_' . LangController::lang() . ' as name','parent_id')->get();
+        $sub_categories=Category::whereNotNull('parent_id')->select('id','name_' . LangController::lang() . ' as name','parent_id')->get();
         $brands=Brand::select('id','name_' . LangController::lang() . ' as name')->get();
         return view('vendor.add.product',compact('action','main_categories','sub_categories','brands'));
     }
@@ -66,7 +67,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $user= Auth::user();
         $product=new Product();
+        $product->user_id=$user->id;
         $product->name_ar=request('name_ar');
         $product->name_en=request('name_en');
         $product->description_ar=request('description_ar');
@@ -103,7 +106,7 @@ class ProductController extends Controller
         $saved=Product::find($id);
         $images=ProductImage::where('product_id',$id)->get();
         $main_categories=Category::whereNull('parent_id')->select('id','name_' . LangController::lang() . ' as name')->get();
-        $sub_categories=Category::whereNull('parent_id')->select('id','name_' . LangController::lang() . ' as name','parent_id')->get();
+        $sub_categories=Category::whereNotNull('parent_id')->select('id','name_' . LangController::lang() . ' as name','parent_id')->get();
         $brands=Brand::select('id','name_' . LangController::lang() . ' as name')->get();
         return view('vendor.add.product',compact('action','main_categories','sub_categories','saved','images','brands'));
     }

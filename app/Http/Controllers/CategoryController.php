@@ -16,13 +16,15 @@ class CategoryController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' . 'image')->get();
+            $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' , 'image')->get();
             $index = 1;
             foreach ($categories as $category) {
                 $category->index = $index++;
                 if ($category->image != null) {
                     $category->image = asset('uploaded/' . $category->image);
                 }
+                $count=count(Category::where('parent_id',$category->id)->get());
+                $category->count=$count;
             }
             return datatables()->of($categories)->addIndexColumn()->make(true);
         }
@@ -31,7 +33,7 @@ class CategoryController extends Controller
     public function index_sub($id)
     {
         if (request()->ajax()) {
-            $categories = Category::where('parent_id', $id)->select('id', 'name_' . LangController::lang() . ' as name' . 'image')->get();
+            $categories = Category::where('parent_id', $id)->select('id', 'name_' . LangController::lang() . ' as name' , 'image')->get();
             $index = 1;
             foreach ($categories as $category) {
                 $category->index = $index++;
@@ -41,7 +43,7 @@ class CategoryController extends Controller
             }
             return datatables()->of($categories)->addIndexColumn()->make(true);
         }
-        return view('admin.show.categories');
+        return view('admin.show.categories', compact('id'));
     }
     /**
      * Show the form for creating a new resource.
@@ -51,7 +53,7 @@ class CategoryController extends Controller
     public function create()
     {
         $action = 'add';
-        $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' . 'image')->get();
+        $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name')->get();
         return view('admin.add.category', compact('action', 'categories'));
     }
 
@@ -82,7 +84,6 @@ class CategoryController extends Controller
             return redirect()->route('category.index')->with('success', __('items.success_add'));
         } else {
             return redirect()->route('category.index_sub', request('parent_id'))->with('success', __('items.success_add'));
-
         }
     }
 
@@ -100,7 +101,7 @@ class CategoryController extends Controller
         if ($saved->parent_id == null) {
             $level = 2;
         }
-        $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' . 'image')->get();
+        $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' )->get();
         return view('admin.add.category', compact('action', 'categories', 'saved', 'level'));
     }
 
