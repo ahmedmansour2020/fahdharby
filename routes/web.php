@@ -23,13 +23,23 @@ Route::get('/',function(){
 })->name('home');
 
 //auth routes already exist.
-// Route::get('register',function(){
-//     return view('auth/register');
-// });
+Route::get('register',function(){
+    return view('auth/register');
+});
 
-// Route::get('login',function(){
-//     return view('auth/login');
-// });
+Route::get('login',function(){
+    return view('auth/login');
+});
+
+Route::get('orders',function(){
+    return view('home/orders');
+});
+Route::get('chart',function(){
+    return view('home/chart');
+});
+Route::get('orders-no-product',function(){
+    return view('home/orders-no-product');
+});
 //code here
 
 
