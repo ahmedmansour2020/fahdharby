@@ -47,6 +47,9 @@ Route::get('orders-no-product',function(){
 Route::group(['prefix'=>'admin'],function(){
     Route::resource('category',CategoryController::class);
     Route::resource('brand',BrandController::class);
+    Route::get('/',function(){
+        return view('welcome');
+    })->name('admin');
     Route::get('/category/sub/{id}',[CategoryController::class,'index_sub'])->name('category.index_sub');
     Route::get('/category/delete/{id}',[CategoryController::class,'destroy']);
     Route::post('/category/delete/image',[CategoryController::class,'delete_image'])->name('category_delete_image');
@@ -58,6 +61,9 @@ Route::group(['prefix'=>'admin'],function(){
 
 Route::group(['prefix'=>'vendor'],function(){
     Route::resource('product',ProductController::class);
+    Route::get('/',function(){
+        return view('welcome');
+    })->name('vendor');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
 
 });

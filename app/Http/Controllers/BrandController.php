@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -14,7 +15,7 @@ class BrandController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $brands = Brand::select('id', 'name_' . LangController::lang() . ' as name' . 'image')->get();
+            $brands = Brand::select('id', 'name_' . LangController::lang() . ' as name' ,'url', 'image')->get();
             $index = 1;
             foreach ($brands as $brand) {
                 $brand->index = $index++;
@@ -48,10 +49,10 @@ class BrandController extends Controller
         $brand = new Brand();
         $brand->name_ar = request('name_ar');
         $brand->name_en = request('name_en');
-
+        $brand->url = request('url');
         if (request('image')) {
             $file_extension = request('image')->getClientOriginalExtension();
-            $file_name = "categories-" . time() . '.' . $file_extension;
+            $file_name = "brands-" . time() . '.' . $file_extension;
             $path = 'uploaded/';
             $request->image->move($path, $file_name);
             $brand->image = $file_name;
@@ -93,13 +94,13 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $brand = Brand::find();
+        $brand = Brand::find($id);
         $brand->name_ar = request('name_ar');
         $brand->name_en = request('name_en');
-
+        $brand->url = request('url');
         if (request('image')) {
             $file_extension = request('image')->getClientOriginalExtension();
-            $file_name = "categories-" . time() . '.' . $file_extension;
+            $file_name = "brands-" . time() . '.' . $file_extension;
             $path = 'uploaded/';
             $request->image->move($path, $file_name);
             $brand->image = $file_name;
