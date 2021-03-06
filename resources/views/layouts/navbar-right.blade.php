@@ -1,27 +1,27 @@
 <aside class="navbar-right">
                     <div class="sidebar">
                         <nav class="mt-2">
-                                <a href="#" class="link-sub-nav active">
+                                <a href="{{url('/orders')}}" class="link-sub-nav {{(request()->segment(1) == 'orders') ? 'active' : ''}}">
                                     <div class="sub-nav">
                                         <img src="{{URL::asset('resources/assets/images/shopping-bag.png')}}" alt=""> الطلبيات
 
                                     </div>
                                 </a>
-                                <a href="#" class="link-sub-nav">
+                                <a href="{{url('/no-location')}}" class="link-sub-nav {{(request()->segment(1) == 'location') ? 'active' : ''}}">
                                     <div class="sub-nav">
                                         <img src="{{URL::asset('resources/assets/images/location.png')}}" alt=""> العنوان
 
                                     </div>
                                 </a>
-                                <a href="#" class="link-sub-nav">
+                                <a href="{{url('/pay')}}" class="link-sub-nav {{(request()->segment(1) == 'pay') ? 'active' : ''}}">
                                     <div class="sub-nav">
                                         <img src="{{URL::asset('resources/assets/images/Group 351.png')}}" alt=""> عمليات الدفع
 
                                     </div>
                                 </a>
-                                <a href="#" class="link-sub-nav">
+                                <a href="{{url('/wallet')}}" class="link-sub-nav {{(request()->segment(1) == 'wallet') ? 'active' : ''}}">
                                     <div class="sub-nav">
-                                        <img src="{{URL::asset('resources/assets/images/Icon awesome-money-bill.png')}}" alt=""> الرصيد
+                                        <img src="{{URL::asset('resources/assets/images/money.png')}}" alt=""> الرصيد
 
                                     </div>
                                 </a>

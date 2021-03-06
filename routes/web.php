@@ -40,6 +40,21 @@ Route::get('chart',function(){
 Route::get('orders-no-product',function(){
     return view('home/orders-no-product');
 });
+Route::get('no-location',function(){
+    return view('home/no-location');
+});
+Route::get('pay',function(){
+    return view('home/pay');
+});
+Route::get('wallet',function(){
+    return view('home/wallet');
+});
+Route::get('location',function(){
+    return view('home/location');
+});
+Route::get('process-pay',function(){
+    return view('home/process-pay');
+});
 //code here
 
 
