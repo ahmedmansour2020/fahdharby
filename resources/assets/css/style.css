@@ -478,3 +478,43 @@ body {
     margin-left: 19px;
 }
 /* End process-pay page */
+/* Start return-product page*/
+.navTabs {
+    width: 54%;
+    margin: auto;
+}
+.navTabs .nav-tabs {
+    border-bottom: 2px solid #CFCFCF;
+}
+.navTabs .nav-tabs .nav-link {
+    border:none;
+    font-size: 25px;
+    font-weight: 700;
+    color: #000000;
+    margin-left: 120px;
+}
+.navTabs .nav-link.active {
+    background-color: unset;
+    border-bottom: 3px solid #306EFF;
+
+}
+.btn-create-order {
+    background-color: #306EFF;
+    color: #fff !important;
+    padding: 10px 19px;
+    height: 50px;
+    margin-top: 5px;
+    font-size: 19px;
+    font-weight: 700;
+}
+.return-product {
+    text-align: center;
+    margin-top: 150px;
+}
+.return-product h3 {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    font-size: 40px;
+    font-weight: 700;
+}
+/* End return-product page */

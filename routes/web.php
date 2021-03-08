@@ -55,6 +55,10 @@ Route::get('location',function(){
 Route::get('process-pay',function(){
     return view('home/process-pay');
 });
+
+Route::get('product-return',function(){
+    return view('home/product-return');
+});
 //code here
 
 
