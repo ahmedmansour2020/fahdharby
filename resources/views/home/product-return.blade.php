@@ -25,7 +25,7 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">تم إرجاعها </a>
                       <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">قيد الإرجاع</a>
-                      <a href="#" class="btn btn-create-order">إنشاء طلب إرجاع لمنتج</a>
+                      <a href="{{ url('/create-order-return') }}" class="btn btn-create-order">إنشاء طلب إرجاع لمنتج</a>
                     </div>
                 </nav>
                   <div class="tab-content" id="nav-tabContent">

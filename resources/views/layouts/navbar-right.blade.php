@@ -25,7 +25,7 @@
 
                                     </div>
                                 </a>
-                                <a href="{{('/product-return')}}" class="link-sub-nav {{(request()->segment(1) == 'product-return') ? 'active' : ''}}">
+                                <a href="{{url('/product-return')}}" class="link-sub-nav {{(request()->segment(1) == 'product-return') ? 'active' : ''}}">
                                     <div class="sub-nav">
                                         <img src="{{URL::asset('resources/assets/images/return.png')}}" alt=""> الإرجاع
 

@@ -59,6 +59,10 @@ Route::get('process-pay',function(){
 Route::get('product-return',function(){
     return view('home/product-return');
 });
+Route::get('create-order-return',function(){
+    return view('home/create-order-return');
+});
+
 //code here
 
 
