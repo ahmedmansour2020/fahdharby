@@ -352,6 +352,9 @@ body {
 }
 /* End order-no-product page */
 /* Start location page */
+.iti__selected-flag {
+    outline: none;
+}
 .start-location h2 {
     font-size: 36px;
     font-weight: 700;
