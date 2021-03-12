@@ -62,6 +62,9 @@ Route::get('product-return',function(){
 Route::get('create-order-return',function(){
     return view('home/create-order-return');
 });
+Route::get('home-vendor',function(){
+    return view('vendor/show/home-vendor');
+});
 
 //code here
 
