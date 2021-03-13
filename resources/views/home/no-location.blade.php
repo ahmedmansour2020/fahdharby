@@ -13,7 +13,7 @@
                     <div class="section-center">
                         <img src="{{URL::asset('resources/assets/images/Icon material-location-on.png')}}" class="img-fluid" alt="">
                         <h3>لم تحدد عنوان بعد</h3>
-                        <a href="{{url('/location')}}" class="btn btn-primary">حدد عنوانك</a>
+                        <a href="{{route('location')}}" class="btn btn-primary">حدد عنوانك</a>
                     </div>
                 </div>
             </div>
