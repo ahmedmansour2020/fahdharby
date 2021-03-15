@@ -1,31 +1,31 @@
 <aside class="navbar-right">
     <div class="sidebar">
         <nav class="mt-2">
-            <a href="{{url('/orders')}}" class="link-sub-nav {{(request()->segment(1) == 'orders') ? 'active' : ''}}">
+            <a href="{{route('orders')}}" class="link-sub-nav {{(request()->segment(1) == 'orders') ? 'active' : ''}}">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/shopping-bag.png')}}" alt=""> الطلبيات
 
                 </div>
             </a>
-            <a href="{{url('/no-location')}}" class="link-sub-nav {{(request()->segment(1) == 'location') ? 'active' : ''}}">
+            <a href="{{route('no-location')}}" class="link-sub-nav {{(request()->segment(1) == 'location') ? 'active' : ''}}">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/location.png')}}" alt=""> العنوان
 
                 </div>
             </a>
-            <a href="{{url('/pay')}}" class="link-sub-nav {{(request()->segment(1) == 'pay') ? 'active' : ''}}">
+            <a href="{{route('pay')}}" class="link-sub-nav {{(request()->segment(1) == 'pay') ? 'active' : ''}}">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/Group 351.png')}}" alt=""> عمليات الدفع
 
                 </div>
             </a>
-            <a href="{{url('/wallet')}}" class="link-sub-nav {{(request()->segment(1) == 'wallet') ? 'active' : ''}}">
+            <a href="{{route('wallet')}}" class="link-sub-nav {{(request()->segment(1) == 'wallet') ? 'active' : ''}}">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/money.png')}}" alt=""> الرصيد
 
                 </div>
             </a>
-            <a href="{{url('/product-return')}}" class="link-sub-nav {{(request()->segment(1) == 'product-return') ? 'active' : ''}}">
+            <a href="{{route('product-return')}}" class="link-sub-nav {{(request()->segment(1) == 'product-return') ? 'active' : ''}}">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/return.png')}}" alt=""> الإرجاع
 

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -18,54 +20,23 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 // Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 // });
 
-Route::get('/',function(){
-    return view('welcome');
-})->name('home');
+Route::get('/',[UserController::class,'home'])->name('home');
+Route::get('cart',[UserController::class,'cart'])->name('chart');
+Route::get('orders',[UserController::class,'orders'])->name('orders');
+Route::get('location',[UserController::class,'location'])->name('location');
+Route::get('pay',[UserController::class,'pay'])->name('pay');
+Route::get('wallet',[UserController::class,'wallet'])->name('wallet');
+Route::get('process-pay',[UserController::class,'process_pay'])->name('process-pay');
+Route::get('product-return',[UserController::class,'product_return'])->name('product-return');
+Route::get('create-order-return',[UserController::class,'create_order_return'])->name('create-order-return');
 
-//auth routes already exist.
-Route::get('register',function(){
-    return view('auth/register');
-});
-
-Route::get('login',function(){
-    return view('auth/login');
-});
-
-Route::get('orders',function(){
-    return view('home/orders');
-});
-Route::get('chart',function(){
-    return view('home/chart');
-});
 Route::get('orders-no-product',function(){
     return view('home/orders-no-product');
-});
+})->name('orders-no-product');
+
 Route::get('no-location',function(){
     return view('home/no-location');
-});
-Route::get('pay',function(){
-    return view('home/pay');
-});
-Route::get('wallet',function(){
-    return view('home/wallet');
-});
-Route::get('location',function(){
-    return view('home/location');
-});
-Route::get('process-pay',function(){
-    return view('home/process-pay');
-});
-
-Route::get('product-return',function(){
-    return view('home/product-return');
-});
-Route::get('create-order-return',function(){
-    return view('home/create-order-return');
-});
-Route::get('home-vendor',function(){
-    return view('vendor/show/home-vendor');
-});
-
+})->name('no-location');
 //code here
 
 
@@ -87,9 +58,7 @@ Route::group(['prefix'=>'admin'],function(){
 
 Route::group(['prefix'=>'vendor'],function(){
     Route::resource('product',ProductController::class);
-    Route::get('/',function(){
-        return view('welcome');
-    })->name('vendor');
+    Route::get('/dashboard',[VendorController::class,'dashboard'])->name('home-vendor');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
 
 });
