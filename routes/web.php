@@ -37,6 +37,13 @@ Route::get('orders-no-product',function(){
 Route::get('no-location',function(){
     return view('home/no-location');
 })->name('no-location');
+Route::get('management',function(){
+    return view('vendor/show/management');
+})->name('management');
+
+Route::get('payments',function(){
+    return view('vendor/show/payments');
+})->name('payments');
 //code here
 
 
