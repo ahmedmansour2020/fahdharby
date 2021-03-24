@@ -44,6 +44,9 @@ Route::get('management',function(){
 Route::get('payments',function(){
     return view('vendor/show/payments');
 })->name('payments');
+Route::get('orders-dashboard',function(){
+    return view('vendor/show/orders-dashboard');
+})->name('orders-dashboard');
 //code here
 
 
