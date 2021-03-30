@@ -394,3 +394,97 @@ background-color: #858796;
     color: #306EFF;
 }
 /* End payments-page */
+
+/* Start complaints-department page */
+.complaints-department {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.complaints-department img {
+    margin-bottom: 40px;
+}
+.complaints-department p {
+    font-size: 31px;
+    font-weight: 700;
+}
+/* End complaints-department page */
+
+/* Start rate page */
+.box-rate {
+    margin-top: 50px;
+    background: #fff;
+    padding: 25px 60px 50px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 8px -6px #000;
+}
+.box-right {
+    position: relative;
+}
+.box-right img {
+    margin-left: 20px;
+}
+.date_rate {
+    position: absolute;
+    top: 39px;
+    right: 80px;
+}
+.date-rating-user {
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #7F7F7F;
+}
+.name-user {
+    font-size: 21px;
+    font-weight: 400;
+}
+.date_rate img {
+    margin-top: -10px;
+}
+.box-right p {
+    font-size: 21px;
+    font-weight: 400;
+    color: #000000;
+    margin-top: 20px;
+}
+.box-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+.box-left button {
+    padding: 10px 20px;
+    border-radius: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+.box-left button img {
+    margin-left: 20px;
+}
+/* end rate page */
+/* Start financial-account page */
+.financial-account {
+    margin-top: 50px;
+}
+.box-account {
+    padding: 50px 20px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 3px 3px 8px -5px #000;
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+.box-account p {
+    color: #000000;
+    margin-bottom: 60px;
+}
+.text-account {
+    color: #1CC88A;
+}
+/* end financial-account page */

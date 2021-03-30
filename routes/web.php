@@ -47,6 +47,24 @@ Route::get('payments',function(){
 Route::get('orders-dashboard',function(){
     return view('vendor/show/orders-dashboard');
 })->name('orders-dashboard');
+Route::get('return-requests',function(){
+    return view('vendor/show/return-requests');
+})->name('return-requests');
+Route::get('complaints-department',function(){
+    return view('vendor/show/complaints-department');
+})->name('complaints-department');
+Route::get('rate',function(){
+    return view('vendor/show/rate');
+})->name('rate');
+Route::get('financial-account',function(){
+    return view('vendor/show/financial-account');
+})->name('financial-account');
+Route::get('complaints-withdraw-money',function(){
+    return view('vendor/show/complaints-withdraw-money');
+})->name('complaints-withdraw-money');
+Route::get('account',function(){
+    return view('vendor/show/account');
+})->name('account');
 //code here
 
 
