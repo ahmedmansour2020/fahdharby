@@ -72,56 +72,77 @@
                       <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-product" role="tabpanel" aria-labelledby="pills-product-tab">
                             <div class="product-details">
-                                <ul class="head-list-product list-unstyled">
-                                    <li>الصورة</li>
-                                    <li>العنوان</li>
-                                    <li>السعر</li>
-                                    <li>الكمية</li>
-                                    <li>أخر تحديث</li>
-                                    <li>مدة تجهيز المنتج</li>
-                                    <li>تاريخ انتهاء الصلاحية</li>
-                                </ul>
-                                <ul class="body-list-product list-unstyled">
-                                    <li><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></li>
-                                    <li>مسخن كهربائي</li>
-                                    <li>502$</li>
-                                    <li>30</li>
-                                    <li>2/2/2020</li>
-                                    <li>4 أيام</li>
-                                    <li>2/10/2020</li>
-                                </ul>
-                                <ul class="body-list-product list-unstyled">
-                                    <li><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></li>
-                                    <li>مسخن كهربائي</li>
-                                    <li>502$</li>
-                                    <li>30</li>
-                                    <li>2/2/2020</li>
-                                    <li>4 أيام</li>
-                                    <li>2/10/2020</li>
-                                </ul>
-                                <ul class="body-list-product list-unstyled">
-                                    <li><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></li>
-                                    <li>مسخن كهربائي</li>
-                                    <li>502$</li>
-                                    <li>30</li>
-                                    <li>2/2/2020</li>
-                                    <li>4 أيام</li>
-                                    <li>2/10/2020</li>
-                                </ul>
-                                <ul class="body-list-product list-unstyled">
-                                    <li><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></li>
-                                    <li>مسخن كهربائي</li>
-                                    <li>502$</li>
-                                    <li>30</li>
-                                    <li>2/2/2020</li>
-                                    <li>4 أيام</li>
-                                    <li>2/10/2020</li>
-                                </ul>
+                                <table class="table-management">
+                                    <thead class="mx-2">
+                                        <tr>
+                                            <th>الصورة</th>
+                                            <th>العنوان</th>
+                                            <th>السعر</th>
+                                            <th>الكمية</th>
+                                            <th>أخر تحديث</th>
+                                            <th>مدة تجهيز المنتج</th>
+                                            <th>تاريخ انتهاء الصلاحية</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></td>
+                                            <td>مسخن كهربائي</td>
+                                            <td>502$</td>
+                                            <td>30</td>
+                                            <td>2/2/2020</td>
+                                            <td>4 أيام</td>
+                                            <td>2/10/2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></td>
+                                            <td>مسخن كهربائي</td>
+                                            <td>502$</td>
+                                            <td>30</td>
+                                            <td>2/2/2020</td>
+                                            <td>4 أيام</td>
+                                            <td>2/10/2020</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
                             <div class="product-details">
-                                <ul class="head-list-product list-unstyled">
+                                <table class="table-management ">
+                                    <thead class="mx-2">
+                                        <tr>
+                                            <th>الصورة</th>
+                                            <th>العنوان</th>
+                                            <th>السعر</th>
+                                            <th>الكمية</th>
+                                            <th>أخر تحديث</th>
+                                            <th>مدة تجهيز المنتج</th>
+                                            <th>تاريخ انتهاء الصلاحية</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></td>
+                                            <td>مسخن كهربائي</td>
+                                            <td>502$</td>
+                                            <td>30</td>
+                                            <td>2/2/2020</td>
+                                            <td>4 أيام</td>
+                                            <td>2/10/2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td><img src="{{ URL::asset('resources/assets/images/img-product.png') }}" alt=""></td>
+                                            <td>مسخن كهربائي</td>
+                                            <td>502$</td>
+                                            <td>30</td>
+                                            <td>2/2/2020</td>
+                                            <td>4 أيام</td>
+                                            <td>2/10/2020</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {{-- <ul class="head-list-product list-unstyled">
                                     <li>الصورة</li>
                                     <li>العنوان</li>
                                     <li>السعر</li>
@@ -165,7 +186,7 @@
                                     <li>2/2/2020</li>
                                     <li>4 أيام</li>
                                     <li>2/10/2020</li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-sold" role="tabpanel" aria-labelledby="pills-sold-tab"><div class="product-details">

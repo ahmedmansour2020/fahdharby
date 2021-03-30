@@ -231,6 +231,44 @@ a.accordion-body {
 .section-search-product .form-group input::placeholder{
     color: #306EFF;
 }
+.table-management {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin-top: 70px;
+    border-collapse: separate;
+    border-spacing: 0 50px;
+}
+.table-management thead {
+    margin-top: 50px;
+    border-bottom: 1px solid #858796;
+}
+.table-management thead th {
+    padding-bottom: 15px;
+    position: relative;
+}
+.table-management thead th::after {
+    content: "";
+    width: 1px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    background: #000;
+}
+.table-management thead th:last-child::after {
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.table-management tbody tr {
+    
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px 0px #ccc;
+    /* border-bottom: 1px solid #ccc; */
+    /* border-top: 20px solid #F8F8F8; */
+   
+}
+
 .icon-search {
     position: absolute;
     top: 17px;
