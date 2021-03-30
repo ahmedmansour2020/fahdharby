@@ -65,6 +65,9 @@ Route::get('complaints-withdraw-money',function(){
 Route::get('account',function(){
     return view('vendor/show/account');
 })->name('account');
+Route::get('main-add-product',function(){
+    return view('vendor/show/main-add-product');
+})->name('main-add-product');
 //code here
 
 

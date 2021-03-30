@@ -526,3 +526,38 @@ background-color: #858796;
     color: #1CC88A;
 }
 /* end financial-account page */
+
+/* Start main-add-product page */
+.search-bar {
+    position: relative;
+    margin-top: 40px;
+}
+.search-bar img {
+    position: absolute;
+    top: 20px;
+    left: 100px;
+}
+.search-text P {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+.add-product {
+    padding: 35px;
+    margin-top: 50px;
+}
+.add-product p {
+    font-size: 25px;
+    font-weight: 400;
+    color: #000000;
+}
+.add-product button {
+    font-size: 20px;
+    font-weight: 700;
+    background-color: #306EFF;
+    border: none;
+    color: #fff;
+    padding: 9px 25px;
+    margin-top: 5px;
+}
+/*End main-add-product page */
