@@ -3,19 +3,20 @@
     <div class="home-page">
       <img src="{{URL::asset('resources/assets/images/icon-home.png')}}" alt="">
       
-      <a href="#">الرئيسية</a>
+      <a href="{{route('home-vendor')}}">الرئيسية</a>
     </div>
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
+
         
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
           <img src="{{URL::asset('resources/assets/images/shipping.png')}}" alt=""> السلع والعروض
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <a href="#" class="accordion-body">إدارة السلع والمنتجات</a>
-        <a href="#" class="accordion-body">إضافة منتجات</a>
+        <a href="{{ route('management') }}" class="accordion-body">إدارة السلع والمنتجات</a>
+        <a href="{{ route('product.create') }}" class="accordion-body ">إضافة منتجات</a>
       </div>
     </div>
 
@@ -26,9 +27,9 @@
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <a href="#" class="accordion-body">الطلبات</a>
-        <a href="#" class="accordion-body">المدفوعات المتكررة</a>
-        <a href="#" class="accordion-body">إرجاع الطلبات</a>
+        <a href="{{ route('orders-dashboard') }}" class="accordion-body">الطلبات</a>
+        <a href="{{ route('payments') }}" class="accordion-body">المدفوعات المتكررة</a>
+        <a href="{{ route('return-requests') }}" class="accordion-body">إرجاع الطلبات</a>
       </div>
     </div>
 
@@ -39,8 +40,8 @@
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <a href="#" class="accordion-body">إدارة الشكاوي</a>
-        <a href="#" class="accordion-body">التقييمات</a>
+        <a href="{{ route('complaints-department') }}" class="accordion-body">إدارة الشكاوي</a>
+        <a href="{{ route('rate') }}" class="accordion-body">التقييمات</a>
       </div>
     </div>
 
@@ -51,9 +52,9 @@
         </button>
       </h2>
       <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-        <a href="#" class="accordion-body">ملخص الحساب المالي</a>
+        <a href="{{ route('financial-account') }}" class="accordion-body">ملخص الحساب المالي</a>
         <a href="#" class="accordion-body">سحب الرصيد</a>
-        <a href="#" class="accordion-body">حالة عمليات السحب</a>
+        <a href="{{ route('complaints-withdraw-money') }}" class="accordion-body">حالة عمليات السحب</a>
         <a href="#" class="accordion-body">التعويضات</a>
       </div>
     </div>
