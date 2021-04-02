@@ -16,8 +16,6 @@ $(document).ready(function() {
         products.ajax.reload();
     })
 
-    var language =
-        "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
 
     var products = $(".products").DataTable({
         dom: "lBfrtip",

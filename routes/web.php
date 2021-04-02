@@ -102,6 +102,7 @@ Route::group(['prefix'=>'supplier','middleware'=>['auth','vendor']],function(){
     Route::get('/product?stored=true',[ProductController::class,'index'])->name('product.stored');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
     Route::get('/inventory',[ProductController::class,'inventory'])->name('inventory');
+    Route::get('/edit-quantity/{id}/{qty}',[ProductController::class,'edit_qty']);
     Route::get('main-add-product',function(){
         return view('vendor/show/main-add-product');
     })->name('main-add-product');

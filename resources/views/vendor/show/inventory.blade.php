@@ -4,6 +4,13 @@
 
         <div class="col-sm-12 col-lg-9 mt-5">
             <div class="row">
+            <div class="row">
+                <div class="col-sm-12 col-md-2">
+                    <div class="section-search-product">
+                        <h4>{{$title}}</h4>
+
+                    </div>
+                </div>
                 <div class="col-12">
 
                     <div class="tab-content" id="pills-tabContent">
@@ -40,6 +47,6 @@
 <script src="{{asset('resources/plugins/tables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('resources/plugins/tables/js/datatable/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('resources/plugins/tables/js/datatable-init/datatable-basic.min.js')}}"></script>
-<script src="{{asset('resources/assets/js/content/products.js')}}"></script>
+<script src="{{asset('resources/assets/js/content/inventory.js')}}"></script>
 <script src="{{asset('resources/assets/js/content/remove.js')}}"></script>
 @endsection

@@ -82,10 +82,39 @@ class ProductController extends Controller
         $title = "تعديل المخزون";
         if (request()->ajax()) {
             $user = Auth::user();
-            $products = Product::where('user_id', $user->id)->select('id', 'qty', 'name_' . LangController::lang() . ' as name')->orderBy('qty', 'desc')->get();
+            $products = Product::where('user_id', $user->id)->select('id', 'qty', 'name_' . LangController::lang() . ' as name')->orderBy(DB::raw('cast(qty as integer)'), 'asc')->get();
+            $index = 1;
+            foreach ($products as $product) {
+                $product->index = $index++;
+
+                $image = ProductImage::where('product_id', $product->id)->where('main', 1)->first();
+                if ($image) {
+                    $product->image = asset('uploaded/' . $image->name);
+                } else {
+                    $product->image = null;
+                }
+            }
             return datatables()->of($products)->addIndexColumn()->make(true);
         }
         return view('vendor.show.inventory', compact('title'));
+    }
+    public function edit_qty($id, $qty)
+    {
+        $user = Auth::user();
+        if ($user->role_id == 1) {
+            $items = Product::find($id);
+            $items->qty = $items->qty + $qty;
+            $items->save();
+        } else {
+            $product = Product::where('id', $id)->where('user_id', $user->id)->first();
+            if ($product) {
+                $product->qty = $product->qty + $qty;
+                $product->save();
+            }else{
+                return redirect()->back();
+            }
+        }
+        return redirect()->back()->with('success', __('items.success_update'));
     }
     /**
      * Show the form for creating a new resource.
