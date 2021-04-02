@@ -4,16 +4,12 @@ $(document).ready(function() {
         qty = $(this).val();
         if ($(this).data('type') == -1) {
             if (qty > $(this).data('qty')) {
-                $('.swal2-confirm').attr('disabled', '');
-                if (lang == 'ar') {
+                $('.jconfirm-buttons .btn-blue').attr('disabled', '');
 
-                    $('.form-errors').html('الكمية المتبقية لا يمكن أن تكون أقل من 0')
-                } else {
+                $('.form-errors').html('الكمية المتبقية لا يمكن أن تكون أقل من 0')
 
-                    $('.form-errors').html('Remained quantity can not be lower than 0')
-                }
             } else {
-                $('.swal2-confirm').removeAttr('disabled');
+                $('.jconfirm-buttons .btn-blue').removeAttr('disabled');
                 $('.form-errors').html('')
             }
         }
@@ -26,13 +22,24 @@ $(document).ready(function() {
         serverSide: true,
         destroy: true,
         ajax: {
-            url: admin_site + "/inventory",
+            url: vendor_site + "/inventory",
             type: "GET",
         },
-
+        "pageLength": 100,
+        "bInfo": false,
+        "bFilter": false,
+        "bLengthChange": false,
+        language: {
+            url: language,
+        },
         columns: [{
-                data: "id",
-                name: "id"
+                data: "image",
+                name: "image",
+                render: function(d, t, r, m) {
+                    return `
+                    <img width="80" height="80" src="${d}">
+                    `;
+                }
             },
             {
                 data: "name",
@@ -47,7 +54,7 @@ $(document).ready(function() {
                 data: "add",
                 name: "add",
                 render: function(data, type, row, meta) {
-                    return `<a href="${admin_site}/edit-quantity/${row.id}" data-qty="${row.qty}" data-type="1" class="action btn btn-success btn-block">+</a>`;
+                    return `<a href="${vendor_site}/edit-quantity/${row.id}" data-qty="${row.qty}" data-type="1" class="action btn btn-success  btn-lg">+</a>`;
                 }
             },
             {
@@ -55,19 +62,24 @@ $(document).ready(function() {
                 data: "substract",
                 name: "substract",
                 render: function(data, type, row, meta) {
-                    return `<a href="${admin_site}/edit-quantity/${row.id}" data-qty="${row.qty}" data-type="-1" class="action btn btn-danger btn-block">-</a>`;
+                    return `<a href="${vendor_site}/edit-quantity/${row.id}" data-qty="${row.qty}" data-type="-1" class="action btn btn-danger btn-lg">-</a>`;
                 }
             },
 
         ],
         columnDefs: [{
-            targets: [0, 1, 2, 3, 4],
-            searchable: true
-        }, {
-            'width': '180px',
-            'targets': [3, 4]
-        }],
-        ordering: true,
+                targets: [0, 1, 2, 3, 4],
+                searchable: true
+            }, {
+                'width': '120px',
+                'targets': [3, 4]
+            },
+            {
+                'width': '150px',
+                'targets': [0]
+            }
+        ],
+        ordering: false,
     });
 
 
@@ -79,67 +91,42 @@ $(document).ready(function() {
         var quantity = $(this).data('qty');
         var title = "";
         var body = "";
-        if (lang == 'ar') {
-            title = type == 1 ? "إضافة كمية" : "طرح كمية";
-            body = `
-            <div class="form-group">
+
+        title = type == 1 ? "إضافة كمية" : "طرح كمية";
+        body = `
+            
             <label>أدخل الكمية</label>
             <input type="text" class="form-control" id="qty" data-type="${type}" data-qty="${quantity}">
-            <div class="form-errors"></div>
-            </div>
+            <div class="form-errors text-danger"></div>
+        
             `;
-        } else {
-            title = type == 1 ? "Add Quantity" : "Substract Quantity";
-            var body = `
-            <div class="form-group">
-            <label>Enter Quantity</label>
-            <input type="text" class="form-control" id="qty" data-type="${type}" data-qty="${quantity}">
-            <div class="form-errors"></div>
-            </div>
-            `;
-        }
+
         e.preventDefault();
-        Swal.fire({
+
+        $.confirm({
             title: title,
-            html: body,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: yes,
-            cancelButtonText: no,
-        }).then((result) => {
-            if (result.value) {
-                window.location.href = href + '/' + (qty * type);
+            type: 'blue',
+            typeAnimated: true,
+            content: body,
+            buttons: {
+                نعم: {
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        // $.alert('Confirmed!');
+                        window.location.href = href + '/' + (qty * type);
+                    }
+                },
+                لا: {
+                    btnClass: 'btn-red',
+                    action: function() {
+                        // $.alert('Canceled!');
+                    },
+                }
+
             }
-        })
+        });
+
     });
 
 
-
-    $(document).on('click', ".remove", function(e) {
-        var href = $(this).attr("href");
-        e.preventDefault();
-        Swal.fire({
-            title: 'Are you sure',
-
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-        }).then((result) => {
-
-            if (result.value) {
-                Swal.fire(
-                    'Deleted',
-                    '',
-                    'success'
-                );
-
-                window.location.href = href;
-            }
-        })
-    });
 });

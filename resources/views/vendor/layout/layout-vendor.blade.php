@@ -11,6 +11,7 @@
     <script>
     var vendor_site = "{{route('vendor')}}";
     var home_site = "{{route('home')}}";
+    var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
     </script>
 </head>
 
@@ -29,7 +30,7 @@
             <div class="col-sm-12 col-lg-3 pr-0">
                 @include("vendor.layout.navbar-right-vendor")
             </div>
-            
+
             @yield('content')
 
         </div>
