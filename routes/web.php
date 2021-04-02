@@ -38,9 +38,7 @@ Route::get('no-location',function(){
     return view('home/no-location');
 })->name('no-location');
 
-Route::get('main-add-product',function(){
-    return view('vendor/show/main-add-product');
-})->name('main-add-product');
+
 
 Route::get('management',function(){
     return view('vendor/show/management');
@@ -83,7 +81,7 @@ Route::get('account',function(){
 
 
 
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     Route::resource('category',CategoryController::class);
     Route::resource('brand',BrandController::class);
     Route::get('/',function(){
@@ -98,10 +96,14 @@ Route::group(['prefix'=>'admin'],function(){
     
 });
 
-Route::group(['prefix'=>'vendor'],function(){
+Route::group(['prefix'=>'vendor','middleware'=>['auth','vendor']],function(){
     Route::resource('product',ProductController::class);
-    Route::get('/dashboard',[VendorController::class,'dashboard'])->name('home-vendor');
+    Route::get('/',[VendorController::class,'dashboard'])->name('vendor');
+    Route::get('/product?stored=true',[ProductController::class,'index'])->name('product.stored');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
+    Route::get('main-add-product',function(){
+        return view('vendor/show/main-add-product');
+    })->name('main-add-product');
 
 });
 //end code here
