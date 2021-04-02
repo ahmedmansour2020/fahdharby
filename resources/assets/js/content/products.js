@@ -12,7 +12,9 @@ $(document).ready(function() {
         $(this).children('input[name="tabs"]').attr('checked', 'true')
         products.ajax.reload();
     })
-
+    $('#search').on('keyup', function() {
+        products.ajax.reload();
+    })
 
     var language =
         "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
@@ -26,7 +28,13 @@ $(document).ready(function() {
             url: vendor_site + "/product",
             type: "GET",
             data: {
-                tab: function() { return $('input[name="tabs"]:checked').val() }
+                tab: function() {
+                    return $('input[name="tabs"]:checked').val()
+                },
+                search: function() {
+                    return $('#search').val()
+                },
+
             },
         },
         language: {

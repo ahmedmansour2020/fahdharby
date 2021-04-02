@@ -96,11 +96,12 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     
 });
 
-Route::group(['prefix'=>'vendor','middleware'=>['auth','vendor']],function(){
+Route::group(['prefix'=>'supplier','middleware'=>['auth','vendor']],function(){
     Route::resource('product',ProductController::class);
     Route::get('/',[VendorController::class,'dashboard'])->name('vendor');
     Route::get('/product?stored=true',[ProductController::class,'index'])->name('product.stored');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
+    Route::get('/inventory',[ProductController::class,'inventory'])->name('inventory');
     Route::get('main-add-product',function(){
         return view('vendor/show/main-add-product');
     })->name('main-add-product');

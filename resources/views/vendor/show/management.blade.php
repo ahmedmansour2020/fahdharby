@@ -20,7 +20,7 @@
                     <div class="section-search-product">
                         <form action="">
                             <div class="form-group">
-                                <input type="text" placeholder="ابحث  عن اسم المنتج أو نوعه أو تصنيفه">
+                                <input type="text" placeholder="ابحث  عن اسم المنتج أو نوعه أو تصنيفه" id="search">
                                 <div class="icon-search">
                                     <img src="{{ URL::asset('resources/assets/images/search.png') }}" alt="">
                                 </div>

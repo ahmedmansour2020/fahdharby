@@ -20,12 +20,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $user= Auth::user();
+        $user = Auth::user();
         $tab = request('tab');
         $title = "المنتجات";
+        $search = request('search');
         if (request()->ajax()) {
             $products = Product::
-            where('user_id',$user->id)
+                leftJoin('categories', 'categories.id', 'sub_category')
+                ->where('user_id', $user->id)
                 ->select('duration', DB::raw('date(products.updated_at) as update_date'), 'price', 'qty', 'products.id', 'status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description')
                 ->orderBy('products.id', 'desc');
 
@@ -37,7 +39,7 @@ class ProductController extends Controller
                     $products->where('status', 0);
                     break;
                 case 3:
-                    $products->where('status', 1)->where('qty',0);
+                    $products->where('status', 1)->where('qty', 0);
                     break;
                 case 4:
                     $products->where('status', 2);
@@ -49,6 +51,14 @@ class ProductController extends Controller
                     $products->where('status', 4);
                     break;
             }
+
+            if ($search) {
+                $products->where(function ($query) use ($search) {
+                    $query->where('products.name_' . LangController::lang(), 'like', '%' . $search . '%')
+                        ->orWhere('categories.name_' . LangController::lang(), 'like', '%' . $search . '%');
+                });
+            }
+
             $products = $products->get();
 
             $index = 1;
@@ -67,7 +77,16 @@ class ProductController extends Controller
 
         return view('vendor.show.management', compact('title'));
     }
-
+    public function inventory()
+    {
+        $title = "تعديل المخزون";
+        if (request()->ajax()) {
+            $user = Auth::user();
+            $products = Product::where('user_id', $user->id)->select('id', 'qty', 'name_' . LangController::lang() . ' as name')->orderBy('qty', 'desc')->get();
+            return datatables()->of($products)->addIndexColumn()->make(true);
+        }
+        return view('vendor.show.inventory', compact('title'));
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -17,6 +17,7 @@
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
         <a href="{{ route('product.index') }}" class="accordion-body">إدارة السلع والمنتجات</a>
         <a href="{{ route('product.create') }}" class="accordion-body ">إضافة منتجات</a>
+        <a href="{{ route('inventory') }}" class="accordion-body ">تعديل المخزون</a>
       </div>
     </div>
 

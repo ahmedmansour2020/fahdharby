@@ -24,10 +24,16 @@
     @include("vendor.layout.navbar-vendor")
 
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-lg-3 pr-0">
+                @include("vendor.layout.navbar-right-vendor")
+            </div>
+            
+            @yield('content')
 
-    @yield('content')
-
-
+        </div>
+    </div>
 
 
 
