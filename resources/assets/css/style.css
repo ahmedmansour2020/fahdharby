@@ -294,6 +294,7 @@ body {
   -webkit-box-align: center;
   align-items: center;
   width: 100%;
+  margin-top: 80px;
 }
 .bannerContainer a {
   text-align: center;
@@ -323,6 +324,62 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   height:80vh;
+}
+.header-home-products {
+    margin-top: 160px;
+    margin-bottom: 60px;
+}
+.header-home-products h2 {
+    font-size: 46px;
+    font-weight: 700;
+    color: #000000;
+}
+.box-home-category {
+    background: #fff;
+    box-shadow: 5px 5px 7px -7px #000000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+a.box-home-category {
+    text-decoration: none  !important;
+
+}
+.box-home-category p {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000000;
+    padding-top: 30px;
+}
+.product-footer button {
+    background: #306EFF;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    width: 100%;
+    border: none ;
+}
+.special-orders {
+    border: 3px solid #306EFF !important;
+    padding: 20px 0 0 !important;
+}
+.latest-product h4 {
+    margin-top: 50px;
+}
+.special-orders .product-body {
+    margin-top: 30px;
+    margin-bottom: 90px;
+    padding: 0 20px;
+}
+.special-orders span {
+    font-size: 25px !important;
+}
+.text-special-order {
+    float: right !important;
 }
 /* End home page */
 
