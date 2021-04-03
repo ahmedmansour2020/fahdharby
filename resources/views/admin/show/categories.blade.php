@@ -1,11 +1,10 @@
 <script>
-var admin_site="{{route('admin')}}";
-var home_site="{{route('home')}}";
+//إدارة الفئات
 </script>
 <script>
 var parent="{{isset($id)?$id:0}}";
 </script>
-<a href="{{route('category.create')}}">اضافة</a>
+
 <table border="1" cellspacing="1" id="{{isset($id)?'sub_categories':'categories'}}">
 <thead>
 <tr>

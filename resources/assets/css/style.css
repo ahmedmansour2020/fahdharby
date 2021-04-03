@@ -381,6 +381,24 @@ a.box-home-category {
 .text-special-order {
     float: right !important;
 }
+.stars-rate  {
+  display: inline-block;
+}
+
+.product-body .stars-rate img {
+  width: 14% !important;
+  display: inline-block !important;
+}
+.latest-product .product-header img {
+  width: 65% !important;
+  display: inline-block !important;
+}
+.owl-stage-outer {
+  padding: 20px;
+}
+.owl-nav {
+  display: none !important;
+}
 /* End home page */
 
 /* Start Orders page  */

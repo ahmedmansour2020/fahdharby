@@ -8,3 +8,6 @@
 
 <link rel="stylesheet" href="{{asset('resources/assets/css/fotorama.css')}}">
 <script src="{{asset('resources/assets/js/fotorama.js')}}"></script>
+
+<link rel="stylesheet" href="{{ asset('resources/assets/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('resources/assets/css/owl.theme.default.min.css') }}">

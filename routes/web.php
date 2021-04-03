@@ -76,6 +76,10 @@ Route::get('account',function(){
     return view('vendor/show/account');
 })->name('account');
 
+// Route::get('category',function(){
+//     return view('admin/add/category');
+// })->name('category');
+
 
 //code here
 

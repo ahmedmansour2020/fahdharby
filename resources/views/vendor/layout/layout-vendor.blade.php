@@ -11,6 +11,8 @@
     <script>
     var vendor_site = "{{route('vendor')}}";
     var home_site = "{{route('home')}}";
+    var admin_site="{{route('admin')}}";
+
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
     </script>
 </head>

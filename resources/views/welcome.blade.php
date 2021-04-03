@@ -1,10 +1,12 @@
 @extends('layouts.layout')
 
 @section('title', isset($title) ? $title : '')
+
 @section('content')
-{{-- @section('home')
+@section('home')
     <?php $home = true; ?>
-@endsection --}}
+@endsection
+
 
 <div class="container-fluid px-5">
     <div class="siteWidthContainer">
@@ -125,52 +127,56 @@
             </a>
         </div>
         <div class="col-sm-6 col-md-4">
-            <div class="box-home-category">
+            <a href="#" class="box-home-category">
                 <img src="{{ URL::asset('resources/assets/images/Mask Group 4.png') }}" alt="">
                 <p>ساعات</p>
-            </div>
+            </a>
         </div>
         <div class="col-sm-6 col-md-4">
-            <div class="box-home-category">
+            <a href="#" class="box-home-category">
                 <img src="{{ URL::asset('resources/assets/images/Mask Group 2.png') }}" alt="">
                 <p>أحذية</p>
-            </div>
+            </a>
         </div>
         <div class="col-sm-6 col-md-4">
-            <div class="box-home-category">
+            <a href="#" class="box-home-category">
                 <img src="{{ URL::asset('resources/assets/images/Mask Group 3.png') }}" alt="">
                 <p>شنط</p>
-            </div>
+            </a>
         </div>
         <div class="col-sm-6 col-md-4">
-            <div class="box-home-category">
+            <a href="#" class="box-home-category">
                 <img src="{{ URL::asset('resources/assets/images/Mask Group 4.png') }}" alt="">
                 <p>ساعات</p>
-            </div>
+            </a>
         </div>
         <div class="col-sm-6 col-md-4">
-            <div class="box-home-category">
+            <a href="#" class="box-home-category">
                 <img src="{{ URL::asset('resources/assets/images/Mask Group 2.png') }}" alt="">
                 <p>أحذية</p>
-            </div>
+            </a>
         </div>
         <div class="col-12">
             <div class="header-home-products">
                 <h2>أحدث المنتجات</h2>
             </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-            <div class="box-product latest-product">
+
+        <div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+            <div class="box-product latest-product item ">
                 <div class="product-header">
                     <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
                 </div>
                 <div class="product-body">
                     <h4>مسخن كهربائي</h4>
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    </div>
+
                     <span>50$</span>
                     <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
                 </div>
@@ -178,19 +184,19 @@
                     <button type="button">أضف إلى سلة المشتريات</button>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-            <div class="box-product latest-product">
+            <div class="box-product latest-product item">
                 <div class="product-header">
                     <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
                 </div>
                 <div class="product-body">
                     <h4>كاميرا عالية الدقة</h4>
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    </div>
                     <span>50$</span>
                     <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
                 </div>
@@ -198,19 +204,19 @@
                     <button type="button">أضف إلى سلة المشتريات</button>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-            <div class="box-product latest-product">
+            <div class="box-product latest-product item">
                 <div class="product-header">
                     <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
                 </div>
                 <div class="product-body">
                     <h4>عطر نسائي</h4>
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    </div>
                     <span>50$</span>
                     <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
                 </div>
@@ -218,19 +224,19 @@
                     <button type="button">أضف إلى سلة المشتريات</button>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-            <div class="box-product latest-product">
+            <div class="box-product latest-product item">
                 <div class="product-header">
                     <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
                 </div>
                 <div class="product-body">
                     <h4>مسخن كهربائي</h4>
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    </div>
                     <span>50$</span>
                     <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
                 </div>
@@ -238,19 +244,19 @@
                     <button type="button">أضف إلى سلة المشتريات</button>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-            <div class="box-product latest-product">
+            <div class="box-product latest-product item">
                 <div class="product-header">
                     <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
                 </div>
                 <div class="product-body">
                     <h4>إبريق صيني</h4>
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    </div>
                     <span>50$</span>
                     <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
                 </div>
@@ -258,19 +264,19 @@
                     <button type="button">أضف إلى سلة المشتريات</button>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-2">
-            <div class="box-product latest-product">
+            <div class="box-product latest-product item">
                 <div class="product-header">
                     <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
                 </div>
                 <div class="product-body">
                     <h4>مسخن كهربائي</h4>
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    </div>
                     <span>50$</span>
                     <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
                 </div>
@@ -278,7 +284,11 @@
                     <button type="button">أضف إلى سلة المشتريات</button>
                 </div>
             </div>
+
         </div>
+
+
+
 
         <div class="col-12">
             <div class="header-home-products">
@@ -595,8 +605,7 @@
                 </div>
             </div>
         </div>
-{{-- 
-        <footer class="footer">
+        {{-- <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6 col-md-4 col-lg-2">
