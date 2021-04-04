@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserMiddleware
+class VendorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,10 @@ class UserMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user=Auth::user();
-        if($user->role_id!=1){
+        if($user->role_id==2){
             return $next($request);
         }else{
-            return redirect()->route('admin');
+            return redirect()->route('home');
         }
     }
 }

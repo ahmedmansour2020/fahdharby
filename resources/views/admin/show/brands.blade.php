@@ -1,6 +1,5 @@
 <script>
-var admin_site="{{route('admin')}}";
-var home_site="{{route('home')}}";
+//إدارة العلامات التجارية
 </script>
 <a href="{{route('brand.create')}}">اضافة</a>
 <table border="1" cellspacing="1" id="brands">

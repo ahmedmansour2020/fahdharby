@@ -1,3 +1,4 @@
+{{-- إضافة علامة تجارية --}}
 @if($action=='add')
 <form action="{{route('brand.store')}}" method="post" enctype="multipart/form-data">
 @else

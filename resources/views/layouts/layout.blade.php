@@ -7,10 +7,15 @@
     <title>@yield('title')</title>
     @include('layouts.header')
     @yield('page_css')
+
+    @yield('home')
 </head>
 <body>
-    @include("layouts.navbar")
+    @if(isset($home))
 
+    @else
+    @include("layouts.navbar")
+    @endif
 
 
 @yield('content')

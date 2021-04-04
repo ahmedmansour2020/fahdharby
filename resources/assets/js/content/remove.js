@@ -2,26 +2,29 @@ $(document).ready(function() {
     $(document).on('click', ".remove", function(e) {
         var href = $(this).attr("href");
         e.preventDefault();
-        Swal.fire({
-            title: sure,
+        $.confirm({
+            title: 'هل تريد حذف هذا العنصر ؟',
+            type: 'red',
+            typeAnimated: true,
 
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: yes,
-            cancelButtonText: no,
-        }).then((result) => {
+            content: false,
+            buttons: {
+                نعم: {
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        // $.alert('Confirmed!');
+                        window.location.href = href;
+                    }
+                },
+                لا: {
+                    btnClass: 'btn-red',
+                    action: function() {
+                        // $.alert('Canceled!');
+                    },
+                }
 
-            if (result.value) {
-                Swal.fire(
-                    'Deleted',
-                    '',
-                    'success'
-                );
-
-                window.location.href = href;
             }
-        })
+        });
+
     });
 });

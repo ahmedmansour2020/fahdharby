@@ -21,8 +21,67 @@ $(document).ready(function() {
                 }
             }
         }
+        if (options == "") {
+            options = '<option value="" disabled selected>فئة السلعة الفرعية</option>';
+        }
         $('#sub_category').html(options)
 
     }
+
+    $('#form').validate({
+        rules: {
+
+            name_ar: {
+                required: true,
+            },
+            main_category: {
+                required: true,
+            },
+            sub_category: {
+                required: true,
+            },
+            qty: {
+                required: true,
+            },
+            price: {
+                required: true,
+            },
+            duration: {
+                required: true,
+            },
+            description_ar: {
+                required: true,
+            },
+
+        },
+        messages: {
+            name_ar: {
+                required: "برجاء إدخال اسم المنتج",
+            },
+            main_category: {
+                required: 'برجاء اختيار فئة المنتج الرئيسية',
+            },
+            sub_category: {
+                required: 'برجاء اختيار فئة المنتج الفرعية',
+            },
+            qty: {
+                required: 'برجاء تحديد كمية المنتج ',
+            },
+            price: {
+                required: 'برجاء تحديد سعر المنتج ',
+            },
+            duration: {
+                required: 'برجاء تحديد مدة تجهيز المنتج ',
+            },
+            description_ar: {
+                required: 'برجاء كتابة وصف المنتج',
+            },
+        }
+
+
+
+    })
+
+
 
 })

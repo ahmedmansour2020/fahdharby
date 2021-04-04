@@ -1,3 +1,4 @@
+{{-- إضافة  فئة --}}
 @extends('vendor.layout.layout-vendor')
 @section('title',isset($title)?$title:'')
 @section('content')

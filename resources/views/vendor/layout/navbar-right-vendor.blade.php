@@ -3,7 +3,7 @@
     <div class="home-page">
       <img src="{{URL::asset('resources/assets/images/icon-home.png')}}" alt="">
       
-      <a href="{{route('home-vendor')}}">الرئيسية</a>
+      <a href="{{route('vendor')}}">الرئيسية</a>
     </div>
 
     <div class="accordion-item">
@@ -15,8 +15,9 @@
         </button>
       </h2>
       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <a href="{{ route('management') }}" class="accordion-body">إدارة السلع والمنتجات</a>
+        <a href="{{ route('product.index') }}" class="accordion-body">إدارة السلع والمنتجات</a>
         <a href="{{ route('product.create') }}" class="accordion-body ">إضافة منتجات</a>
+        <a href="{{ route('inventory') }}" class="accordion-body ">تعديل المخزون</a>
       </div>
     </div>
 

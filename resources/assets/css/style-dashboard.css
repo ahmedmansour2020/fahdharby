@@ -10,10 +10,25 @@ body {
     font-family: 'Almarai', sans-serif;
     background-color: #F8F8F8;
 }
+
+
 /* framwork */
+
 .activee {
     color: #fff;
 }
+
+input,
+select {
+    user-select: none;
+    outline: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
 /* framwork */
 
 
@@ -652,32 +667,41 @@ a.accordion-body {
 .text-account {
     color: #1CC88A;
 }
+
+
 /* end financial-account page */
 
+
 /* Start main-add-product page */
+
 .search-bar {
     position: relative;
     margin-top: 40px;
 }
+
 .search-bar img {
     position: absolute;
     top: 20px;
     left: 100px;
 }
+
 .search-text P {
     font-size: 18px;
     font-weight: 400;
     margin-top: 20px;
 }
+
 .add-product {
     padding: 35px;
     margin-top: 50px;
 }
+
 .add-product p {
     font-size: 25px;
     font-weight: 400;
     color: #000000;
 }
+
 .add-product button {
     font-size: 20px;
     font-weight: 700;
@@ -687,11 +711,17 @@ a.accordion-body {
     padding: 9px 25px;
     margin-top: 5px;
 }
+
+
 /*End main-add-product page */
+
+
 /* Start product page */
+
 .form-product {
     margin-top: 70px;
 }
+
 .form-product .form-group select {
     height: 52px;
     width: 48%;
@@ -699,12 +729,15 @@ a.accordion-body {
     padding: 10px;
     cursor: pointer;
 }
+
 .form-product .form-group select:first-of-type {
     margin-left: 10px;
 }
+
 .select-group select {
     cursor: pointer;
 }
+
 .select-group select,
 .form-product input {
     height: 52px;
@@ -716,11 +749,13 @@ a.accordion-body {
     border: 1px solid #858796;
     outline: none;
 }
+
 .box-choose-img input:first-of-type {
     display: inline-block;
     width: 60%;
     margin-left: 20px;
 }
+
 input.choose-img {
     width: unset;
     height: unset;
@@ -729,14 +764,17 @@ input.choose-img {
     display: inline-block;
     border-radius: unset;
 }
+
 .choose-img {
     color: transparent;
     opacity: 1;
-  }
-  .choose-img::-webkit-file-upload-button {
+}
+
+.choose-img::-webkit-file-upload-button {
     visibility: hidden;
-  }
-  .choose-img::before {
+}
+
+.choose-img::before {
     content: 'أختر صورة';
     color: #fff;
     padding: 15px 20px !important;
@@ -755,21 +793,24 @@ input.choose-img {
     -ms-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
 }
-  .choose-img:active {
-    outline: 0;
-  }
-  .choose-img:hover::before {
-    background: #0842ca;
 
-  }
-  .details-products h4 {
-      font-size: 25px;
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 20px;
-      margin-top: 40px;
-  }
-  .details-products textarea {
+.choose-img:active {
+    outline: 0;
+}
+
+.choose-img:hover::before {
+    background: #0842ca;
+}
+
+.details-products h4 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.details-products textarea {
     height: 190px;
     width: 98%;
     border-radius: 16px;
@@ -778,26 +819,38 @@ input.choose-img {
     margin-bottom: 20px;
     border: 1px solid #858796;
     outline: none;
-  }
-  .btn-add-product {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 30px auto 0;
-        background-color: #306EFF;
-        font-size: 19px;
-        color: #fff;
-        font-weight: 700;
-        border: unset;
-        padding: 14px 110px;
-        transition: all .3s ease-in-out;
-        -webkit-transition: all .3s ease-in-out;
-        -moz-transition: all .3s ease-in-out;
-        -ms-transition: all .3s ease-in-out;
-        -o-transition: all .3s ease-in-out;
 }
-  .btn-add-product:hover {
-      background-color: #0842ca;
-  }
+
+.btn-add-product {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto 0;
+    background-color: #306EFF;
+    font-size: 19px;
+    color: #fff;
+    font-weight: 700;
+    border: unset;
+    padding: 14px 110px;
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.btn-add-product:hover {
+    background-color: #0842ca;
+}
+
+
 /* End product page */
+
+label.error {
+    color: #f00 !important;
+    font-size: 15px;
+    position: relative;
+    line-height: 1;
+    width: 100%;
+}

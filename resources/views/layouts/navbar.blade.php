@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-bg-white">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{URL::asset('resources/assets/images/logo.png')}}" class="img-fluid" alt="Logo">
         </a>
-        <a href="#" class="link-home">الرئيسية</a>
+        <a href="{{ route('home') }}" class="link-home">الرئيسية</a>
         <form action="" class="search">
             <input type="text" placeholder="ابحث  عن المنتج الذي تريده">
             <div class="search-icon">
@@ -29,5 +29,5 @@
             </li>
         
         </ul>
-        <a href="{{url('/chart')}}" class="btn btn-primary btn-chart">سلة الشراء <img src="{{URL::asset('resources/assets/images/shopping-chart.png')}}" class="img-fluid" alt=""></a>
+        <a href="{{route('chart')}}" class="btn btn-primary btn-chart">سلة الشراء <img src="{{URL::asset('resources/assets/images/shopping-chart.png')}}" class="img-fluid" alt=""></a>
     </nav>
