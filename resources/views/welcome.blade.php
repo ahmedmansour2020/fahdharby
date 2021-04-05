@@ -3,9 +3,7 @@
 @section('title', isset($title) ? $title : '')
 
 @section('content')
-@section('home')
-    <?php $home = true; ?>
-@endsection
+
 
 
 <div class="container-fluid px-5">
@@ -122,37 +120,37 @@
         </div>
         <div class="col-sm-6 col-md-4">
             <a href="#" class="box-home-category">
-                <img src="{{ URL::asset('resources/assets/images/Mask Group 3.png') }}" alt="">
+                <img src="{{ URL::asset('resources/assets/images/Mask Group 3.png') }}" class="img-fluid" alt="">
                 <p>شنط</p>
             </a>
         </div>
         <div class="col-sm-6 col-md-4">
             <a href="#" class="box-home-category">
-                <img src="{{ URL::asset('resources/assets/images/Mask Group 4.png') }}" alt="">
+                <img src="{{ URL::asset('resources/assets/images/Mask Group 4.png') }}" class="img-fluid" alt="">
                 <p>ساعات</p>
             </a>
         </div>
         <div class="col-sm-6 col-md-4">
             <a href="#" class="box-home-category">
-                <img src="{{ URL::asset('resources/assets/images/Mask Group 2.png') }}" alt="">
+                <img src="{{ URL::asset('resources/assets/images/Mask Group 2.png') }}" class="img-fluid" alt="">
                 <p>أحذية</p>
             </a>
         </div>
         <div class="col-sm-6 col-md-4">
             <a href="#" class="box-home-category">
-                <img src="{{ URL::asset('resources/assets/images/Mask Group 3.png') }}" alt="">
+                <img src="{{ URL::asset('resources/assets/images/Mask Group 3.png') }}" class="img-fluid" alt="">
                 <p>شنط</p>
             </a>
         </div>
         <div class="col-sm-6 col-md-4">
             <a href="#" class="box-home-category">
-                <img src="{{ URL::asset('resources/assets/images/Mask Group 4.png') }}" alt="">
+                <img src="{{ URL::asset('resources/assets/images/Mask Group 4.png') }}" class="img-fluid" alt="">
                 <p>ساعات</p>
             </a>
         </div>
         <div class="col-sm-6 col-md-4">
             <a href="#" class="box-home-category">
-                <img src="{{ URL::asset('resources/assets/images/Mask Group 2.png') }}" alt="">
+                <img src="{{ URL::asset('resources/assets/images/Mask Group 2.png') }}" class="img-fluid" alt="">
                 <p>أحذية</p>
             </a>
         </div>

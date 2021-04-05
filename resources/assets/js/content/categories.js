@@ -10,11 +10,14 @@ $(document).ready(function() {
             url: admin_site + "/category",
             type: "GET",
         },
-
-        columns: [{
-                data: "index",
-                name: "index"
-            },
+        language: {
+            url: language,
+        },
+        "pageLength": 100,
+        "bInfo": false,
+        "bFilter": false,
+        "bLengthChange": false,
+        columns: [
             {
                 data: "name",
                 name: "name",
@@ -63,7 +66,7 @@ $(document).ready(function() {
 
         ],
         columnDefs: [{
-            targets: [0, 1, 2, 3, 4],
+            targets: [0, 1, 2, 3],
             searchable: true
         }],
         ordering: false,

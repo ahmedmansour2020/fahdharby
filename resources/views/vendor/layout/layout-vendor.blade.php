@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+$user=Illuminate\Support\Facades\Auth::user();
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +14,7 @@
     <script>
     var vendor_site = "{{route('vendor')}}";
     var home_site = "{{route('home')}}";
-    var admin_site="{{route('admin')}}";
+    var admin_site = "{{route('admin')}}";
 
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
     </script>
@@ -24,13 +27,19 @@
             <button type="submit" id="logout"></button>
         </form>
     </div>
+
+
     @include("vendor.layout.navbar-vendor")
 
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-lg-3 pr-0">
+                @if($user->role_id==1)
+                @include("vendor.layout.navbar-right-admin")
+                @else
                 @include("vendor.layout.navbar-right-vendor")
+                @endif
             </div>
 
             @yield('content')

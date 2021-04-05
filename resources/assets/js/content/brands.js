@@ -10,19 +10,19 @@ $(document).ready(function() {
             url: admin_site + "/brand",
             type: "GET",
         },
-
-        columns: [{
-                data: "index",
-                name: "index"
-            },
+        language: {
+            url: language,
+        },
+        "pageLength": 100,
+        "bInfo": false,
+        "bFilter": false,
+        "bLengthChange": false,
+        columns: [
             {
                 data: "name",
                 name: "name"
             },
-            {
-                data: "url",
-                name: "url"
-            },
+            
             {
                 data: "image",
                 name: "image",
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
         ],
         columnDefs: [{
-            targets: [0, 1, 2, 3],
+            targets: [0, 1, 2],
             searchable: true
         }],
         ordering: false,

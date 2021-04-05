@@ -739,7 +739,8 @@ a.accordion-body {
 }
 
 .select-group select,
-.form-product input {
+.form-product input,
+.form-product textarea {
     height: 52px;
     width: 98%;
     border-radius: 16px;
@@ -750,6 +751,9 @@ a.accordion-body {
     outline: none;
 }
 
+.form-group textarea {
+    height: 100px;
+}
 .box-choose-img input:first-of-type {
     display: inline-block;
     width: 60%;
