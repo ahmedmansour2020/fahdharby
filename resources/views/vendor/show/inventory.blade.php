@@ -23,6 +23,7 @@
                                     <th>الكمية</th>
                                     <th>إضافة</th>
                                     <th>حذف</th>
+                                    <th>تصفير</th>
                                 </tr>
                             </thead>
                             <tbody>

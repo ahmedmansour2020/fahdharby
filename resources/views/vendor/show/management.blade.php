@@ -67,14 +67,7 @@
                                 <img src="{{ URL::asset('resources/assets/images/rejected.png') }}" alt="">
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <input type="radio" name="tabs" class="hidden" value="6">
-                            <a class="nav-link expired-tab" id="pills-expired-tab" data-toggle="pill"
-                                href="#pills-expired" role="tab" aria-controls="pills-expired" aria-selected="false">
-                                المنتهية الصلاحية
-                                <img src="{{ URL::asset('resources/assets/images/expired.png') }}" alt="">
-                            </a>
-                        </li>
+               
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-product" role="tabpanel"
@@ -179,27 +172,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="pills-expired" role="tabpanel"
-                            aria-labelledby="pills-expired-tab">
-                            <div class="product-details table-responsive">
-                                <table class="table-management products w-100" id="datatable-expired">
-                                    <thead>
-                                        <tr>
-                                            <th>الصورة</th>
-                                            <th>العنوان</th>
-                                            <th>السعر</th>
-                                            <th>الكمية</th>
-                                            <th>أخر تحديث</th>
-                                            <th>مدة تجهيز المنتج</th>
-                                            <th>تعديل|حذف</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

@@ -17,12 +17,11 @@ $(document).ready(function() {
         "bInfo": false,
         "bFilter": false,
         "bLengthChange": false,
-        columns: [
-            {
+        columns: [{
                 data: "name",
                 name: "name"
             },
-            
+
             {
                 data: "image",
                 name: "image",
@@ -41,16 +40,9 @@ $(document).ready(function() {
                 name: "update",
                 render: function(d, t, r, m) {
                     return `
-                    <a class="btn btn-info" href="${admin_site}/brand/${r.id}">تعديل</a>
-                    `;
-                }
-            },
-            {
-                data: "delete",
-                name: "delete",
-                render: function(d, t, r, m) {
-                    return `
-                    <a class="btn btn-danger remove" href="${admin_site}/brand/delete/${r.id}">حذف</a>
+                    <a class="btn btn-info" href="${admin_site}/brand/${r.id}"><i class="fa fa-edit"></i></a>
+
+                    <a class="btn btn-danger remove" href="${admin_site}/brand/delete/${r.id}"><i class="fa fa-trash"></i></a>
                     `;
                 }
             },

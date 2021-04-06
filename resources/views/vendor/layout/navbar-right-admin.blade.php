@@ -1,15 +1,20 @@
+<?php
+use App\Http\Controllers\NotificationController;
+
+?>
+
 <div class="container-navbar-right">
   <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="home-page">
       <img src="{{URL::asset('resources/assets/images/icon-home.png')}}" alt="">
-      
+
       <a href="#">الرئيسية</a>
     </div>
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
 
-        
+
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
           <img src="{{URL::asset('resources/assets/images/shipping.png')}}" alt=""> الفئات
         </button>
@@ -27,36 +32,36 @@
         </button>
       </h2>
       <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-        <a href="{{ route('orders-dashboard') }}" class="accordion-body">ادارة العلامات التجارية</a>
-        <a href="{{ route('payments') }}" class="accordion-body">اضافة العلامات التجارية</a>
+        <a href="{{ route('brand.index') }}" class="accordion-body">ادارة العلامات التجارية</a>
+        <a href="{{ route('brand.create') }}" class="accordion-body">اضافة العلامات التجارية</a>
       </div>
     </div>
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-          <img src="{{URL::asset('resources/assets/images/Path 164.png')}}" alt=""> مركز الموافقة
+        <button class="accordion-button collapsed nav-approval" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+          <img src="{{URL::asset('resources/assets/images/Path 164.png')}}" alt=""> مركز الموافقة <span class="notification" id="notification-all">{{NotificationController::approval_counts()}}</span>
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-        <a href="#" class="accordion-body">مستخدمين</a>
-        <a href="#" class="accordion-body">منتاجات</a>
+        <a href="#" class="accordion-body nav-approval">مستخدمين <span class="notification" id="notification-users"></span></a>
+        <a href="{{route('approval.show','products')}}" class="accordion-body nav-approval">منتجات <span class="notification" id="notification-products">{{NotificationController::products_approval_counts()}}</span></a>
       </div>
     </div>
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingFour">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-          <img src="{{URL::asset('resources/assets/images/Icon awesome-dollar-sign.png')}}" alt=""> الأعدادات
+          <i class="fa fa-cogs ml-4"></i>  الأعدادات
         </button>
       </h2>
 
       <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
         <a href="#" class="accordion-body">اعدادات الصفحة الرئيسية</a>
-        <a href="#" class="accordion-body">اعدادات الموقع</a>
+        <a href="{{route('setting.info')}}" class="accordion-body">اعدادات الموقع</a>
       </div>
 
     </div>
-    
+
   </div>
 </div>

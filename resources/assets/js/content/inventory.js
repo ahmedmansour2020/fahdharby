@@ -65,14 +65,22 @@ $(document).ready(function() {
                     return `<a href="${vendor_site}/edit-quantity/${row.id}" data-qty="${row.qty}" data-type="-1" class="action btn btn-danger btn-lg">-</a>`;
                 }
             },
+            {
+
+                data: "zero",
+                name: "zero",
+                render: function(data, type, row, meta) {
+                    return `<a href="${vendor_site}/make-zero/${row.id}"  class="zero btn btn-secondary btn-lg">0</a>`;
+                }
+            },
 
         ],
         columnDefs: [{
-                targets: [0, 1, 2, 3, 4],
+                targets: [0, 1, 2, 3, 4, 5],
                 searchable: true
             }, {
-                'width': '120px',
-                'targets': [3, 4]
+                'width': '90px',
+                'targets': [3, 4, 5]
             },
             {
                 'width': '150px',
@@ -114,6 +122,42 @@ $(document).ready(function() {
                     action: function() {
                         // $.alert('Confirmed!');
                         window.location.href = href + '/' + (qty * type);
+                    }
+                },
+                لا: {
+                    btnClass: 'btn-red',
+                    action: function() {
+                        // $.alert('Canceled!');
+                    },
+                }
+
+            }
+        });
+
+    });
+    $(document).on('click', ".zero", function(e) {
+        var href = $(this).attr("href");
+        var title = "";
+        var body = "";
+
+        title = "تصفير المنتج";
+        body = `
+هل أنت متأكد من هذه العملية ؟
+            `;
+
+        e.preventDefault();
+
+        $.confirm({
+            title: title,
+            type: 'blue',
+            typeAnimated: true,
+            content: body,
+            buttons: {
+                نعم: {
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        // $.alert('Confirmed!');
+                        window.location.href = href;
                     }
                 },
                 لا: {

@@ -39,7 +39,7 @@ $(document).ready(function(e) {
                                 'id': $("#image_preview_container").data("id")
                             };
 
-                            $.post(category_delete_image, data, function(response) {
+                            $.post(brand_delete_image, data, function(response) {
                                 if (response.success) {
                                     $.alert('تم حذف الصورة');
                                     $('#image_preview_container').attr('src', img);

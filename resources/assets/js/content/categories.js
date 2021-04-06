@@ -17,8 +17,7 @@ $(document).ready(function() {
         "bInfo": false,
         "bFilter": false,
         "bLengthChange": false,
-        columns: [
-            {
+        columns: [{
                 data: "name",
                 name: "name",
                 render: function(d, t, r, m) {
@@ -49,16 +48,9 @@ $(document).ready(function() {
                 name: "update",
                 render: function(d, t, r, m) {
                     return `
-                    <a class="btn btn-info" href="${admin_site}/category/${r.id}">تعديل</a>
-                    `;
-                }
-            },
-            {
-                data: "delete",
-                name: "delete",
-                render: function(d, t, r, m) {
-                    return `
-                    <a class="btn btn-danger remove" href="${admin_site}/category/delete/${r.id}">حذف</a>
+                    <a class="btn btn-info" href="${admin_site}/category/${r.id}"><i class="fa fa-edit"></i></a>
+
+                    <a class="btn btn-danger remove" href="${admin_site}/category/delete/${r.id}"><i class="fa fa-trash"></i></a>
                     `;
                 }
             },
@@ -66,7 +58,7 @@ $(document).ready(function() {
 
         ],
         columnDefs: [{
-            targets: [0, 1, 2, 3],
+            targets: [0, 1, 2],
             searchable: true
         }],
         ordering: false,
@@ -81,12 +73,14 @@ $(document).ready(function() {
             url: admin_site + "/category/sub/" + parent,
             type: "GET",
         },
-
+        language: {
+            url: language,
+        },
+        "pageLength": 100,
+        "bInfo": false,
+        "bFilter": false,
+        "bLengthChange": false,
         columns: [{
-                data: "index",
-                name: "index"
-            },
-            {
                 data: "name",
                 name: "name"
             },
@@ -108,24 +102,16 @@ $(document).ready(function() {
                 name: "update",
                 render: function(d, t, r, m) {
                     return `
-                    <a class="btn btn-info" href="${admin_site}/category/${r.id}">تعديل</a>
-                    `;
-                }
-            },
-            {
-                data: "delete",
-                name: "delete",
-                render: function(d, t, r, m) {
-                    return `
-                    <a class="btn btn-danger remove" href="${admin_site}/category/delete/${r.id}">حذف</a>
-                    `;
-                }
-            },
+                    <a class="btn btn-info" href="${admin_site}/category/${r.id}"><i class="fa fa-edit"></i></a>
 
+                    <a class="btn btn-danger remove" href="${admin_site}/category/delete/${r.id}"><i class="fa fa-trash"></i></a>
+                    `;
+                }
+            },
 
         ],
         columnDefs: [{
-            targets: [0, 1, 2, 3, 4],
+            targets: [0, 1, 2],
             searchable: true
         }],
         ordering: false,

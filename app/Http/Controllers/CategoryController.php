@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\LangController;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\LangController;
 
 class CategoryController extends Controller
 {
@@ -15,25 +17,27 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $title="الفئات";
         if (request()->ajax()) {
-            $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' , 'image')->get();
+            $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name', 'image')->get();
             $index = 1;
             foreach ($categories as $category) {
                 $category->index = $index++;
                 if ($category->image != null) {
                     $category->image = asset('uploaded/' . $category->image);
                 }
-                $count=count(Category::where('parent_id',$category->id)->get());
-                $category->count=$count;
+                $count = count(Category::where('parent_id', $category->id)->get());
+                $category->count = $count;
             }
             return datatables()->of($categories)->addIndexColumn()->make(true);
         }
-        return view('admin.show.categories');
+        return view('admin.show.categories',compact('title'));
     }
     public function index_sub($id)
     {
+        $title="الفئات الفرعية";
         if (request()->ajax()) {
-            $categories = Category::where('parent_id', $id)->select('id', 'name_' . LangController::lang() . ' as name' , 'image')->get();
+            $categories = Category::where('parent_id', $id)->select('id', 'name_' . LangController::lang() . ' as name', 'image')->get();
             $index = 1;
             foreach ($categories as $category) {
                 $category->index = $index++;
@@ -43,7 +47,7 @@ class CategoryController extends Controller
             }
             return datatables()->of($categories)->addIndexColumn()->make(true);
         }
-        return view('admin.show.categories', compact('id'));
+        return view('admin.show.categories', compact('id','title'));
     }
     /**
      * Show the form for creating a new resource.
@@ -52,9 +56,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $title="إضافة فئة";
         $action = 'add';
         $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name')->get();
-        return view('admin.add.category', compact('action', 'categories'));
+        return view('admin.add.category', compact('action', 'categories','title'));
     }
 
     /**
@@ -95,14 +100,16 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+        $title="تعديل فئة";
         $action = 'update';
         $saved = Category::find($id);
+        $saved->image = $saved->image != null ? asset('uploaded/' . $saved->image) : asset('resources/assets/img/upload-img.png');
         $level = 1;
         if ($saved->parent_id == null) {
             $level = 2;
         }
-        $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name' )->get();
-        return view('admin.add.category', compact('action', 'categories', 'saved', 'level'));
+        $categories = Category::whereNull('parent_id')->where('id', '<>', $id)->select('id', 'name_' . LangController::lang() . ' as name')->get();
+        return view('admin.add.category', compact('action', 'categories', 'saved', 'level','title'));
     }
 
     /**
@@ -125,7 +132,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category =Category::find($id);
+        $category = Category::find($id);
         $category->name_ar = request('name_ar');
         $category->name_en = request('name_en');
         $category->description_ar = request('description_ar');
@@ -144,7 +151,6 @@ class CategoryController extends Controller
             return redirect()->route('category.index')->with('success', __('items.success_update'));
         } else {
             return redirect()->route('category.index_sub', request('parent_id'))->with('success', __('items.success_update'));
-
         }
     }
 
@@ -156,16 +162,25 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
-        return redirect()->back()->with('success',__('items.success_delete'));
+        $products = Product::where('sub_category', $id)->get();
+        $sub_products = Product::where('main_category', $id)->get();
+
+        if (count($sub_products)+ count($products) != 0) {
+            return redirect()->back()->with('alert', __('يوجد منتجات مربوطة بهذه الفئة'));
+        } else {
+            Category::find($id)->delete();
+            return redirect()->back()->with('success', __('items.success_delete'));
+        }
     }
     public function delete_image(Request $request)
     {
-        $category_id = request('category_id');
+        $category_id = request('id');
+
         DB::update('update categories set image = null where id = ?', [$category_id]);
         return response()->json([
             'success' => true,
-        ]);
 
+        ]);
     }
+
 }

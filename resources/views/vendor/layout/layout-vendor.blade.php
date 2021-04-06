@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-$user=Illuminate\Support\Facades\Auth::user();
+$user = Illuminate\Support\Facades\Auth::user();
 ?>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     @include('vendor.layout.header')
@@ -15,7 +16,10 @@ $user=Illuminate\Support\Facades\Auth::user();
     var vendor_site = "{{route('vendor')}}";
     var home_site = "{{route('home')}}";
     var admin_site = "{{route('admin')}}";
-
+    var category_delete_image = "{{route('category_delete_image')}}";
+    var brand_delete_image = "{{route('brand_delete_image')}}";
+    var change_product_status = "{{route('change_product_status')}}";
+    var get_current_notifications = "{{route('get_current_notifications')}}";
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
     </script>
 </head>
@@ -31,7 +35,7 @@ $user=Illuminate\Support\Facades\Auth::user();
 
     @include("vendor.layout.navbar-vendor")
 
-
+    
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-lg-3 pr-0">
@@ -41,6 +45,7 @@ $user=Illuminate\Support\Facades\Auth::user();
                 @include("vendor.layout.navbar-right-vendor")
                 @endif
             </div>
+          
 
             @yield('content')
 

@@ -6,7 +6,10 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -40,10 +43,6 @@ Route::get('no-location',function(){
 
 
 
-Route::get('management',function(){
-    return view('vendor/show/management');
-})->name('management');
-
 Route::get('payments',function(){
     return view('vendor/show/payments');
 })->name('payments');
@@ -76,10 +75,6 @@ Route::get('account',function(){
     return view('vendor/show/account');
 })->name('account');
 
-// Route::get('category',function(){
-//     return view('admin/add/category');
-// })->name('category');
-
 
 //code here
 
@@ -88,16 +83,24 @@ Route::get('account',function(){
 Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],function(){
     Route::resource('category',CategoryController::class);
     Route::resource('brand',BrandController::class);
+    Route::resource('approval',ApprovalController::class);
+
     Route::get('/',function(){
         return view('welcome');
     })->name('admin');
+    Route::get('/notifications',[NotificationController::class,'get_current_notifications'])->name('get_current_notifications');
     Route::get('/category/sub/{id}',[CategoryController::class,'index_sub'])->name('category.index_sub');
     Route::get('/category/delete/{id}',[CategoryController::class,'destroy']);
     Route::post('/category/delete/image',[CategoryController::class,'delete_image'])->name('category_delete_image');
     Route::get('/brand/delete/{id}',[BrandController::class,'destroy']);
     Route::post('/brand/delete/image',[BrandController::class,'delete_image'])->name('brand_delete_image');
     Route::get('/product/change/{id}',[ProductController::class,'change_status'])->name('product_change_status');
-    
+    Route::get('/product/{id}',[ProductController::class,'show'])->name('product.show.admin');
+    Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
+    Route::post('/change_product_status',[ApprovalController::class,'change_product_status'])->name('change_product_status');
+
+    Route::get('/settings/info',[SettingController::class,'to_info'])->name('setting.info');
+    Route::post('/save_info',[SettingController::class,'save_info'])->name('info.save');
 });
 
 Route::group(['prefix'=>'supplier','middleware'=>['auth','vendor']],function(){
@@ -107,6 +110,7 @@ Route::group(['prefix'=>'supplier','middleware'=>['auth','vendor']],function(){
     Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
     Route::get('/inventory',[ProductController::class,'inventory'])->name('inventory');
     Route::get('/edit-quantity/{id}/{qty}',[ProductController::class,'edit_qty']);
+    Route::get('/make-zero/{id}',[ProductController::class,'make_zero']);
     Route::get('main-add-product',function(){
         return view('vendor/show/main-add-product');
     })->name('main-add-product');

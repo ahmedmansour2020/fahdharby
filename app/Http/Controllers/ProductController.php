@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\LangController;
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Setting;
+use App\Models\Category;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\LangController;
 
 class ProductController extends Controller
 {
@@ -20,38 +21,40 @@ class ProductController extends Controller
      */
     public function index()
     {
+      
         $user = Auth::user();
         $tab = request('tab');
         $title = "المنتجات";
         $search = request('search');
         if (request()->ajax()) {
-            $products = Product::
+         
+
+                $products = Product::
                 leftJoin('categories', 'categories.id', 'sub_category')
                 ->where('user_id', $user->id)
                 ->select('duration', DB::raw('date(products.updated_at) as update_date'), 'price', 'qty', 'products.id', 'status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description')
                 ->orderBy('products.id', 'desc');
-
-            switch ($tab) {
-                case 1:
+                
+                switch ($tab) {
+                    case 1:
                     $products->where('status', 1);
                     break;
-                case 2:
-                    $products->where('status', 0);
+                    case 2:
+                        $products->where('status', 0);
                     break;
-                case 3:
-                    $products->where('status', 1)->where('qty', 0);
-                    break;
+                    case 3:
+                        $products->where('status', 1)->where('qty', 0);
+                        break;
                 case 4:
                     $products->where('status', 2);
                     break;
-                case 5:
-                    $products->where('status', 3);
+                    case 5:
+                        $products->where('status', 3);
                     break;
-                case 6:
-                    $products->where('status', 4);
-                    break;
+                    
             }
-
+        
+            
             if ($search) {
                 $products->where(function ($query) use ($search) {
                     $query->where('products.name_' . LangController::lang(), 'like', '%' . $search . '%')
@@ -116,19 +119,43 @@ class ProductController extends Controller
         }
         return redirect()->back()->with('success', __('items.success_update'));
     }
+    public function make_zero($id)
+    {
+        $user = Auth::user();
+        if ($user->role_id == 1) {
+            $items = Product::find($id);
+            $items->qty = 0;
+            $items->save();
+        } else {
+            $product = Product::where('id', $id)->where('user_id', $user->id)->first();
+            if ($product) {
+                $product->qty = 0;
+                $product->save();
+            }else{
+                return redirect()->back();
+            }
+        }
+        return redirect()->back()->with('success', __('items.success_update'));
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    { $from="supplier";
+        $duration=Setting::where('key','duration_number')->first();
+        if(!$duration){
+            $duration_number=30;
+        }else{
+            $duration_number=$duration->value;
+        }
         $title = "إضافة منتج جديد";
         $action = 'add';
         $main_categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name')->get();
         $sub_categories = Category::whereNotNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name', 'parent_id')->get();
         $brands = Brand::select('id', 'name_' . LangController::lang() . ' as name')->get();
-        return view('vendor.add.product', compact('action', 'main_categories', 'sub_categories', 'brands', 'title'));
+        return view('vendor.add.product', compact('action', 'main_categories', 'sub_categories', 'brands', 'title','duration_number','from'));
     }
 
     /**
@@ -144,7 +171,7 @@ class ProductController extends Controller
         $product->user_id = $user->id;
         $product->name_ar = request('name_ar');
         $product->name_en = request('name_en');
-        $product->duration = request('duration');
+        $product->duration = request('duration').' '.request('time');
         $product->description_ar = request('description_ar');
         $product->description_en = request('description_en');
         $product->price = request('price');
@@ -181,14 +208,29 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        
+        $duration=Setting::where('key','duration_number')->first();
+        if(!$duration){
+            $duration_number=30;
+        }else{
+            $duration_number=$duration->value;
+        }
+        $user=Auth::user();
         $title = "تعديل منتج";
         $action = 'update';
-        $saved = Product::find($id);
+        $from="supplier";
+        if($user->role_id==1){
+            $from="admin";
+            $saved = Product::find($id);
+        }else{
+            $saved = Product::where('user_id',$user->id)->where('id',$id)->firstOrFail();
+        }
+
         $images = ProductImage::where('product_id', $id)->get();
         $main_categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name')->get();
         $sub_categories = Category::whereNotNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name', 'parent_id')->get();
         $brands = Brand::select('id', 'name_' . LangController::lang() . ' as name')->get();
-        return view('vendor.add.product', compact('action', 'main_categories', 'sub_categories', 'saved', 'images', 'brands', 'title'));
+        return view('vendor.add.product', compact('action', 'main_categories', 'sub_categories', 'saved', 'images', 'brands', 'title','from','duration_number'));
     }
 
     /**
@@ -214,7 +256,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->name_ar = request('name_ar');
         $product->name_en = request('name_en');
-        $product->duration = request('duration');
+        $product->duration = request('duration').' '.request('time');
         $product->description_ar = request('description_ar');
         $product->description_en = request('description_en');
         $product->price = request('price');

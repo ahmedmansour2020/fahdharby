@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
@@ -14,8 +16,9 @@ class BrandController extends Controller
      */
     public function index()
     {
+        $title="العلامات التجارية";
         if (request()->ajax()) {
-            $brands = Brand::select('id', 'name_' . LangController::lang() . ' as name' ,'url', 'image')->get();
+            $brands = Brand::select('id', 'name_' . LangController::lang() . ' as name' ,'url', 'image')->orderBy('id','desc')->get();
             $index = 1;
             foreach ($brands as $brand) {
                 $brand->index = $index++;
@@ -25,7 +28,7 @@ class BrandController extends Controller
             }
             return datatables()->of($brands)->addIndexColumn()->make(true);
         }
-        return view('admin.show.brands');
+        return view('admin.show.brands', compact('title'));
     }
     /**
      * Show the form for creating a new resource.
@@ -34,8 +37,9 @@ class BrandController extends Controller
      */
     public function create()
     {
+        $title="إضافة علامة تجارية";
         $action = 'add';
-        return view('admin.add.brand', compact('action'));
+        return view('admin.add.brand', compact('action','title'));
     }
 
     /**
@@ -69,9 +73,11 @@ class BrandController extends Controller
      */
     public function show($id)
     {
+        $title="تعديل العلامة التجارية";
         $action = 'update';
         $saved = Brand::find($id);
-        return view('admin.add.brand', compact('action', 'saved'));
+        $saved->image = $saved->image != null ? asset('uploaded/' . $saved->image) : asset('resources/assets/img/upload-img.png');
+        return view('admin.add.brand', compact('action', 'saved','title'));
     }
 
     /**
@@ -117,12 +123,18 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
+        $products= Product::where('brand_id',$id)->get();
+        foreach($products as $item){
+            $product=Product::find($item->id);
+            $product->brand_id=null;
+            $product->save();
+        }
         Brand::find($id)->delete();
         return redirect()->back()->with('success', __('items.success_delete'));
     }
     public function delete_image(Request $request)
     {
-        $brand_id = request('brand_id');
+        $brand_id = request('id');
         DB::update('update brands set image = null where id = ?', [$brand_id]);
         return response()->json([
             'success' => true,
