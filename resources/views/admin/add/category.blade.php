@@ -35,25 +35,35 @@
                         <textarea type="text" cols="50"
                             name="description_ar">{{$action=='update'?$saved->description_ar:''}}</textarea>
                         </div>
+
                         <div class="upload-image">
-                            <input type="file" name="image">
+                            <label for="file-upload">
+                                <div class="container-image">
+                                    <span style="color: #018bfc;
+                                    font-weight: 700;">Upload image</span>
+                                </div>
+                            </label>
+                            <div class="text-upload-image">
+                                <input class="file-upload" id="file-upload" type="file" accept="image/*"/>
+                                
+                            </div>
                             <button type="button" id="remove">X</button>
                         </div>
                         
 
                         <div class="form-group">
-                        <select name="parent_id" class="w-100">
-                            <option value="">اختر صنف</option>
-                            @foreach($categories as $category)
-                            <option value="{{$category->id}}" @if($action=='update' ) @if($category->
-                                id==$saved->parent_id)
-                                selected @endif @endif>{{$category->name}}</option>
-                            @endforeach
-                        </select>
+                            <select name="parent_id" class="style-forms">
+                                <option value="">اختر صنف</option>
+                                @foreach($categories as $category)
+                                <option value="{{$category->id}}" @if($action=='update' ) @if($category->
+                                    id==$saved->parent_id)
+                                    selected @endif @endif>{{$category->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         
                         <br>
-                        <button type="submit">حفظ</button>
+                        <button type="submit" class="btn-add-product">حفظ</button>
                     </form>
 
             </div>
@@ -70,5 +80,24 @@
 <script src="{{asset('resources/plugins/tables/js/datatable/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('resources/plugins/tables/js/datatable-init/datatable-basic.min.js')}}"></script>
 <script src="{{asset('resources/assets/js/content/category.js')}}"></script>
+<script>
+    $(document).ready(function() {
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+});
+</script>
 @endsection
 @endsection
