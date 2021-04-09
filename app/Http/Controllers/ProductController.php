@@ -318,6 +318,7 @@ class ProductController extends Controller
         $action = false;
         if ($user->role_id == 1) {
             $action = true;
+            $product = Product::find($id);
         } else {
             $product = Product::where('user_id', $user->id)->where('id', $id)->first();
             if ($product) {
