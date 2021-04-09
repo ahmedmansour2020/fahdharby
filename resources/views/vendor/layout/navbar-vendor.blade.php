@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-2">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{route('home')}}">
                         <img src="{{URL::asset('resources/assets/images/logo-vendor.png')}}" class="img-fluid" alt="Logo">
                     </a>
                 </div>

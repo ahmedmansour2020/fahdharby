@@ -8,7 +8,7 @@ use App\Http\Controllers\NotificationController;
     <div class="home-page">
       <img src="{{URL::asset('resources/assets/images/icon-home.png')}}" alt="">
 
-      <a href="#">الرئيسية</a>
+      <a href="{{route('admin')}}">الرئيسية</a>
     </div>
 
     <div class="accordion-item">
@@ -57,7 +57,7 @@ use App\Http\Controllers\NotificationController;
       </h2>
 
       <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-        <a href="#" class="accordion-body">اعدادات الصفحة الرئيسية</a>
+        <a href="{{route('setting.sliders')}}" class="accordion-body">اعدادات الصفحة الرئيسية</a>
         <a href="{{route('setting.info')}}" class="accordion-body">اعدادات الموقع</a>
       </div>
 

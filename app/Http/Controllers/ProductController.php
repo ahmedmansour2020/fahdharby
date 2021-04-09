@@ -345,4 +345,26 @@ class ProductController extends Controller
         }
         return redirect()->back()->with('success', __('items.success_update'));
     }
+    public function to_main_image($id)
+    {
+        $title="اختيار الصورة الرئيسية";
+        $product=Product::where('id',$id)->select('id','name_' . LangController::lang() . ' as name')->first();
+        $images=ProductImage::where('product_id',$id)->get();
+        return view('vendor.add.product_images',compact('product','images','title'));
+    }
+    public function set_main_image(Request $request){
+        $id=request('main');
+        $product_id=request('product');
+        $images=ProductImage::where('product_id',$product_id)->get();
+        foreach($images as $image){
+            $item=ProductImage::find($image->id);
+            $item->main=0;
+            $item->save();
+        }
+        $main_image=$images = ProductImage::find($id);
+        $main_image->main=1;
+        $main_image->save();
+
+        return redirect()->route('product.index')->with('success', __('items.success_update'));
+    }
 }

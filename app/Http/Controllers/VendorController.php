@@ -10,4 +10,8 @@ class VendorController extends Controller
         $title="لوحة تحكم التاجر";
         return view('vendor/show/home-vendor',compact('title'));
     }
+    public function dashboard_admin(){
+        $title="لوحة تحكم المسئول";
+        return view('vendor/show/home-vendor',compact('title'));
+    }
 }

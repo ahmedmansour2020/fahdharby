@@ -56,7 +56,7 @@ $(document).ready(function() {
                     } else {
 
                         return `
-                        <img width="80" height="80" src="${d}" alt>
+                        <a href="${vendor_site}/set-main-image/${r.id}" title="اضغط هنا لاختيار الصورة الرئيسية"><img width="80" height="80" src="${d}" alt></a>
                         `;
                     }
                 }
