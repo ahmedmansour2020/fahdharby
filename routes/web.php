@@ -70,6 +70,14 @@ Route::get('account', function () {
     return view('vendor/show/account');
 })->name('account');
 
+Route::get('products-sub-category', function () {
+    return view('home/products-sub-category');
+})->name('products-sub-category');
+
+Route::get('products-category', function () {
+    return view('home/products-category');
+})->name('products-category');
+
 //code here
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
