@@ -78,7 +78,7 @@ use App\Http\Controllers\UserController;
     </div>
     <div class="row">
         <div class="col-12">
-            <div class="header-home-products">
+            <div class="header-home-products mt-0">
                 <h2>جميع التصنيفات</h2>
             </div>
         </div>
