@@ -78,6 +78,10 @@ Route::get('products-category', function () {
     return view('home/products-category');
 })->name('products-category');
 
+Route::get('product-details', function () {
+    return view('home/product-details');
+})->name('product-details');
+
 //code here
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
