@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\LangController;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Slider;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -83,12 +87,48 @@ class UserController extends Controller
             ->get();
         foreach ($products as $product) {
             if (strlen($product->description) > 100) {
-                $product->description = substr($product->description, 100)."...";
-            } 
-            $product->description=str_replace("\n","<br>",$product->description);
+                $product->description = substr($product->description, 100) . "...";
+            }
+            $product->description = str_replace("\n", "<br>", $product->description);
         }
         $this->product_main_image($products);
         return view('home.products', compact('title', 'sub_category', 'products'));
+    }
+
+    public function product_details($id)
+    {
+        $product = Product::where('id', $id)->whereStatus(1)->select('duration', 'qty', 'price', 'user_id', 'id', 'name_' . LangController::lang() . ' as name', 'description_' . LangController::lang() . ' as description')->firstOrFail();
+        $images = ProductImage::where('product_id', $id)->get();
+        $title = $product->name;
+        $supplier = User::find($product->user_id);
+
+        $user=Auth::user();
+        $check_auth=false;
+        $check_cart=false;
+        if($user){
+            $check_auth=true;
+            $cart=Cart::where('user_id',$user->id)->where('product_id',$product->id)->whereStatus(0)->first();
+            if($cart){
+                $check_cart=true;
+            }
+        }
+        
+
+        return view('home.product-details', compact('title', 'images', 'product', 'supplier','check_auth','check_cart'));
+    }
+
+    public function add_to_cart(Request $request)
+    {
+        $user = Auth::user();
+        $product_id = request('product_id');
+        $cart = new Cart();
+        $cart->user_id = $user->id;
+        $cart->product_id=$product_id;
+        $cart->save();
+
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     public function orders()
@@ -130,6 +170,16 @@ class UserController extends Controller
     {
         $title = 'إنشاء أمر مرتجع';
         return view('home/create-order-return', compact('title'));
+    }
+
+    public function redirect_to_product($id)
+    {
+        $user = Auth::user();
+        if ($user) {
+            return redirect()->route('product-details', $id);
+        } else {
+            return '';
+        }
     }
 
 }

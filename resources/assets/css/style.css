@@ -951,9 +951,13 @@ a.box-home-category {
 .buy {
     border-right: 1px solid #f6f6f6;
 }
+
+
 /* End product-category page */
 
+
 /* Start product-details */
+
 .container-image-detailsProduct {
     padding: 20px;
     display: flex;
@@ -961,30 +965,41 @@ a.box-home-category {
     justify-content: center;
     align-items: center;
 }
+
 .img-product-details {
     width: 70%;
     min-width: 70%;
     max-width: 70%;
 }
-.product-details ul li {
+
+.product-details tr td {
     font-size: 25px;
     font-weight: 400;
     color: #000;
     margin-bottom: 15px;
 }
+
+.product-details tr td:nth-child(2) {
+    width: 50px;
+    text-align: center;
+}
+
 .title-products {
     margin-bottom: 48px;
 }
+
 .title-products h3 {
     font-size: 35px;
     font-weight: 700;
     color: #000000;
 }
+
 .title-products span {
     font-size: 30px;
     font-weight: 400;
     color: #000;
 }
+
 .content-product-details p {
     font-size: 27px;
     font-weight: 400;
@@ -992,21 +1007,25 @@ a.box-home-category {
     line-height: 1.6;
     margin-bottom: 170px;
 }
+
 .content-product-details a {
     font-size: 25px;
     font-weight: 700;
     color: #fff;
 }
+
 .header-rates h3 {
     font-size: 34px;
     font-weight: 700;
     color: #000;
 }
+
 span.amount-comments {
     font-size: 15px;
     font-weight: 400;
     color: #000;
 }
+
 .about-vendor-dt span,
 .about-product h4 {
     font-size: 26px;
@@ -1054,42 +1073,62 @@ span.amount-comments {
     color: #000000;
     margin-top: 20px;
 }
+
+
 /* End product-details */
 
+
 /* Start add to chart page*/
+
 .last-price {
     margin-bottom: 40px;
 }
+
 .last-price h3 {
     font-size: 30px;
     font-weight: 700;
     color: #000000;
 }
+
 .last-price p {
     font-size: 40px;
     font-weight: 400;
     color: #000000;
 }
+
+
 /* end add to chart  end*/
+
+
 /* Start checkout page */
+
 .write-ph .iti--allow-dropdown {
     width: 75%;
 }
+
 .write-ph input:first-of-type {
     display: inline-block;
-    width: 100% ;
+    width: 100%;
 }
+
 input.code-phone {
     width: 75% !important;
 }
+
 .write-ph button {
     outline: none;
     font-weight: 700;
     font-size: 22px;
     color: #000000;
 }
+
 .write-ph button:hover {
     color: #306EFF;
-
 }
+
+.product-details .fotorama__thumb .fotorama__img {
+    width: 102.342px !important;
+}
+
+
 /* Start checkout page */

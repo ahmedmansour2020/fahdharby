@@ -19,6 +19,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 //for languages
 // Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 // });
+Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_product'])->name('redirect_to_product')->middleware('auth');
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('cart', [UserController::class, 'cart'])->name('cart');
@@ -29,13 +30,14 @@ Route::get('wallet', [UserController::class, 'wallet'])->name('wallet');
 Route::get('process-pay', [UserController::class, 'process_pay'])->name('process-pay');
 Route::get('product-return', [UserController::class, 'product_return'])->name('product-return');
 Route::get('create-order-return', [UserController::class, 'create_order_return'])->name('create-order-return');
-
+Route::post('add_to_cart',[UserController::class, 'add_to_cart'])->name('add_to_cart');
 
 Route::get('categories', [UserController::class, 'to_all_categories'])->name('to_all_categories');
 Route::get('categories/{id}', [UserController::class, 'to_sub_categories'])->name('categories');
 
 Route::get('products/{id}',[UserController::class,'to_products'])->name('products');
 
+Route::get('product-details/{id}', [UserController::class,'product_details'])->name('product-details');
 
 
 
@@ -81,9 +83,6 @@ Route::get('account', function () {
 })->name('account');
 
 
-Route::get('product-details', function () {
-    return view('home/product-details');
-})->name('product-details');
 
 Route::get('add_to_cart', function () {
     return view('home/add_to_cart');

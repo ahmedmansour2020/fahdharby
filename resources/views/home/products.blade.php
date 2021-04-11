@@ -10,10 +10,10 @@ use App\Http\Controllers\UserController; ?>
             <div class="col-12 single-item">
                 <div class="row">
                     <div class="col-sm-12 col-lg-3 text-center col-image">
-                        <a href="#" class="img-bucket"><img src="{{$product->image}}" alt=""></a>
+                        <a href="{{route('product-details',$product->id)}}" class="img-bucket"><img src="{{$product->image}}" alt=""></a>
                     </div>
                     <div class="col-sm-12 col-lg-6">
-                        <a href="#" class="title-product">
+                        <a href="{{route('product-details',$product->id)}}" class="title-product">
                             <h2 class="itemTitle">
                                 {{$product->name}}
 
@@ -31,7 +31,7 @@ use App\Http\Controllers\UserController; ?>
                                 </div>
                             </li>
                             <li>
-                                <a href="#" class="button btn btn-primary view-product-details mt-4">انقر هنا للمزيد من
+                                <a href="{{route('product-details',$product->id)}}" class="button btn btn-primary view-product-details mt-4">انقر هنا للمزيد من
                                     المعلومات</a>
                             </li>
                         </ul>
