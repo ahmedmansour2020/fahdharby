@@ -21,7 +21,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 // });
 
 Route::get('/', [UserController::class, 'home'])->name('home');
-Route::get('cart', [UserController::class, 'cart'])->name('chart');
+Route::get('cart', [UserController::class, 'cart'])->name('cart');
 Route::get('orders', [UserController::class, 'orders'])->name('orders');
 Route::get('location', [UserController::class, 'location'])->name('location');
 Route::get('pay', [UserController::class, 'pay'])->name('pay');
@@ -84,6 +84,14 @@ Route::get('account', function () {
 Route::get('product-details', function () {
     return view('home/product-details');
 })->name('product-details');
+
+Route::get('add_to_cart', function () {
+    return view('home/add_to_cart');
+})->name('add_to_cart');
+
+Route::get('checkout', function () {
+    return view('home/checkout');
+})->name('checkout');
 
 //code here
 

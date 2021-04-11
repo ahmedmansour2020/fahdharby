@@ -99,7 +99,7 @@ class UserController extends Controller
     public function cart()
     {
         $title = 'سلة الطلبات';
-        return view('home/chart', compact('title'));
+        return view('home/cart', compact('title'));
     }
     public function location()
     {

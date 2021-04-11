@@ -598,7 +598,8 @@ a.box-home-category {
     margin-top: 110px;
 }
 
-.form-group input {
+.form-group input,
+.start-location select {
     border: 1px solid #676767;
     border-radius: 16px;
     -webkit-border-radius: 16px;
@@ -950,7 +951,6 @@ a.box-home-category {
 .buy {
     border-right: 1px solid #f6f6f6;
 }
-<<<<<<< HEAD
 /* End product-category page */
 
 /* Start product-details */
@@ -961,7 +961,7 @@ a.box-home-category {
     justify-content: center;
     align-items: center;
 }
-.container-image-detailsProduct img {
+.img-product-details {
     width: 70%;
     min-width: 70%;
     max-width: 70%;
@@ -1055,8 +1055,41 @@ span.amount-comments {
     margin-top: 20px;
 }
 /* End product-details */
-=======
 
+/* Start add to chart page*/
+.last-price {
+    margin-bottom: 40px;
+}
+.last-price h3 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000000;
+}
+.last-price p {
+    font-size: 40px;
+    font-weight: 400;
+    color: #000000;
+}
+/* end add to chart  end*/
+/* Start checkout page */
+.write-ph .iti--allow-dropdown {
+    width: 75%;
+}
+.write-ph input:first-of-type {
+    display: inline-block;
+    width: 100% ;
+}
+input.code-phone {
+    width: 75% !important;
+}
+.write-ph button {
+    outline: none;
+    font-weight: 700;
+    font-size: 22px;
+    color: #000000;
+}
+.write-ph button:hover {
+    color: #306EFF;
 
-/* End product-category page */
->>>>>>> cca76256d5b7f1f4b3dc09aba1fb0384c989db08
+}
+/* Start checkout page */

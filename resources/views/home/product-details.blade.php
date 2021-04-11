@@ -9,7 +9,7 @@
                 <div class="product-details">
                     <div class="container-image-detailsProduct border">
                         <img src="{{ URL::asset('resources/assets/images/31TYhN1uksL._AC_SY200_.png') }}"
-                            class="img-fluid" alt="">
+                            class="img-fluid img-product-details" alt="">
                     </div>
                     <ul class="list-unstyled px-0 mt-5">
                         <li>الحالة: جديد</li>
