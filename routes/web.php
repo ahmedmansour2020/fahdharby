@@ -30,6 +30,16 @@ Route::get('process-pay', [UserController::class, 'process_pay'])->name('process
 Route::get('product-return', [UserController::class, 'product_return'])->name('product-return');
 Route::get('create-order-return', [UserController::class, 'create_order_return'])->name('create-order-return');
 
+
+Route::get('categories', [UserController::class, 'to_all_categories'])->name('to_all_categories');
+Route::get('categories/{id}', [UserController::class, 'to_sub_categories'])->name('categories');
+
+Route::get('products/{id}',[UserController::class,'to_products'])->name('products');
+
+
+
+
+
 Route::get('orders-no-product', function () {
     return view('home/orders-no-product');
 })->name('orders-no-product');
@@ -70,13 +80,6 @@ Route::get('account', function () {
     return view('vendor/show/account');
 })->name('account');
 
-Route::get('products-sub-category', function () {
-    return view('home/products-sub-category');
-})->name('products-sub-category');
-
-Route::get('products-category', function () {
-    return view('home/products-category');
-})->name('products-category');
 
 Route::get('product-details', function () {
     return view('home/product-details');

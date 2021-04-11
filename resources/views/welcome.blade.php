@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
             <div class="row h-100 text-center">
                 <div class="col-12 h-75">
 
-                    <a href="#">
+                    <a href="{{route('to_all_categories')}}">
                         <img src="{{ URL::asset('resources/assets/images/Group 266.png') }}" class="category-img" alt="">
                     </a>
                 </div>
@@ -30,7 +30,7 @@ use App\Http\Controllers\UserController;
             <div class="row h-100 text-center">
                 <div class="col-12 h-75">
 
-                    <a href="#">
+                    <a href="{{route('categories',$category->id)}}">
                         <img src="{{$category->image}}" class="category-img" alt="">
                     </a>
                 </div>

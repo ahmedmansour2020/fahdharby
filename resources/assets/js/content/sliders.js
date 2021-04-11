@@ -42,10 +42,15 @@ $(document).ready(function() {
                     if (r.color != null) {
                         color = r.color;
                     }
-                    if (d.length > 50) {
-                        return `<span style="color:${color}">${d.substr(0, 50) + "..."}</span>`;
+                    if (d != null) {
+
+                        if (d.length > 50) {
+                            return `<span style="color:${color}">${d.substr(0, 50) + "..."}</span>`;
+                        } else {
+                            return `<span style="color:${color}">${d}</span>`;
+                        }
                     } else {
-                        return `<span style="color:${color}">${d}</span>`;
+                        return null;
                     }
                 }
             },
