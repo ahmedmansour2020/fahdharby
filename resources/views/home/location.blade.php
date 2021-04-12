@@ -26,7 +26,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <input id="phone" name="phone" type="tel">
+                                    <input id="phone" dir="ltr" name="phone" type="tel">
                                 </div>
 
                                 <p>تسمية العنوان</p>

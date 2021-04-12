@@ -92,6 +92,10 @@ Route::get('checkout', function () {
     return view('home/checkout');
 })->name('checkout');
 
+Route::get('purchase', function () {
+    return view('home/purchase');
+})->name('purchase');
+
 //code here
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {

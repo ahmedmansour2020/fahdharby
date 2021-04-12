@@ -10,46 +10,35 @@
             <div class="col-sm-12 col-lg-12 mt-5">
                 <div class="row">
                     <div class="col-sm-12 col-md-7">
-                        <div class="start-location border p-3 bg-white">
+                        <div class="start-location border p-3 bg-white overflow-hidden">
                             <form action="" class="mt-3">
-                                <div class="form-group">
-                                    <label for="">المدينة</label>
-                                    <select name="" id="">
-                                        <option value="">مكة</option>
-                                        <option value="">مكة</option>
-                                        <option value="">مكة</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">المنطقة</label>
-                                    <select name="" id="">
-                                        <option value="">الدمام</option>
-                                        <option value="">الدمام</option>
-                                        <option value="">الدمام</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">اسم ورقم الشارع</label>
-                                    <select name="" id="">
-                                        <option value="">مركز النور</option>
-                                        <option value="">مركز النور</option>
-                                        <option value="">مركز النور</option>
-                                    </select>
-                                </div>
-
-                                
-
-                                <p> العنوان</p>
-                                <input type="radio" name="location">
-                                <label for="">المنزل</label>
-                                
-                                <input type="radio" name="location">
-                                <label for="">العمل</label>
-                                <div class="form-group mt-3 write-ph">
-                                    <input id="phone" name="phone" type="tel">
-                                     <button class="btn" type="submit">تفعيل</button>
-                                    <input type="text" class="code-phone" placeholder="رمز التعريف">
-                                </div>
+                                <table class="float-right table-responsive last-process-buy" dir="rtl">
+                                    <thead>
+                                        <tr>
+                                            <th>إتمام عملية الشراء</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="radio" name="buy"></td>
+                                            <td>الدفع عن طريق</td>
+                                            <td>Paypal</td>
+                                            <td><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="radio" name="buy"></td>
+                                            <td>الدفع عن طريق</td>
+                                            <td>Paypal</td>
+                                            <td><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="radio" name="buy"></td>
+                                            <td>الدفع عن طريق</td>
+                                            <td>Paypal</td>
+                                            <td><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                                 
                             </form>
@@ -80,7 +69,7 @@
                                             <td>:</td>
                                             <td class="text-primary">محمد خالد</td>
                                         </tr>
-                                        <tr class="stars-table">
+                                        <tr>
                                             <td>التقييم</td>
                                             <td>:</td>
                                             <td><img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}"

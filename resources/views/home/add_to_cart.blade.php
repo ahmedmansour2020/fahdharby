@@ -31,7 +31,48 @@
                                     </select>
                                 </form>
                             </div>
-                            <ul class="list-unstyled pr-3 mt-5">
+                            <table class="float-right " dir="rtl">
+                                <tbody>
+                                    <tr>
+                                        <td>الحالة</td>
+                                        <td>:</td>
+                                        <td>جديد</td>
+                                    </tr>
+                                    <tr>
+                                        <td>البائع</td>
+                                        <td>:</td>
+                                        <td class="text-primary">محمد خالد</td>
+                                    </tr>
+                                    <tr>
+                                        <td>التقييم</td>
+                                        <td>:</td>
+                                        <td><img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}"
+                                        class="img-fluid" alt=""><img
+                                        src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid" alt="">
+                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
+                                        alt=""> <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}"
+                                        class="img-fluid" alt=""> <img
+                                        src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid" alt="">
+                                    <span class="amount-comments">1300 تعليق</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>مكان الشحن</td>
+                                        <td>:</td>
+                                        <td>السعودية جدة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>الكمية</td>
+                                        <td>:</td>
+                                        <td>20</td>
+                                    </tr>
+                                    <tr>
+                                        <td>مدة التوصيل</td>
+                                        <td>:</td>
+                                        <td>30</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {{-- <ul class="list-unstyled pr-3 mt-5">
                                 <li>الحالة: جديد</li>
                                 <li>البائع: <span class="text-primary">فهد الحربي</span></li>
                                 <li> التقييم:
@@ -50,7 +91,7 @@
                                 <li>مكان الشحن: السعودية جدة</li>
                                 <li>الكمية: 25</li>
                                 <li>مدة التوصيل: 3 أيام</li>
-                            </ul>
+                            </ul> --}}
                         </div>
                         
                         
