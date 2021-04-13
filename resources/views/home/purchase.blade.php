@@ -12,7 +12,7 @@
                     <div class="col-sm-12 col-md-7">
                         <div class="start-location border p-3 bg-white overflow-hidden">
                             <form action="" class="mt-3">
-                                <table class="float-right table-responsive last-process-buy" dir="rtl">
+                                {{-- <table class="float-right table-responsive last-process-buy" dir="rtl">
                                     <thead>
                                         <tr>
                                             <th>إتمام عملية الشراء</th>
@@ -38,8 +38,33 @@
                                             <td><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> --}}
+                                <table class="last-process-buy overflow-hidden">
+                                    <tr class="">
+                                      <th colspan="2">إتمام عملية الشراء</th>                                      
+                                    </tr>
+                                    <tr>
+                                      <td><input type="radio" name="buy"></td>
+                                      <td>الدفع عن طريق <span class="text-left float-left d-inline-block">Paypal</span></td>
+                                      <td class="text-left"><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                    </tr>
+                                    <tr>
+                                      <td><input type="radio" name="buy"></td>
+                                      <td>الدفع عن طريق <span class="text-left float-left d-inline-block">Paypal</span></td>
+                                      <td class="text-left"><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                    </tr>
+                                    <tr>
+                                      <td><input type="radio" name="buy"></td>
+                                      <td>الدفع عن طريق <span class="text-left float-left d-inline-block">Paypal</span></td>
+                                      <td class="text-left"><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                    </tr>
+                                    <tr>
+                                      <td><input type="radio" name="buy"></td>
+                                      <td>الدفع عن طريق <span class="text-left float-left d-inline-block">Paypal</span></td>
+                                      <td class="text-left"><img src="{{ URL::asset('resources/assets/images/paypal.png') }}" class="img-fluid" alt=""></td>
+                                    </tr>
 
+                                  </table>
                                 
                             </form>
                         </div>
