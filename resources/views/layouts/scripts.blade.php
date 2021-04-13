@@ -4,6 +4,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script src="{{ asset('resources/assets/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('resources/assets/js/content/add_to_cart.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script>
+    var login_url="{{route('login')}}";
+    var csrf='@csrf'
+</script>
+<script src="{{ asset('resources/assets/js/content/login.js') }}"></script>
 <script>
     
 // $('.owl-carousel').owlCarousel({
@@ -22,7 +28,7 @@
 //         }
 //     }
 // })
-var owl = $('.owl-carousel');
+var owl = $('.owl-home');
 owl.owlCarousel({
     items:5,
     loop:true,

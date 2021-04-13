@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 
 @section('content')
 
-
+<button class="login" type="button">login</button>
 
 <div class="container-fluid px-5 " >
     <div class="row h-100 siteWidthContainer " >
@@ -96,7 +96,7 @@ use App\Http\Controllers\UserController;
             </div>
         </div>
 
-        <div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
             @foreach($latest_products as $product)
             <div class="box-product latest-product item">
                 <a href="#" class="product-header d-block">
@@ -134,7 +134,7 @@ use App\Http\Controllers\UserController;
             </div>
         </div>
 
-        <div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
 
 
 
@@ -399,7 +399,7 @@ use App\Http\Controllers\UserController;
     </div>
 </div>
 
-<div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+<div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
 
     <div class="box-product latest-product item">
         <a href="#" class="product-header d-block">
