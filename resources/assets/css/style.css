@@ -13,8 +13,8 @@ body {
 
 /* Start register page */
 
-.card {
-  width: 792px;
+.form-login .card {
+  width: 70%;
   height: auto;
   padding-bottom: 20px;
   margin: auto;
@@ -27,20 +27,20 @@ body {
   margin-top: 40px;
 }
 
-.card-header {
+.form-login .card-header {
   background-color: transparent !important;
   border: none;
   text-align: center;
   padding-top: 50px;
 }
 
-.card-header h2 {
+.form-login .card-header h2 {
   font-weight: 700;
   font-size: 39px;
   color: #306eff;
 }
 
-.card-body {
+.form-login .card-body {
   padding: 0 80px;
   margin-top: 60px;
 }

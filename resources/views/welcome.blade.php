@@ -2,11 +2,13 @@
 use App\Http\Controllers\UserController;
 ?>
 @extends('layouts.layout')
-
 @section('title', isset($title) ? $title : '')
-
 @section('content')
-
+@section('home')
+<?php
+$home=true;
+?>
+@endsection
 
 
 <div class="container-fluid px-5 " >
