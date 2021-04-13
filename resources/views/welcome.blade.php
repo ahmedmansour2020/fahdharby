@@ -98,7 +98,7 @@ $home=true;
             </div>
         </div>
 
-        <div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
             @foreach($latest_products as $product)
             <div class="box-product latest-product item">
                 <a href="#" class="product-header d-block">
@@ -136,7 +136,7 @@ $home=true;
             </div>
         </div>
 
-        <div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
 
 
 
@@ -401,7 +401,7 @@ $home=true;
     </div>
 </div>
 
-<div class="owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+<div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
 
     <div class="box-product latest-product item">
         <a href="#" class="product-header d-block">

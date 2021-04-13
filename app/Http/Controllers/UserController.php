@@ -7,10 +7,12 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Review;
 use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -97,24 +99,70 @@ class UserController extends Controller
 
     public function product_details($id)
     {
-        $product = Product::where('id', $id)->whereStatus(1)->select('duration', 'qty', 'price', 'user_id', 'id', 'name_' . LangController::lang() . ' as name', 'description_' . LangController::lang() . ' as description')->firstOrFail();
+        $product = Product::where('id', $id)->whereStatus(1)->select('sub_category', 'duration', 'qty', 'price', 'user_id', 'id', 'name_' . LangController::lang() . ' as name', 'description_' . LangController::lang() . ' as description')->firstOrFail();
         $images = ProductImage::where('product_id', $id)->get();
         $title = $product->name;
         $supplier = User::find($product->user_id);
 
-        $user=Auth::user();
-        $check_auth=false;
-        $check_cart=false;
-        if($user){
-            $check_auth=true;
-            $cart=Cart::where('user_id',$user->id)->where('product_id',$product->id)->whereStatus(0)->first();
-            if($cart){
-                $check_cart=true;
+        $user = Auth::user();
+        $check_auth = false;
+        $check_cart = false;
+        if ($user) {
+            $check_auth = true;
+            $cart = Cart::where('user_id', $user->id)->where('product_id', $product->id)->whereStatus(0)->first();
+            if ($cart) {
+                $check_cart = true;
             }
         }
-        
 
-        return view('home.product-details', compact('title', 'images', 'product', 'supplier','check_auth','check_cart'));
+        $related_products = Product::
+            where('sub_category', $product->sub_category)
+            ->whereStatus(1)
+            ->where('id', '<>', $product->id)
+            ->select('duration', 'qty', 'price', 'user_id', 'id', 'name_' . LangController::lang() . ' as name', 'description_' . LangController::lang() . ' as description')
+            ->get();
+        $this->product_main_image($related_products);
+        foreach ($related_products as $item) {
+            $check_cart_related = false;
+            if ($user) {
+                $cart_item = Cart::where('user_id', $user->id)->where('product_id', $item->id)->whereStatus(0)->first();
+                if ($cart_item) {
+                    $check_cart_related = true;
+                }
+            }
+            $item->check_cart_related = $check_cart_related;
+        }
+        $reviews = Review::
+            leftJoin('users', 'users.id', 'user_id')
+            ->where('product_id', $product->id)
+            ->whereStatus(1)
+            ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+            ->orderBy('reviews.id', 'desc')
+            ->get();
+        $check_review = false;
+
+        if($user){
+            $review = Review::where('product_id', $product->id)->where('user_id', $user->id)->first();
+            if ($review) {
+                $check_review = true;
+            }
+        }else{
+            $check_review = true;
+        }
+
+
+        $total = 5 * count($reviews);
+        $total_reviews = 0;
+        foreach ($reviews as $review) {
+            $total_reviews += $review->rate;
+        }
+        if (count($reviews) == 0) {
+            $reviews_stars = 0;
+        } else {
+
+            $reviews_stars = (100 * $total_reviews / $total);
+        }
+        return view('home.product-details', compact('reviews_stars','check_review', 'title', 'reviews', 'images', 'product', 'supplier', 'check_auth', 'check_cart', 'related_products'));
     }
 
     public function add_to_cart(Request $request)
@@ -123,7 +171,7 @@ class UserController extends Controller
         $product_id = request('product_id');
         $cart = new Cart();
         $cart->user_id = $user->id;
-        $cart->product_id=$product_id;
+        $cart->product_id = $product_id;
         $cart->save();
 
         return response()->json([
