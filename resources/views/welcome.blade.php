@@ -2,12 +2,14 @@
 use App\Http\Controllers\UserController;
 ?>
 @extends('layouts.layout')
-
 @section('title', isset($title) ? $title : '')
-
 @section('content')
+@section('home')
+<?php
+$home=true;
+?>
+@endsection
 
-<button class="login" type="button">login</button>
 
 <div class="container-fluid px-5 " >
     <div class="row h-100 siteWidthContainer " >

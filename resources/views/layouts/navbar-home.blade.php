@@ -27,7 +27,10 @@
                     <a class="dropdown-item" href="#">English</a>
                 </div>
             </li>
+            <a href="#" class="btn btn-primary btn-chart">تسجيل دخول</a>
+            <a href="#" class="btn border-primary">تسجيل دخول</a>
+
         
         </ul>
         <a href="{{url('/chart')}}" class="btn btn-primary btn-chart">سلة الشراء <img src="{{URL::asset('resources/assets/images/shopping-chart.png')}}" class="img-fluid" alt=""></a>
-    </nav>
+</nav>

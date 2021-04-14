@@ -11,12 +11,12 @@
     </script>
     @include('layouts.header')
     @yield('page_css')
-
+   
     @yield('home')
 </head>
 <body>
     @if(isset($home))
-
+    @include("layouts.navbar-home")
     @else
     @include("layouts.navbar")
     @endif

@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{{route('login')}}" method="POST">
+                <form action="{{route('login')}}" class="form-login" method="POST">
                 @csrf
                     <div class="card">
                         <div class="card-header">
@@ -25,10 +25,10 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <input type="email" name="email" placeholder="البريد الألكتروني">
+                                <input type="email" name="email" class="w-100" placeholder="البريد الألكتروني">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder=" كلمة المرور">
+                                <input type="password" name="password" class="w-100" placeholder=" كلمة المرور">
                             </div>
                             <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
 
