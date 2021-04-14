@@ -2,36 +2,52 @@
 @section('title', isset($title) ? $title : '')
 
 @section('content')
-
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-sm-12 col-md-12 col-lg-8">
-                <div class="product-details">
-                    <div class="container-image-detailsProduct border mb-5">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-8">
-                                <img src="{{ URL::asset('resources/assets/images/31TYhN1uksL._AC_SY200_.png') }}"
-                                    class="img-fluid" style="width: 30%; margin-left: 20px" alt="">
-                                <div class="d-inline-block title-products">
-                                    <h3>خزانة حديثة</h3>
-                                    <span>100$</span>
-                                </div>
-    
+<?php
+$total=0;
+?>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-12 col-md-12 col-lg-8">
+            @foreach($products as $product)
+            <?php
+            $total+=$product->price*$product->cart_qty;
+            ?>
+            <input type="hidden" class="products_rates" value="{{$product->id}}">
+            <div class="product-details">
+                <div class="container-image-detailsProduct border mb-5">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <img src="{{ $product->image }}" class="img-fluid" style="width: 30%; margin-left: 20px"
+                                alt="">
+                            <div class="d-inline-block title-products">
+                                <h3>{{$product->name}}</h3>
+                                <span id="cart_price_{{$product->cart_id}}">
+                                    @if($product->cart_qty==1)
+                                    {{$product->price}}$
+                                    @else
+                                    {{$product->price*$product->cart_qty}}$
+                                    <span style="font-size: 14px;">(سعر القطعة الواحدة {{$product->price}}$)</span>
+                                    @endif
+                                </span>
                             </div>
-                            <div class="col-sm-12 col-md-4">
-                                <form action="">
-                                    <label for="" class="d-block"><strong>الكمية</strong></label>
-                                    <select name="" id="" style="width: 60px;
+
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <form action="">
+                                <label for="" class="d-block"><strong>الكمية</strong></label>
+                                <select data-price="{{$product->price}}" data-id="{{$product->cart_id}}"
+                                    class="change_cart_qty" style="width: 60px;
                                     border-radius: 5px;
                                     height: 38px;">
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4</option>
-                                    </select>
-                                </form>
-                            </div>
-                            <table class="float-right " dir="rtl">
+                                    @for($i=1;$i<$product->qty/3;$i++)
+                                        <option @if($product->cart_qty==$i) selected @endif>{{$i}}</option>
+                                    @endfor
+                                </select>
+                            </form>
+                        </div>
+                        <div class="col-12">
+
+                            <table dir="rtl">
                                 <tbody>
                                     <tr>
                                         <td>الحالة</td>
@@ -41,19 +57,23 @@
                                     <tr>
                                         <td>البائع</td>
                                         <td>:</td>
-                                        <td class="text-primary">محمد خالد</td>
+                                        <td>{{$product->supplier}}</td>
                                     </tr>
                                     <tr>
                                         <td>التقييم</td>
                                         <td>:</td>
-                                        <td><img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}"
-                                        class="img-fluid" alt=""><img
-                                        src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid" alt="">
-                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
-                                        alt=""> <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}"
-                                        class="img-fluid" alt=""> <img
-                                        src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid" alt="">
-                                    <span class="amount-comments">1300 تعليق</span></td>
+                                        <td>
+                                            <input type="hidden" id="rate_star_{{$product->id}}"
+                                                value="{{$product->reviews_stars}}">
+                                            <div class="text-primary d-inline-block">
+                                                <i class="far fa-star rate_star_{{$product->id}}"></i>
+                                                <i class="far fa-star rate_star_{{$product->id}}"></i>
+                                                <i class="far fa-star rate_star_{{$product->id}}"></i>
+                                                <i class="far fa-star rate_star_{{$product->id}}"></i>
+                                                <i class="far fa-star rate_star_{{$product->id}}"></i>
+                                            </div>
+                                            <span class="amount-comments">{{$product->reviews}} تعليق</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>مكان الشحن</td>
@@ -61,71 +81,63 @@
                                         <td>السعودية جدة</td>
                                     </tr>
                                     <tr>
-                                        <td>الكمية</td>
-                                        <td>:</td>
-                                        <td>20</td>
-                                    </tr>
-                                    <tr>
                                         <td>مدة التوصيل</td>
                                         <td>:</td>
-                                        <td>30</td>
+                                        <td>{{$product->duration}}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            {{-- <ul class="list-unstyled pr-3 mt-5">
-                                <li>الحالة: جديد</li>
-                                <li>البائع: <span class="text-primary">فهد الحربي</span></li>
-                                <li> التقييم:
-                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
-                                        alt="">
-                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
-                                        alt="">
-                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
-                                        alt="">
-                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
-                                        alt="">
-                                    <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" class="img-fluid"
-                                        alt="">
-                                    <span class="amount-comments">1300 تعليق</span>
-                                </li>
-                                <li>مكان الشحن: السعودية جدة</li>
-                                <li>الكمية: 25</li>
-                                <li>مدة التوصيل: 3 أيام</li>
-                            </ul> --}}
                         </div>
-                        
-                        
+
                     </div>
 
+                    <div class="row w-100">
+                        <div class="col-12">
+                            <hr>
+                            <a class="btn bg-white border border-dark p-2 px-3" href="{{route('remove_from_cart',$product->cart_id)}}">
+                                <i class="fa fa-trash"></i>
+                                إزالة من سلة المشتريات</a>
+                        </div>
+                    </div>
 
                 </div>
-            </div>
 
-
-
-            <div class="col-sm-12 col-md-12 col-lg-4">
-                <div class="last-price border p-3">
-                    <h3>السعر النهائي</h3>
-                    <p>100$</p>
-                </div>
-                <a href="#" class="btn btn-primary w-100 py-3">إتمام عملية الشراء</a>
-                <form action="">
-                    <input type="text" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
-                    <button class="btn btn-primary mr-4" type="submit">إضافة</button>
-                </form>
-
-                <div class="buttons-remove mt-4">
-                    <button class="btn bg-white border border-dark p-2 px-3" type="button"><img src="{{ URL::asset('resources/assets/images/Icon material-delete.png') }}" class="img-fluid ml-2"
-                        alt=""> إزالة من سلة المشتريات</button>
-                    <button class="btn bg-white border border-dark p-2 px-3 mr-3" type="button">رجوع</button>
-
-                </div>
 
             </div>
 
+            @endforeach
+        </div>
 
+
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="last-price border p-3">
+                <h3>السعر النهائي</h3>
+                <p id="total_price">{{$total}}$</p>
+            </div>
+            <a href="#" class="btn btn-primary w-100 py-3">إتمام عملية الشراء</a>
+            <form action="">
+                <input type="text" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
+                <button class="btn btn-primary mr-4" type="submit">إضافة</button>
+            </form>
+
+            <div class="buttons-remove mt-4">
+
+                <button class="btn bg-white border border-dark p-2 px-3 mr-3" type="button">رجوع</button>
+
+            </div>
 
         </div>
-    </div>
 
+
+
+    </div>
+</div>
+
+@endsection
+@section('page_js')
+<script>
+    var change_cart_qty="{{route('change_cart_qty')}}";
+</script>
+<script src="{{asset('resources/assets/js/content/rate.js')}}"></script>
+<script src="{{asset('resources/assets/js/content/cart.js')}}"></script>
 @endsection

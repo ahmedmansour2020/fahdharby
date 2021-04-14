@@ -86,7 +86,7 @@ $home=true;
         </div>
         @foreach(UserController::getParentCategory(6) as $category)
         <div class="col-sm-6 col-md-4">
-            <a href="#" class="box-home-category" >
+            <a href="{{route('categories',$category->id)}}" class="box-home-category" >
                 <img src="{{$category->image }}" style="max-height:300px" class="img-fluid" alt="">
                 <p>{{$category->name}}</p>
             </a>
