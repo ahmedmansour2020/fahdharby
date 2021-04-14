@@ -179,15 +179,21 @@ class UserController extends Controller
         ]);
     }
 
+    public function cart()
+    {
+        $title = 'سلة الطلبات';
+        $user=Auth::user();
+        $products=Cart::leftJoin('products','products.id','product_id')
+        ->where('carts.user_id',$user->id)
+        ->select('products.*','products.description_'.LangController::lang().' as description','products.name_'.LangController::lang().' as name','carts.id as cart_id','carts.qty as cart_qty')
+        ->get();
+        $this->product_main_image($products);
+        return view('home/cart', compact('title','products'));
+    }
     public function orders()
     {
         $title = 'الطلبيات';
         return view('home/orders', compact('title'));
-    }
-    public function cart()
-    {
-        $title = 'سلة الطلبات';
-        return view('home/cart', compact('title'));
     }
     public function location()
     {

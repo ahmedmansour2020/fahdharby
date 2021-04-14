@@ -25,7 +25,7 @@ Route::resource('review',ReviewController::class);
 Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_product'])->name('redirect_to_product')->middleware('auth');
 
 Route::get('/', [UserController::class, 'home'])->name('home');
-Route::get('cart', [UserController::class, 'cart'])->name('cart');
+Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('auth');
 Route::get('orders', [UserController::class, 'orders'])->name('orders');
 Route::get('location', [UserController::class, 'location'])->name('location');
 Route::get('pay', [UserController::class, 'pay'])->name('pay');
