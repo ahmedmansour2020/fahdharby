@@ -141,15 +141,14 @@ class UserController extends Controller
             ->get();
         $check_review = false;
 
-        if($user){
+        if ($user) {
             $review = Review::where('product_id', $product->id)->where('user_id', $user->id)->first();
             if ($review) {
                 $check_review = true;
             }
-        }else{
+        } else {
             $check_review = true;
         }
-
 
         $total = 5 * count($reviews);
         $total_reviews = 0;
@@ -162,7 +161,7 @@ class UserController extends Controller
 
             $reviews_stars = (100 * $total_reviews / $total);
         }
-        return view('home.product-details', compact('reviews_stars','check_review', 'title', 'reviews', 'images', 'product', 'supplier', 'check_auth', 'check_cart', 'related_products'));
+        return view('home.product-details', compact('reviews_stars', 'check_review', 'title', 'reviews', 'images', 'product', 'supplier', 'check_auth', 'check_cart', 'related_products'));
     }
 
     public function add_to_cart(Request $request)
@@ -182,13 +181,69 @@ class UserController extends Controller
     public function cart()
     {
         $title = 'سلة الطلبات';
-        $user=Auth::user();
-        $products=Cart::leftJoin('products','products.id','product_id')
-        ->where('carts.user_id',$user->id)
-        ->select('products.*','products.description_'.LangController::lang().' as description','products.name_'.LangController::lang().' as name','carts.id as cart_id','carts.qty as cart_qty')
-        ->get();
+        $user = Auth::user();
+        $products = Cart::leftJoin('products', 'products.id', 'product_id')
+            ->where('carts.user_id', $user->id)
+            ->where('carts.status', 0)
+            ->select('products.*', 'products.description_' . LangController::lang() . ' as description', 'products.name_' . LangController::lang() . ' as name', 'carts.id as cart_id', 'carts.qty as cart_qty')
+            ->get();
         $this->product_main_image($products);
-        return view('home/cart', compact('title','products'));
+        foreach ($products as $product) {
+            $reviews = Review::
+                leftJoin('users', 'users.id', 'user_id')
+                ->where('product_id', $product->id)
+                ->whereStatus(1)
+                ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+                ->orderBy('reviews.id', 'desc')
+                ->get();
+            $total = 5 * count($reviews);
+            $total_reviews = 0;
+            foreach ($reviews as $review) {
+                $total_reviews += $review->rate;
+            }
+            if (count($reviews) == 0) {
+                $reviews_stars = 0;
+            } else {
+                $reviews_stars = (100 * $total_reviews / $total);
+            }
+            $product->reviews_stars = $reviews_stars;
+            $product->reviews = count($reviews);
+            $product->supplier = User::find($product->user_id)->name;
+        }
+        return view('home/add_to_cart', compact('title', 'products'));
+    }
+    public function change_cart_qty(Request $request)
+    {
+        $id = request('id');
+        $qty = request('qty');
+        $cart = Cart::find($id);
+        $cart->qty = $qty;
+        $cart->save();
+        $user = Auth::user();
+        $all_cart = Cart::leftJoin('products', 'products.id', 'carts.product_id')
+        ->where('carts.user_id', $user->id)
+        ->where('carts.status',0)
+        ->select(DB::raw('(products.price*carts.qty) as total'))
+        ->get();
+
+        $total=0;
+        foreach($all_cart as $item){
+            $total+=$item->total;
+        }
+        return response()->json([
+            'success' => true,
+            'total'=>$total,
+        ]);
+    }
+    public function remove_from_cart($id)
+    {
+        $user = Auth::user();
+        $exist = Cart::where('user_id', $user->id)->where('id', $id)->first();
+
+        if ($exist) {
+            Cart::find($id)->delete();
+        }
+        return redirect()->back();
     }
     public function orders()
     {

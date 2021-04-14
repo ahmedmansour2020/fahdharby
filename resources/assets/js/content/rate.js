@@ -3,108 +3,122 @@ $(document).ready(function() {
     var total_rate = $('#rate_star').val();
     var rate_star = $('.rate_star')
 
-    $(rate_star).each(function(e) {
-        if (total_rate == 0) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).addClass('far fa-star');
-        } else if (total_rate <= 10) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).addClass('fa fa-star-half');
-        } else if (total_rate <= 20) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-        } else if (total_rate <= 30) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).addClass('fa fa-star-half');
-        } else if (total_rate <= 40) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-        } else if (total_rate <= 50) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-            $(rate_star[2]).removeClass('far fa-star');
-            $(rate_star[2]).addClass('fa fa-star-half');
-        } else if (total_rate <= 60) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-            $(rate_star[2]).removeClass('far fa-star');
-            $(rate_star[2]).removeClass('far fa-star-half');
-            $(rate_star[2]).addClass('fa fa-star');
-        } else if (total_rate <= 70) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-            $(rate_star[2]).removeClass('far fa-star');
-            $(rate_star[2]).removeClass('far fa-star-half');
-            $(rate_star[2]).addClass('fa fa-star');
-            $(rate_star[3]).removeClass('far fa-star');
-            $(rate_star[3]).addClass('fa fa-star-half');
-        } else if (total_rate <= 80) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-            $(rate_star[2]).removeClass('far fa-star');
-            $(rate_star[2]).removeClass('far fa-star-half');
-            $(rate_star[2]).addClass('fa fa-star');
-            $(rate_star[3]).removeClass('far fa-star');
-            $(rate_star[3]).removeClass('far fa-star-half');
-            $(rate_star[3]).addClass('fa fa-star');
-        } else if (total_rate <= 90) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-            $(rate_star[2]).removeClass('far fa-star');
-            $(rate_star[2]).removeClass('far fa-star-half');
-            $(rate_star[2]).addClass('fa fa-star');
-            $(rate_star[3]).removeClass('far fa-star');
-            $(rate_star[3]).removeClass('far fa-star-half');
-            $(rate_star[3]).addClass('fa fa-star');
-            $(rate_star[4]).removeClass('far fa-star');
-            $(rate_star[4]).addClass('fa fa-star-half');
-        } else if (total_rate <= 100) {
-            $(rate_star[0]).removeClass('far fa-star');
-            $(rate_star[0]).removeClass('far fa-star-half');
-            $(rate_star[0]).addClass('fa fa-star');
-            $(rate_star[1]).removeClass('far fa-star');
-            $(rate_star[1]).removeClass('far fa-star-half');
-            $(rate_star[1]).addClass('fa fa-star');
-            $(rate_star[2]).removeClass('far fa-star');
-            $(rate_star[2]).removeClass('far fa-star-half');
-            $(rate_star[2]).addClass('fa fa-star');
-            $(rate_star[3]).removeClass('far fa-star');
-            $(rate_star[3]).removeClass('far fa-star-half');
-            $(rate_star[3]).addClass('fa fa-star');
-            $(rate_star[4]).removeClass('far fa-star');
-            $(rate_star[4]).removeClass('far fa-star-half');
-            $(rate_star[4]).addClass('fa fa-star');
-        }
+
+    set_rate(rate_star, total_rate)
+
+    var products = $('.products_rates');
+    $(products).each(function(e) {
+        var id = $(this).val();
+        var total_rate = $('#rate_star_' + id).val();
+        var rate_star = $('.rate_star_' + id)
+        set_rate(rate_star, total_rate)
     })
 
+
+
+    function set_rate(rate_star, total_rate) {
+        $(rate_star).each(function(e) {
+            if (total_rate == 0) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).addClass('far fa-star');
+            } else if (total_rate <= 10) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).addClass('fa fa-star-half');
+            } else if (total_rate <= 20) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+            } else if (total_rate <= 30) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).addClass('fa fa-star-half');
+            } else if (total_rate <= 40) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+            } else if (total_rate <= 50) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+                $(rate_star[2]).removeClass('far fa-star');
+                $(rate_star[2]).addClass('fa fa-star-half');
+            } else if (total_rate <= 60) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+                $(rate_star[2]).removeClass('far fa-star');
+                $(rate_star[2]).removeClass('far fa-star-half');
+                $(rate_star[2]).addClass('fa fa-star');
+            } else if (total_rate <= 70) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+                $(rate_star[2]).removeClass('far fa-star');
+                $(rate_star[2]).removeClass('far fa-star-half');
+                $(rate_star[2]).addClass('fa fa-star');
+                $(rate_star[3]).removeClass('far fa-star');
+                $(rate_star[3]).addClass('fa fa-star-half');
+            } else if (total_rate <= 80) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+                $(rate_star[2]).removeClass('far fa-star');
+                $(rate_star[2]).removeClass('far fa-star-half');
+                $(rate_star[2]).addClass('fa fa-star');
+                $(rate_star[3]).removeClass('far fa-star');
+                $(rate_star[3]).removeClass('far fa-star-half');
+                $(rate_star[3]).addClass('fa fa-star');
+            } else if (total_rate <= 90) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+                $(rate_star[2]).removeClass('far fa-star');
+                $(rate_star[2]).removeClass('far fa-star-half');
+                $(rate_star[2]).addClass('fa fa-star');
+                $(rate_star[3]).removeClass('far fa-star');
+                $(rate_star[3]).removeClass('far fa-star-half');
+                $(rate_star[3]).addClass('fa fa-star');
+                $(rate_star[4]).removeClass('far fa-star');
+                $(rate_star[4]).addClass('fa fa-star-half');
+            } else if (total_rate <= 100) {
+                $(rate_star[0]).removeClass('far fa-star');
+                $(rate_star[0]).removeClass('far fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star');
+                $(rate_star[1]).removeClass('far fa-star');
+                $(rate_star[1]).removeClass('far fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star');
+                $(rate_star[2]).removeClass('far fa-star');
+                $(rate_star[2]).removeClass('far fa-star-half');
+                $(rate_star[2]).addClass('fa fa-star');
+                $(rate_star[3]).removeClass('far fa-star');
+                $(rate_star[3]).removeClass('far fa-star-half');
+                $(rate_star[3]).addClass('fa fa-star');
+                $(rate_star[4]).removeClass('far fa-star');
+                $(rate_star[4]).removeClass('far fa-star-half');
+                $(rate_star[4]).addClass('fa fa-star');
+            }
+        })
+    }
 
 
     $('.rate').each(function(e) {
