@@ -7,14 +7,14 @@ use App\Http\Controllers\UserController;
 @section('home')
 <?php
 $home=true;
+
 ?>
 @endsection
-
 
 <div class="container-fluid px-5 " >
     <div class="row h-100 siteWidthContainer " >
 
-        <div class="bannerContainer h-100 col-lg-1 col-md-3 text-break ">
+        <div class="bannerContainer h-100 col-lg-2 col-md-3 text-break ">
             <div class="row h-100 text-center">
                 <div class="col-12 h-75">
 
@@ -28,7 +28,7 @@ $home=true;
             </div>
         </div>
         @foreach(UserController::getParentCategory(11) as $category)
-        <div class="bannerContainer h-100 col-lg-1 col-md-3 text-break ">
+        <div class="bannerContainer h-100 col-lg-2 col-md-3 text-break ">
             <div class="row h-100 text-center">
                 <div class="col-12 h-75">
 

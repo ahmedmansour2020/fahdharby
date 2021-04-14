@@ -27,8 +27,8 @@
                     <a class="dropdown-item" href="#">English</a>
                 </div>
             </li>
-            <a href="#" class="btn btn-primary btn-chart">تسجيل دخول</a>
-            <a href="#" class="btn border-primary">تسجيل دخول</a>
+            <a href="#" class="btn btn-primary login btn-chart ml-3">تسجيل دخول</a>
+            <a href="#" class="btn btn-chart bg-white border-primary ml-3" style="color: #306EFF">حساب جديد</a>
 
         
         </ul>

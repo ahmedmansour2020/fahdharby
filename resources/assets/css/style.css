@@ -12,7 +12,18 @@ body {
 }
 
 /* Start register page */
-
+.jconfirm-closeIcon {
+    display: block;
+    background: #fff !important;
+    border: 1px solid #306EFF !important;
+    border-radius: 50%;
+    color: #306EFF !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding-top: 8px !important;
+    font-size: 44px !important;
+    font-weight: 700 !important;
+}
 .form-login .card {
   width: 70%;
   height: auto;
@@ -118,20 +129,20 @@ body {
   margin-bottom: 80px;
 }
 
-.login {
+.register-login {
   margin-top: 60px;
   margin-bottom: 30px;
 }
 
 .register p,
-.login p {
+.register-login p {
   font-size: 28px;
   font-weight: 700;
   color: #000;
 }
 
 .register a,
-.login a {
+.register-login a {
   text-decoration: none;
   color: #306eff;
   margin-right: 30px;

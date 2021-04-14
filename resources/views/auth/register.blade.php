@@ -24,16 +24,16 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <input type="text" name="name" placeholder="اسم المستخدم">
+                                <input type="text" class="w-100" name="name" placeholder="اسم المستخدم">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" placeholder="البريد الألكتروني">
+                                <input type="email" class="w-100" name="email" placeholder="البريد الألكتروني">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder=" كلمة المرور">
+                                <input type="password" class="w-100" name="password" placeholder=" كلمة المرور">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور">
+                                <input type="password" class="w-100" name="password_confirmation" placeholder="تأكيد كلمة المرور">
                             </div>
                             <div class="row">
                             @foreach(App\Http\Controllers\HomeController::genders() as $gender)
@@ -47,7 +47,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
                             <p class="or">او</p>
-                            <div class="login text-center">
+                            <div class="register-login text-center">
                                 <p> هل لديك حساب بالفعل ! <a href="{{route('login')}}">سجل الان</a> </p>
                             </div>
 
