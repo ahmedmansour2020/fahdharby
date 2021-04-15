@@ -36,6 +36,17 @@ use App\Http\Controllers\NotificationController;
         <a href="{{ route('brand.create') }}" class="accordion-body">اضافة العلامات التجارية</a>
       </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-heading1">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="false" aria-controls="flush-collapseTwo">
+          <img src="{{URL::asset('resources/assets/images/sale-tag.png')}}" alt=""> كوبونات الخصم
+        </button>
+      </h2>
+      <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionFlushExample">
+        <a href="{{ route('promocode.index') }}" class="accordion-body">ادارة كوبونات الخصم</a>
+        <a href="{{ route('promocode.create') }}" class="accordion-body">اضافة كوبون خصم</a>
+      </div>
+    </div>
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingThree">

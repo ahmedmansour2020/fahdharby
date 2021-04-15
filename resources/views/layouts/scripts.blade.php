@@ -54,4 +54,7 @@ owl.owlCarousel({
    
 });
 
+$('.logout').on('click',function(){
+    $('#logout').click();
+})
 </script>

@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $title="الفئات";
         if (request()->ajax()) {
-            $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name', 'image')->get();
+            $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name', 'image')->orderBy('id','desc')->get();
             $index = 1;
             foreach ($categories as $category) {
                 $category->index = $index++;
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     {
         $title="الفئات الفرعية";
         if (request()->ajax()) {
-            $categories = Category::where('parent_id', $id)->select('id', 'name_' . LangController::lang() . ' as name', 'image')->get();
+            $categories = Category::where('parent_id', $id)->select('id', 'name_' . LangController::lang() . ' as name', 'image')->orderBy('id','desc')->get();
             $index = 1;
             foreach ($categories as $category) {
                 $category->index = $index++;

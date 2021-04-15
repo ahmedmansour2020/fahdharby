@@ -15,6 +15,13 @@
     @yield('home')
 </head>
 <body>
+    <div class="hidden">
+
+        <form  method="POST" action="{{route('logout')}}">
+            @csrf
+            <button id="logout" class="hidden"></button>
+        </form>
+    </div>
     @if(isset($home))
     @include("layouts.navbar-home")
     @else

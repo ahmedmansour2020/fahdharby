@@ -24,4 +24,20 @@ $(document).ready(function() {
         }
     })
 
+    $('#send_code').on('click', function() {
+        var promocode = $('#promocode').val();
+        var data = {
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+            'promocode': promocode,
+        }
+        $.post(add_promocode, data, function(response) {
+            if (response.success) {
+                $('#message').html(`<span style="color:green">${response.message}</span>`)
+            } else {
+                $('#message').html(`<span style="color:red">${response.message}</span>`)
+            }
+
+        })
+    })
+
 })

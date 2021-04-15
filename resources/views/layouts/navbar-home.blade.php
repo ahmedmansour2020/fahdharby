@@ -27,10 +27,14 @@
                     <a class="dropdown-item" href="#">English</a>
                 </div>
             </li>
+            @guest
             <a href="#" class="btn btn-primary login btn-chart ml-3">تسجيل دخول</a>
             <a href="#" class="btn btn-chart bg-white border-primary ml-3" style="color: #306EFF">حساب جديد</a>
-
+            @endguest
+            @auth
+            <a href="#" class="btn btn-chart bg-white border-primary ml-3 logout" style="color: #306EFF">تسجيل خروج </a>
+            @endauth
         
         </ul>
-        <a href="{{url('/chart')}}" class="btn btn-primary btn-chart">سلة الشراء <img src="{{URL::asset('resources/assets/images/shopping-chart.png')}}" class="img-fluid" alt=""></a>
+        <a href="{{route('cart')}}" class="btn btn-primary btn-chart">سلة الشراء <img src="{{URL::asset('resources/assets/images/shopping-chart.png')}}" class="img-fluid" alt=""></a>
 </nav>

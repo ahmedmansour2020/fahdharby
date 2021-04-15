@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PromocodeController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -45,7 +46,7 @@ Route::get('categories/{id}', [UserController::class, 'to_sub_categories'])->nam
 Route::get('products/{id}',[UserController::class,'to_products'])->name('products');
 
 Route::get('product-details/{id}', [UserController::class,'product_details'])->name('product-details');
-
+Route::post('add_promocode',[PromocodeController::class,'add_promocode'])->name('add_promocode');
 
 
 
@@ -111,11 +112,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::resource('category', CategoryController::class);
     Route::resource('brand', BrandController::class);
     Route::resource('approval', ApprovalController::class);
+    Route::resource('promocode', PromocodeController::class);
 
     Route::get('/', [VendorController::class, 'dashboard_admin'])->name('admin');
     Route::get('/notifications', [NotificationController::class, 'get_current_notifications'])->name('get_current_notifications');
     Route::get('/category/sub/{id}', [CategoryController::class, 'index_sub'])->name('category.index_sub');
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
+    Route::get('/promocode/delete/{id}', [PromocodeController::class, 'destroy']);
     Route::post('/category/delete/image', [CategoryController::class, 'delete_image'])->name('category_delete_image');
     Route::get('/brand/delete/{id}', [BrandController::class, 'destroy']);
     Route::post('/brand/delete/image', [BrandController::class, 'delete_image'])->name('brand_delete_image');

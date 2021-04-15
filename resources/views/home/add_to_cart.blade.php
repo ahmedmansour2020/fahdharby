@@ -115,10 +115,11 @@ $total=0;
                 <p id="total_price">{{$total}}$</p>
             </div>
             <a href="#" class="btn btn-primary w-100 py-3">إتمام عملية الشراء</a>
-            <form action="">
-                <input type="text" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
-                <button class="btn btn-primary mr-4" type="submit">إضافة</button>
-            </form>
+            
+                <input type="text" id="promocode" name="promocode" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
+                <button class="btn btn-primary mr-4" type="button" id="send_code">إضافة</button>
+            <div id="message">
+            </div>
 
             <div class="buttons-remove mt-4">
 
@@ -137,6 +138,7 @@ $total=0;
 @section('page_js')
 <script>
     var change_cart_qty="{{route('change_cart_qty')}}";
+    var add_promocode="{{route('add_promocode')}}";
 </script>
 <script src="{{asset('resources/assets/js/content/rate.js')}}"></script>
 <script src="{{asset('resources/assets/js/content/cart.js')}}"></script>

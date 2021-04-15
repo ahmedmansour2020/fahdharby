@@ -18,6 +18,11 @@ class UserController extends Controller
 {
     public function home()
     {
+        $user=Auth::user();
+        $check_auth=false;
+        if($user){
+            $check_auth=true;
+        }
         $title = 'الصفحة الرئيسية';
         $sliders = Slider::whereStatus(1)->get();
         foreach ($sliders as $slider) {
@@ -26,8 +31,40 @@ class UserController extends Controller
             $slider->content = str_replace("\n", "<br>", $slider->content);
         }
         $latest_products = Product::whereStatus(1)->select('id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')->orderBy('id', 'desc')->limit(20)->get();
+        foreach ($latest_products as $product) {
+            $reviews = Review::
+                leftJoin('users', 'users.id', 'user_id')
+                ->where('product_id', $product->id)
+                ->whereStatus(1)
+                ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+                ->orderBy('reviews.id', 'desc')
+                ->get();
+            $total = 5 * count($reviews);
+            $total_reviews = 0;
+            foreach ($reviews as $review) {
+                $total_reviews += $review->rate;
+            }
+            if (count($reviews) == 0) {
+                $reviews_stars = 0;
+            } else {
+                $reviews_stars = (100 * $total_reviews / $total);
+            }
+            $product->reviews_stars = $reviews_stars;
+            $product->reviews = count($reviews);
+
+
+                $check_cart_related = false;
+                if ($user) {
+                    $cart_item = Cart::where('user_id', $user->id)->where('product_id', $product->id)->whereStatus(0)->first();
+                    if ($cart_item) {
+                        $check_cart_related = true;
+                    }
+                }
+                $product->check_cart_related = $check_cart_related;
+        
+        }
         $this->product_main_image($latest_products);
-        return view('welcome', compact('title', 'sliders', 'latest_products'));
+        return view('welcome', compact('title', 'sliders', 'latest_products','check_auth'));
     }
     public static function getParentCategory($limit)
     {
