@@ -1,5 +1,11 @@
 @extends('layouts.layout')
 @section('title',isset($title)?$title:'')
+@section('home')
+<?php
+$home=true;
+
+?>
+@endsection
 @section('content') 
 @section('page_css')
     <link rel="stylesheet" href="{{ URL::asset('resources/assets/css/intlTelInput.css') }}">

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\LangController;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\LangController;
 
 class ApprovalController extends Controller
 {
@@ -75,10 +76,26 @@ class ApprovalController extends Controller
                         }
                     }
                     break;
+                case 'offers':
+                    $items = ProductOffer::orderBy('id','desc')->get();
+
+                    foreach ($items as $item) {
+                        $product=Product::find($item->product_id);
+                        $image = ProductImage::where('product_id', $product->id)->where('main', 1)->first();
+                        if ($image) {
+                            $item->image = asset('uploaded/' . $image->name);
+                        } else {
+                            $item->image = null;
+                        }
+                        $item->main_price=$product->price;
+                        $item->after_price=(int)($product->price-($product->price*$item->offer/100));
+                        $item->name=$product->name_ar;
+                    }
+                    break;
             }
             return datatables()->of($items)->addIndexColumn()->make(true);
         }
-        return view('admin.approval.products', compact('title'));
+        return view('admin.approval.'.$id, compact('title'));
     }
     public function change_product_status(Request $request)
     {
@@ -98,6 +115,28 @@ class ApprovalController extends Controller
                 break;
             case 3:
                 $message = "تم رفض هذا المنتج";
+                break;
+        }
+        return response()->json([
+            'success' => true,
+            'message'=>$message
+        ]);
+    }
+    public function change_offer_status(Request $request)
+    {
+        $id = request('id');
+        $status = request('status');
+
+        $product = ProductOffer::find($id);
+        $product->approved = $status;
+        $product->save();
+        $message = "";
+        switch ($status) {
+            case 1:
+                $message = "تمت الموافقة على هذا العرض";
+                break;
+            case 0:
+                $message = "تم إيقاف هذا العرض";
                 break;
         }
         return response()->json([

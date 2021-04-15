@@ -203,6 +203,77 @@ $(document).ready(function() {
         }],
         ordering: false,
     });
+    var products_offers = $("#products_offers").DataTable({
+        dom: "lBfrtip",
+        processing: false,
+        serverSide: true,
+        destroy: true,
+        ajax: {
+            url: vendor_site + "/offers/products",
+            type: "GET",
+
+        },
+        language: {
+            url: language,
+        },
+        "pageLength": 100,
+        "bInfo": false,
+        "bFilter": false,
+        "bLengthChange": false,
+        columns: [{
+                data: "image",
+                name: "image",
+                render: function(d, t, r, m) {
+                    if (d == null) {
+                        return null
+                    } else {
+
+                        return `
+                        <img width="80" height="80" src="${d}" alt>
+                        `;
+                    }
+                }
+            },
+            {
+                data: "name",
+                name: "name"
+            },
+            {
+                data: "price",
+                name: "price"
+            },
+            {
+                data: "qty",
+                name: "qty"
+            },
+
+            {
+                data: "action",
+                name: "action",
+                render: function(d, t, r, m) {
+                    return `
+                    <button class="btn btn-outline-dark offer" data-id="${r.id}" type="button"><i class="fa fa-gift "></i></button>
+                    `;
+                }
+            },
+            {
+                data: "menu",
+                name: "menu",
+                render: function(d, t, r, m) {
+                    return `
+                    <a class="btn btn-info" href="${vendor_site}/offers/product/${r.id}" type="button"><i class="fa fa-bars "></i></a>
+                    `;
+                }
+            },
+
+
+        ],
+        columnDefs: [{
+            targets: [0, 1, 2, 3, 4],
+            searchable: false
+        }],
+        ordering: false,
+    });
 
     $(".dataTables_length").addClass("bs-select");
 
@@ -285,5 +356,55 @@ $(document).ready(function() {
                 }
             });
         }
+    })
+
+    $(document).on('click', '.offer', function() {
+        var id = $(this).data('id');
+        var content = `
+        <div class="row w-100">
+        <div class="form-group col-12">
+        <label>نسبة الخصم</label>
+        <input class="form-control " id="offer" type="number" placeholder="%">
+        </div>
+        <div class="form-group col-12">
+        <label>من</label>
+        <input class="form-control " id="start" type="date">
+        </div>
+        <div class="form-group col-12">
+        <label>إلى</label>
+        <input class="form-control " id="end" type="date">
+        </div>
+        </div>
+        `;
+        $.confirm({
+            title: 'إضافة عرض للمنتج',
+            content: content,
+            buttons: {
+                تنفيذ: {
+                    btnClass: 'btn btn-success',
+                    action: function() {
+                        var offer = $('#offer').val();
+                        var start = $('#start').val();
+                        var end = $('#end').val();
+                        var data = {
+                            '_token': $('meta[name="csrf-token"]').attr('content'),
+                            'id': id,
+                            'offer': offer,
+                            'start': start,
+                            'end': end
+                        }
+                        $.post(add_offer, data, function(response) {
+                            products_offers.ajax.reload();
+                        });
+                    }
+                },
+                إلغاء: {
+                    btnClass: 'btn btn-danger',
+                    action: function() {
+
+                    }
+                }
+            }
+        })
     })
 });

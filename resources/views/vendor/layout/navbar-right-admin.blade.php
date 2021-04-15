@@ -57,6 +57,7 @@ use App\Http\Controllers\NotificationController;
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
         <a href="#" class="accordion-body nav-approval">مستخدمين <span class="notification" id="notification-users"></span></a>
         <a href="{{route('approval.show','products')}}" class="accordion-body nav-approval">منتجات <span class="notification" id="notification-products">{{NotificationController::products_approval_counts()}}</span></a>
+        <a href="{{route('approval.show','offers')}}" class="accordion-body nav-approval">عروض <span class="notification" id="notification-offers">{{NotificationController::offers_approval_counts()}}</span></a>
       </div>
     </div>
 

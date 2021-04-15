@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\ProductImage;
+use App\Models\ProductOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -137,6 +138,87 @@ class ProductController extends Controller
         }
         return redirect()->back()->with('success', __('items.success_update'));
     }
+    public function to_products_offers(){
+        $title="قائمة المنتجات";
+        $user=Auth::user();
+        if(request()->ajax()){
+            $products=Product::whereStatus(1)->where('user_id',$user->id)->select('products.*','name_'.LangController::lang().' as name')->orderBy('id','desc')->get();
+            foreach ($products as $product) {
+                $image = ProductImage::where('product_id', $product->id)->where('main', 1)->first();
+                if ($image) {
+                    $product->image = asset('uploaded/' . $image->name);
+                } else {
+                    $product->image = null;
+                }
+            }
+            return datatables()->of($products)->addIndexColumn()->make(true);
+        }
+        return view('vendor.show.products_offers',compact('title'));
+    }
+    public function to_product_offers($id){
+        $status=request('status');
+        $product=Product::find($id);
+        $title="عروض المنتج ".$product->name_ar;
+        if(request()->ajax()){
+            $offers=ProductOffer::where('product_id',$id)->orderBy('id','desc');
+            if($status!=""){
+                $offers->where('status',$status);
+            }
+            $offers=$offers->get();
+            foreach($offers as $offer){
+                $offer->main_price=$product->price;
+                $offer->after_price=(int)($product->price-($product->price*$offer->offer/100));
+            }
+            return datatables()->of($offers)->addIndexColumn()->make(true);
+        }
+        return view('vendor.show.product_offers',compact('title','id'));
+    }
+    public function add_offer(Request $request){
+        $id=request('id');
+        $start=request('start');
+        $end=request('end');
+        $offer=request('offer');
+        $new_offer=new ProductOffer();
+        $new_offer->product_id=$id;
+        $new_offer->start=$start;
+        $new_offer->end=$end;
+        $new_offer->offer=$offer;
+        $new_offer->save();
+
+        return response()->json([
+            'success'=>true,
+        ]);
+    }
+    public function delete_offer($id){
+        $offer=ProductOffer::find($id);
+        $product=Product::find($offer->product_id);
+        $user=Auth::user();
+        if($user->role_id==1){
+            ProductOffer::find($id)->delete();
+        }else{
+
+            if($product->user_id==$user->id){
+                ProductOffer::find($id)->delete();
+            }
+        }
+
+        return redirect()->back();
+    }
+    public static function arrange_offers_status(){
+        $date=date('Y-m-d');
+        $offers=ProductOffer::get();
+        foreach($offers as $offer){
+            $changed_offer=ProductOffer::find($offer->id);
+            if($date>=$changed_offer->start&&$date<=$changed_offer->end){
+                $changed_offer->status=1; 
+            }elseif($date<$changed_offer->start){
+                $changed_offer->status=0; 
+            }elseif($date>$changed_offer->end){
+                $changed_offer->status=2;
+            }
+            $changed_offer->save();
+        }
+    } 
     /**
      * Show the form for creating a new resource.
      *

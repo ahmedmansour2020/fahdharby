@@ -126,7 +126,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show.admin');
     Route::get('/product/delete/{id}', [ProductController::class, 'destroy']);
     Route::post('/change_product_status', [ApprovalController::class, 'change_product_status'])->name('change_product_status');
-
+    Route::post('/change_offer_status', [ApprovalController::class, 'change_offer_status'])->name('change_offer_status');
+    Route::get('/offer/delete/{id}', [ProductController::class, 'delete_offer']);
     Route::get('/settings/info', [SettingController::class, 'to_info'])->name('setting.info');
     Route::get('/settings/sliders', [SettingController::class, 'to_sliders'])->name('setting.sliders');
     Route::get('/settings/sliders/create', [SettingController::class, 'create_slider'])->name('create.slider');
@@ -147,11 +148,15 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['auth', 'vendor']], funct
     Route::get('/product?stored=true', [ProductController::class, 'index'])->name('product.stored');
     Route::get('/product/delete/{id}', [ProductController::class, 'destroy']);
     Route::get('/inventory', [ProductController::class, 'inventory'])->name('inventory');
+    Route::get('/offers/products', [ProductController::class, 'to_products_offers'])->name('product.offers');
+    Route::get('/offers/product/{id}', [ProductController::class, 'to_product_offers']);
+    Route::get('/offer/delete/{id}', [ProductController::class, 'delete_offer']);
     Route::get('/edit-quantity/{id}/{qty}', [ProductController::class, 'edit_qty']);
     Route::get('/make-zero/{id}', [ProductController::class, 'make_zero']);
     
     Route::get('/set-main-image/{id}', [ProductController::class, 'to_main_image'])->name('main_image');
     Route::post('/set_main_image', [ProductController::class, 'set_main_image'])->name('image.main');
+    Route::post('/add_offer', [ProductController::class, 'add_offer'])->name('add_offer');
     
     Route::get('main-add-product', function () {
         return view('vendor/show/main-add-product');

@@ -23,6 +23,7 @@ $(document).ready(function() {
             $('#notification-all').text(response.all_aproval);
             $('#notification-users').text();
             $('#notification-products').text(response.products_approval);
+            $('#notification-offers').text(response.offers_approval);
             set_notifications()
         })
         set_notifications()

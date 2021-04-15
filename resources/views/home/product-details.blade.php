@@ -1,6 +1,11 @@
 @extends('layouts.layout')
 @section('title', isset($title) ? $title : '')
+@section('home')
+<?php
+$home=true;
 
+?>
+@endsection
 @section('content')
 
 <div class="container">

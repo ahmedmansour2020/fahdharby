@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 $user = Illuminate\Support\Facades\Auth::user();
+App\Http\Controllers\ProductController::arrange_offers_status();
 ?>
 
 <head>
@@ -20,6 +21,7 @@ $user = Illuminate\Support\Facades\Auth::user();
     var slider_delete_image = "{{route('slider_delete_image')}}";
     var brand_delete_image = "{{route('brand_delete_image')}}";
     var change_product_status = "{{route('change_product_status')}}";
+    var change_offer_status = "{{route('change_offer_status')}}";
     var get_current_notifications = "{{route('get_current_notifications')}}";
     var change_slider_status = "{{route('change_slider_status')}}";
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";

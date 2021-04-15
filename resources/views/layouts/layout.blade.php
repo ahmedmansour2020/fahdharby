@@ -1,3 +1,6 @@
+<?php
+App\Http\Controllers\ProductController::arrange_offers_status();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
