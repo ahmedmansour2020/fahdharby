@@ -1127,6 +1127,7 @@ input.code-phone {
 .last-process-buy {
   border-spacing: 0;
   width: 100%;
+  height: 56vh;
 }
 .last-process-buy tr th {
   font-size: 32px;

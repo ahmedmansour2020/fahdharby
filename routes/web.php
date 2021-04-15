@@ -101,6 +101,10 @@ Route::get('purchase', function () {
     return view('home/purchase');
 })->name('purchase');
 
+Route::get('rate', function () {
+    return view('home/rate');
+})->name('rate');
+
 //code here
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
