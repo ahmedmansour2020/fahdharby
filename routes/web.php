@@ -47,7 +47,7 @@ Route::get('products/{id}',[UserController::class,'to_products'])->name('product
 
 Route::get('product-details/{id}', [UserController::class,'product_details'])->name('product-details');
 Route::post('add_promocode',[PromocodeController::class,'add_promocode'])->name('add_promocode');
-
+Route::get('checkout', [UserController::class,'checkout'])->name('checkout')->middleware('auth');
 
 
 Route::get('orders-no-product', function () {
@@ -94,9 +94,7 @@ Route::get('account', function () {
 
 
 
-Route::get('checkout', function () {
-    return view('home/checkout');
-})->name('checkout');
+
 
 Route::get('purchase', function () {
     return view('home/purchase');

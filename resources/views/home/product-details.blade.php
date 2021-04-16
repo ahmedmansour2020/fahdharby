@@ -70,11 +70,16 @@ $home=true;
             <div class="content-product-details">
                 <div class="title-products d-flex flex-row justify-content-lg-between">
                     <h3>{{$product->name}}</h3>
+
+                    @if($product->old_price!=null)
+                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b></span>
+                    @else
                     <span>{{$product->price}}$</span>
+                    @endif
                 </div>
                 <p>{{$product->description}}</p>
-                <a data-id="{{$product->id}}" href="{{route('redirect_to_product',$product->id)}}"
-                    class="btn btn-primary w-100 py-3 @if($check_auth) add_to_cart @endif @if($check_cart) disabled @endif">
+                <a data-id="{{$product->id}}" 
+                    class="btn btn-primary w-100 py-3 @if($check_auth) add_to_cart @else login @endif @if($check_cart) disabled @endif">
                     @if($check_auth)
                     @if($check_cart)
                     المنتج موجود بالعربة
@@ -240,12 +245,16 @@ $home=true;
                         <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
                         <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
                     </div>
+                    @if($item->old_price!=null)
+                    <span><del style="font-size:20px">{{$item->old_price}}$</del> <b class="text-success">{{$item->price}}$</b></span>
+                    @else
                     <span>{{$item->price}}$</span>
+                    @endif
                     <p>{{$item->desciption}}</p>
                 </div>
                 <div class="product-footer">
-                    <a data-id="{{$item->id}}" href="{{route('redirect_to_product',$product->id)}}"
-                        class="btn btn-primary w-100  @if($check_auth) add_to_cart @endif @if($item->check_cart_related) disabled @endif">
+                    <a data-id="{{$item->id}}"
+                        class="btn btn-primary w-100  @if($check_auth) add_to_cart @else login  @endif @if($item->check_cart_related) disabled @endif">
                         @if($check_auth)
                         @if($item->check_cart_related)
                         المنتج موجود بالعربة

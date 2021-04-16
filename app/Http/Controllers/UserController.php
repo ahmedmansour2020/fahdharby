@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductOffer;
 use App\Models\Review;
 use App\Models\Slider;
 use App\Models\User;
@@ -18,10 +19,10 @@ class UserController extends Controller
 {
     public function home()
     {
-        $user=Auth::user();
-        $check_auth=false;
-        if($user){
-            $check_auth=true;
+        $user = Auth::user();
+        $check_auth = false;
+        if ($user) {
+            $check_auth = true;
         }
         $title = 'الصفحة الرئيسية';
         $sliders = Slider::whereStatus(1)->get();
@@ -52,19 +53,18 @@ class UserController extends Controller
             $product->reviews_stars = $reviews_stars;
             $product->reviews = count($reviews);
 
-
-                $check_cart_related = false;
-                if ($user) {
-                    $cart_item = Cart::where('user_id', $user->id)->where('product_id', $product->id)->whereStatus(0)->first();
-                    if ($cart_item) {
-                        $check_cart_related = true;
-                    }
+            $check_cart_related = false;
+            if ($user) {
+                $cart_item = Cart::where('user_id', $user->id)->where('product_id', $product->id)->whereStatus(0)->first();
+                if ($cart_item) {
+                    $check_cart_related = true;
                 }
-                $product->check_cart_related = $check_cart_related;
-        
+            }
+            $product->check_cart_related = $check_cart_related;
+
         }
         $this->product_main_image($latest_products);
-        return view('welcome', compact('title', 'sliders', 'latest_products','check_auth'));
+        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth'));
     }
     public static function getParentCategory($limit)
     {
@@ -140,7 +140,13 @@ class UserController extends Controller
         $images = ProductImage::where('product_id', $id)->get();
         $title = $product->name;
         $supplier = User::find($product->user_id);
-
+        $offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+        if ($offer) {
+            $product->old_price = $product->price;
+            $product->price = (int) ($product->price - ($product->price * $offer->offer / 100));
+        } else {
+            $product->old_price = null;
+        }
         $user = Auth::user();
         $check_auth = false;
         $check_cart = false;
@@ -168,6 +174,13 @@ class UserController extends Controller
                 }
             }
             $item->check_cart_related = $check_cart_related;
+            $related_offer = ProductOffer::where('product_id', $item->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $item->old_price = $item->price;
+                $item->price = (int) ($item->price - ($item->price * $related_offer->offer / 100));
+            } else {
+                $item->old_price = null;
+            }
         }
         $reviews = Review::
             leftJoin('users', 'users.id', 'user_id')
@@ -246,6 +259,13 @@ class UserController extends Controller
             $product->reviews_stars = $reviews_stars;
             $product->reviews = count($reviews);
             $product->supplier = User::find($product->user_id)->name;
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
         }
         return view('home/add_to_cart', compact('title', 'products'));
     }
@@ -258,18 +278,26 @@ class UserController extends Controller
         $cart->save();
         $user = Auth::user();
         $all_cart = Cart::leftJoin('products', 'products.id', 'carts.product_id')
-        ->where('carts.user_id', $user->id)
-        ->where('carts.status',0)
-        ->select(DB::raw('(products.price*carts.qty) as total'))
-        ->get();
+            ->where('carts.user_id', $user->id)
+            ->where('carts.status', 0)
+            ->select('products.price','carts.qty', 'products.id')
+            ->get();
+        foreach ($all_cart as $item) {
 
-        $total=0;
-        foreach($all_cart as $item){
-            $total+=$item->total;
+            $offer = ProductOffer::where('product_id', $item->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($offer) {
+                $item->total=(int)($item->price-($item->price*$offer->offer/100))*$item->qty;
+            }else{
+                $item->total=$item->price*$item->qty;
+            }
+        }
+        $total = 0;
+        foreach ($all_cart as $item) {
+            $total += $item->total;
         }
         return response()->json([
             'success' => true,
-            'total'=>$total,
+            'total' => $total,
         ]);
     }
     public function remove_from_cart($id)
@@ -282,6 +310,15 @@ class UserController extends Controller
         }
         return redirect()->back();
     }
+
+public function checkout(){
+    $title="إتمام عملية الدفع";
+    $user=Auth::user();
+    // $cart=Cart::where('')
+    return view('home/checkout',compact('title'));
+}
+
+
     public function orders()
     {
         $title = 'الطلبيات';

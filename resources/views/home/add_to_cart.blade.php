@@ -25,7 +25,12 @@ $total=0;
                             <img src="{{ $product->image }}" class="img-fluid" style="width: 30%; margin-left: 20px"
                                 alt="">
                             <div class="d-inline-block title-products">
-                                <h3>{{$product->name}}</h3>
+                                <h3>{{$product->name}} 
+                                    @if($product->old_price!=null)
+                                    (<del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b>)
+                                    @endif
+                                </h3>
+ 
                                 <span id="cart_price_{{$product->cart_id}}">
                                     @if($product->cart_qty==1)
                                     {{$product->price}}$
@@ -119,7 +124,7 @@ $total=0;
                 <h3>السعر النهائي</h3>
                 <p id="total_price">{{$total}}$</p>
             </div>
-            <a href="#" class="btn btn-primary w-100 py-3">إتمام عملية الشراء</a>
+            <a href="{{route('checkout')}}" class="btn btn-primary w-100 py-3">إتمام عملية الشراء</a>
             
                 <input type="text" id="promocode" name="promocode" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
                 <button class="btn btn-primary mr-4" type="button" id="send_code">إضافة</button>
