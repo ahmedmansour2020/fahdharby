@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PromocodeController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -28,13 +29,18 @@ Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_produc
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('auth');
 
-Route::get('orders', [UserController::class, 'orders'])->name('orders');
-Route::get('location', [UserController::class, 'location'])->name('location');
-Route::get('pay', [UserController::class, 'pay'])->name('pay');
-Route::get('wallet', [UserController::class, 'wallet'])->name('wallet');
-Route::get('process-pay', [UserController::class, 'process_pay'])->name('process-pay');
-Route::get('product-return', [UserController::class, 'product_return'])->name('product-return');
-Route::get('create-order-return', [UserController::class, 'create_order_return'])->name('create-order-return');
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'user']], function () {
+    Route::get('/', [DashboardController::class, 'orders'])->name('dashboard');
+    Route::get('orders', [DashboardController::class, 'orders'])->name('orders');
+    Route::get('location', [DashboardController::class, 'location'])->name('location');
+    Route::get('pay', [DashboardController::class, 'pay'])->name('pay');
+    Route::get('wallet', [DashboardController::class, 'wallet'])->name('wallet');
+    Route::get('process-pay', [DashboardController::class, 'process_pay'])->name('process-pay');
+    Route::get('product-return', [DashboardController::class, 'product_return'])->name('product-return');
+    Route::get('create-order-return', [DashboardController::class, 'create_order_return'])->name('create-order-return');
+
+    Route::post('save_location',[DashboardController::class, 'save_location'])->name('save_location');
+});
 Route::post('add_to_cart',[UserController::class, 'add_to_cart'])->name('add_to_cart');
 Route::post('change_cart_qty',[UserController::class, 'change_cart_qty'])->name('change_cart_qty');
 

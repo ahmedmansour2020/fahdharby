@@ -12,6 +12,7 @@ $total=0;
 ?>
 <div class="container">
     <div class="row mt-5">
+        @if(count($products)>0)
         <div class="col-sm-12 col-md-12 col-lg-8">
             @foreach($products as $product)
             <?php
@@ -25,12 +26,13 @@ $total=0;
                             <img src="{{ $product->image }}" class="img-fluid" style="width: 30%; margin-left: 20px"
                                 alt="">
                             <div class="d-inline-block title-products">
-                                <h3>{{$product->name}} 
+                                <h3 dir="rtl">{{$product->name}}
                                     @if($product->old_price!=null)
-                                    (<del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b>)
+                                    (<del style="font-size:20px">{{$product->old_price}}$</del> <b
+                                        class="text-success">{{$product->price}}$</b>)
                                     @endif
                                 </h3>
- 
+
                                 <span id="cart_price_{{$product->cart_id}}">
                                     @if($product->cart_qty==1)
                                     {{$product->price}}$
@@ -51,7 +53,7 @@ $total=0;
                                     height: 38px;">
                                     @for($i=1;$i<$product->qty/3;$i++)
                                         <option @if($product->cart_qty==$i) selected @endif>{{$i}}</option>
-                                    @endfor
+                                        @endfor
                                 </select>
                             </form>
                         </div>
@@ -104,7 +106,8 @@ $total=0;
                     <div class="row w-100">
                         <div class="col-12">
                             <hr>
-                            <a class="btn bg-white border border-dark p-2 px-3" href="{{route('remove_from_cart',$product->cart_id)}}">
+                            <a class="btn bg-white border border-dark p-2 px-3"
+                                href="{{route('remove_from_cart',$product->cart_id)}}">
                                 <i class="fa fa-trash"></i>
                                 إزالة من سلة المشتريات</a>
                         </div>
@@ -116,6 +119,7 @@ $total=0;
             </div>
 
             @endforeach
+
         </div>
 
 
@@ -125,9 +129,9 @@ $total=0;
                 <p id="total_price">{{$total}}$</p>
             </div>
             <a href="{{route('checkout')}}" class="btn btn-primary w-100 py-3">إتمام عملية الشراء</a>
-            
-                <input type="text" id="promocode" name="promocode" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
-                <button class="btn btn-primary mr-4" type="button" id="send_code">إضافة</button>
+
+            <input type="text" id="promocode" name="promocode" class="mt-4 p-2" placeholder="أدخل كوبون الخصم">
+            <button class="btn btn-primary mr-4" type="button" id="send_code">إضافة</button>
             <div id="message">
             </div>
 
@@ -138,7 +142,9 @@ $total=0;
             </div>
 
         </div>
-
+        @else
+        <h2>سلة المشتريات فارغة</h2>
+        @endif
 
 
     </div>
@@ -147,8 +153,8 @@ $total=0;
 @endsection
 @section('page_js')
 <script>
-    var change_cart_qty="{{route('change_cart_qty')}}";
-    var add_promocode="{{route('add_promocode')}}";
+var change_cart_qty = "{{route('change_cart_qty')}}";
+var add_promocode = "{{route('add_promocode')}}";
 </script>
 <script src="{{asset('resources/assets/js/content/rate.js')}}"></script>
 <script src="{{asset('resources/assets/js/content/cart.js')}}"></script>

@@ -1,5 +1,12 @@
+
 @extends('layouts.layout')
 @section('title',isset($title)?$title:'')
+@section('home')
+<?php
+$home=true;
+
+?>
+@endsection
 @section('content') 
 @section('page_css')
     <link rel="stylesheet" href="{{ URL::asset('resources/assets/css/intlTelInput.css') }}">
@@ -11,45 +18,62 @@
                 @include("layouts.navbar-right")
 
             </div>
-            <div class="col-sm-12 col-lg-9 mt-5">
+            
+            <div class="col-sm-12 col-lg-9 mt-5 @if(!$location) hidden @endif location">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="start-location">
                             <h2>تحديد العنوان</h2>
 
-                            <form action="">
+                            <form action="{{route('save_location')}}" method="post" enctype="multipart/form-data">
+                            @csrf
                                 <div class="form-group">
-                                    <input type="text" placeholder="الاسم الأول">
+                                    <input type="text" name="city" value="{{$user->city}}" placeholder="المدينة">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" placeholder="اسم العائلة">
+                                    <input type="text" name="area" value="{{$user->area}}" placeholder="المنطقة">
 
                                 </div>
                                 <div class="form-group">
-                                    <input id="phone" dir="ltr" name="phone" type="tel">
-                                </div>
+                                    <input type="text" name="street" value="{{$user->street}}" placeholder="الشارع">
 
+                                </div>
+                                <div class="form-group">
+                                    <input id="phone" dir="ltr" name="mobile" value="{{$user->mobile}}" type="tel">
+                                </div>
+                                <input type="hidden" name="lng" id="lng" value="{{$user->map!=null?explode('/',$user->map)[0]:''}}">
+                                <input type="hidden" name="lat" id="lat" value="{{$user->map!=null?explode('/',$user->map)[1]:''}}">
                                 <p>تسمية العنوان</p>
-                                <input type="radio" name="location">
+                                <input type="radio" name="home_job" value="home" @if($user->home_job=='home') checked @endif @if($user->home_job==null) checked @endif >
                                 <label for="">المنزل</label>
                                 
-                                <input type="radio" name="location">
+                                <input type="radio" name="home_job" value="job" @if($user->home_job=='job') checked @endif >
                                 <label for="">العمل</label>
 
                                 <div class="group-btn">
                                     <button class="btn btn-primary btn-save" type="submit">حفظ العنوان</button>
-                                    <button class="btn btn-back" type="button">رجوع</button>
+                                    <!-- <button class="btn btn-back" type="button">رجوع</button> -->
                                 </div>
                             </form>
                         </div>
                     </div>
 
                     <div class="col-sm-12 col-md-6">
-
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d237685.0692940347!2d39.986632624959036!3d21.435957143046686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c21b4ced818775%3A0x98ab2469cf70c9ce!2z2YXZg9ipINin2YTYs9i52YjYr9mK2Kk!5e0!3m2!1sar!2seg!4v1615664104407!5m2!1sar!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <div id="map"></div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-sm-12 col-lg-9 mt-5 no-location @if($location) hidden @endif">
+                <div class="row">
+                    <div class="section-center">
+                        <img src="{{URL::asset('resources/assets/images/Icon material-location-on.png')}}" class="img-fluid" alt="">
+                        <h3>لم تحدد عنوان بعد</h3>
+                        <button type="button" id="location" class="btn btn-primary">حدد عنوانك</button>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </div>
@@ -57,32 +81,20 @@
 
 @endsection
 @section('page_js')
+<script>
+var type=1;
+var $lat=25.637181280126878;
+var $lng=39.41930005645501;
+</script>
+    <script  src="{{ asset('resources/assets/js/content/location.js') }}"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry"></script>
     <script  src="{{ URL::asset('resources/assets/js/intlTelInput.js') }}"></script>
     <script>
       var input = document.querySelector("#phone");
       window.intlTelInput(input, {
-        // allowDropdown: false,
-        // autoHideDialCode: false,
-        // autoPlaceholder: "off",
-        // dropdownContainer: document.body,
-        // excludeCountries: ["us"],
-        // formatOnDisplay: false,
-        // geoIpLookup: function(callback) {
-        //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-        //     var countryCode = (resp && resp.country) ? resp.country : "";
-        //     callback(countryCode);
-        //   });
-        // },
-        // hiddenInput: "full_number",
-        // initialCountry: "auto",
-        // localizedCountries: { 'de': 'Deutschland' },
-        // nationalMode: false,
-        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-        // placeholderNumberType: "MOBILE",
-        // preferredCountries: ['cn', 'jp'],
-        // separateDialCode: true,
         utilsScript: "{{ URL::asset('resources/assets/js/utils.js') }}",
       });
     </script>
 
 @endsection
+

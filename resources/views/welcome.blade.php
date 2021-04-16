@@ -121,7 +121,11 @@ $home=true;
                             <i class="far fa-star rate_star_{{$product->id}}"></i>
                         </div>
                     </div>
+                    @if($product->old_price!=null)
+                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b></span>
+                    @else
                     <span>{{$product->price}}$</span>
+                    @endif
                     <p>{{$product->description}}</p>
                 </div>
                 <div class="product-footer">

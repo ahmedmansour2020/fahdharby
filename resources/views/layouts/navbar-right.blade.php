@@ -7,7 +7,7 @@
 
                 </div>
             </a>
-            <a href="{{route('no-location')}}" class="link-sub-nav {{(request()->segment(1) == 'location') ? 'active' : ''}}">
+            <a href="{{route('location')}}" class="link-sub-nav {{(request()->segment(1) == 'location') ? 'active' : ''}}">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/location.png')}}" alt=""> العنوان
 

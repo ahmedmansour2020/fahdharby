@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductOffer;
+use App\Models\Promocode;
 use App\Models\Review;
 use App\Models\Slider;
 use App\Models\User;
@@ -61,8 +62,15 @@ class UserController extends Controller
                 }
             }
             $product->check_cart_related = $check_cart_related;
-
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
         }
+
         $this->product_main_image($latest_products);
         return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth'));
     }
@@ -280,15 +288,15 @@ class UserController extends Controller
         $all_cart = Cart::leftJoin('products', 'products.id', 'carts.product_id')
             ->where('carts.user_id', $user->id)
             ->where('carts.status', 0)
-            ->select('products.price','carts.qty', 'products.id')
+            ->select('products.price', 'carts.qty', 'products.id')
             ->get();
         foreach ($all_cart as $item) {
 
             $offer = ProductOffer::where('product_id', $item->id)->whereStatus(1)->whereApproved(1)->first();
             if ($offer) {
-                $item->total=(int)($item->price-($item->price*$offer->offer/100))*$item->qty;
-            }else{
-                $item->total=$item->price*$item->qty;
+                $item->total = (int) ($item->price - ($item->price * $offer->offer / 100)) * $item->qty;
+            } else {
+                $item->total = $item->price * $item->qty;
             }
         }
         $total = 0;
@@ -311,49 +319,62 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-public function checkout(){
-    $title="إتمام عملية الدفع";
-    $user=Auth::user();
-    // $cart=Cart::where('')
-    return view('home/checkout',compact('title'));
-}
+    public function checkout()
+    {
+        $title = "إتمام عملية الدفع";
+        $user = Auth::user();
+        $products = Cart::leftJoin('products', 'products.id', 'product_id')
+            ->where('carts.user_id', $user->id)
+            ->where('carts.status', 0)
+            ->select('products.*', 'products.description_' . LangController::lang() . ' as description', 'products.name_' . LangController::lang() . ' as name', 'carts.id as cart_id', 'carts.qty as cart_qty')
+            ->get();
+        $subtotal = 0;
+        foreach ($products as $product) {
+            $reviews = Review::
+                leftJoin('users', 'users.id', 'user_id')
+                ->where('product_id', $product->id)
+                ->whereStatus(1)
+                ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+                ->orderBy('reviews.id', 'desc')
+                ->get();
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
+            $subtotal += $product->price;
+        }
 
+        $promocodes = $this->get_user_promocodes($subtotal);
+        $discount = 0;
+        foreach ($promocodes as $promocode) {
+            $discount += $promocode->remain;
+        }
+        if($discount>$subtotal){
+            $discount=$subtotal;
+        }
+        $total=$subtotal-$discount;
+        return view('home/checkout', compact('title', 'products','subtotal','discount','total'));
+    }
+    public function get_user_promocodes($price)
+    {
+        $user = Auth::user();
+        $date = date('Y-m-d');
+        $promocodes = Promocode::leftJoin('promocode_users', 'promocode_users.promocode_id', 'promocodes.id')
+            ->where('user_id', $user->id)
+            ->where('promocodes.start', '<=', $date)
+            ->where('promocodes.end', '>=', $date)
+            ->where('promocodes.minimum', '<=', $price)
+            ->where(DB::raw('(promocodes.value-promocode_users.spent)'), '>', 0)
+            ->select(DB::raw('(promocodes.value-promocode_users.spent) as remain'), 'promocode_users.id', 'promocode_users.spent')
+            ->orderBy('remain', 'asc')
+            ->get();
 
-    public function orders()
-    {
-        $title = 'الطلبيات';
-        return view('home/orders', compact('title'));
+        return $promocodes;
     }
-    public function location()
-    {
-        $title = 'المكان';
-        return view('home/location', compact('title'));
-    }
-    public function pay()
-    {
-        $title = 'الدفع';
-        return view('home/pay', compact('title'));
-    }
-    public function wallet()
-    {
-        $title = 'المحفظة';
-        return view('home/wallet', compact('title'));
-    }
-    public function process_pay()
-    {
-        $title = 'خطوات الدفع';
-        return view('home/process-pay', compact('title'));
-    }
-    public function product_return()
-    {
-        $title = 'إرجاع المنتج';
-        return view('home/product-return', compact('title'));
-    }
-    public function create_order_return()
-    {
-        $title = 'إنشاء أمر مرتجع';
-        return view('home/create-order-return', compact('title'));
-    }
+    
 
     public function redirect_to_product($id)
     {

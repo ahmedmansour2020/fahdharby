@@ -32,7 +32,12 @@
             <a href="#" class="btn btn-chart bg-white border-primary ml-3" style="color: #306EFF">حساب جديد</a>
             @endguest
             @auth
+            <?php
+            $user=auth()->user();
+            ?>
             <a href="#" class="btn btn-chart bg-white border-primary ml-3 logout" style="color: #306EFF">تسجيل خروج </a>
+            <a href="{{route($user->role_id==1?'admin':($user->role_id==2?'vendor':'dashboard'))}}" class="btn btn-chart bg-white border-primary ml-3" style="color: #306EFF;width:auto">الصفحة الشخصية</a>
+            
             @endauth
         
         </ul>

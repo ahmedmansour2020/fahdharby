@@ -1192,3 +1192,8 @@ input.code-phone {
 .hidden {
     display: none !important;
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+}
