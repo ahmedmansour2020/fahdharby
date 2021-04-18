@@ -31,7 +31,14 @@ App\Http\Controllers\ProductController::arrange_offers_status();
     @include("layouts.navbar")
     @endif
 
-
+    @if ($message = Session::get('message'))
+<div class="alert alert-success w-100 text-center hidden">
+   <div id="get_message" > {{ $message }}</div>
+    <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+@endif
 @yield('content')
 
 
@@ -40,6 +47,8 @@ App\Http\Controllers\ProductController::arrange_offers_status();
 
 @include('layouts.scripts')
 @yield('page_js')
-  
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{asset('resources/assets/js/content/order_index.js')}}"></script>
 </body>
 </html>

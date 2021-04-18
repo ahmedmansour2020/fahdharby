@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Order;
+use App\Mail\SendMail;
+use App\Models\Product;
 use App\Models\OrderItem;
-use App\Models\Promocode;
 use Illuminate\Http\Request;
-use App\Models\ProductDetail;
-use App\Models\PromocodesRange;
-use Illuminate\Support\Facades\DB;
+use App\Models\PromocodeUser;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\PromocodeController;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\UserController;
 
 class OrderController extends Controller
 {
@@ -45,29 +45,17 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $order = new Order();
-        if ($user) {
-            $order->user_id = $user->id;
-            if($user->mobile==null){
-                $user->mobile=request('mobile');
-            }
-            if($user->country==null){
-                $user->country=request('country');
-            }
-            if($user->address==null){
-                $user->address=request('address');
-            }
-            $user->save();
-        }
-            $order->name = request('name');
-            $order->email = request('email');
-            $order->mobile = request('mobile');
-            $order->country = request('country');
-            $order->address = request('address');
-            $order->notes = request('notes');
-        
+        $order->user_id = $user->id;
+        $order->mobile = request('mobile');
+        $order->city = request('city');
+        $order->area = request('area');
+        $order->map = request('lng') . '/' . request('lat');
+        $order->street = request('street');
+        $order->home_job = request('home_job');
+
         $order->save();
         $total = 0;
-        $qty=1;
+        $qty = 1;
         if (request('items')) {
             $items = request('items');
             foreach ($items as $item) {
@@ -78,60 +66,47 @@ class OrderController extends Controller
                 $new_item->total = request('total_' . $item);
                 $new_item->save();
                 $total += $new_item->total;
-                $qty= request('qty_' . $item);
+                $qty = request('qty_' . $item);
             }
             foreach ($items as $item) {
-                
-                if($user){
-                    $cart = Cart::where('user_id', $user->id)->where('product_id', $item)->first();
-                    $cart->status = 2;
-                    $cart->save();
-                    $qty=$cart->qty;
-                }
-                $product=ProductDetail::where('product_id',$item)->first();
-                $product->qty-=$qty;
+                $cart = Cart::where('user_id', $user->id)->where('product_id', $item)->whereStatus(0)->first();
+                $cart->status = 1;
+                $cart->save();
+                $qty = $cart->qty;
+                $product = Product::find($item);
+                $product->qty -= $qty;
                 $product->save();
             }
         }
-       
+
         $order->total = $total;
         $discount = 0;
-        if ($user) {
-            $promocodes = Promocode::where('user_id', $user->id)->where(DB::raw('value-spent'), '>', 0)->get();
-            foreach ($promocodes as $promocode) {
-                $promocode_exist = Promocode::find($promocode->id);
-                $remain = $promocode_exist->value - $promocode_exist->spent;
-                if ($total <= $remain) {
-                    $promocode_exist->spent += $total;
-                    $discount += $total;
-                    $total = 0;
-                    $promocode_exist->save();
-                    break;
+        $pc = new UserController();
+        $promocodes = $pc->get_user_promocodes($total);
+        foreach ($promocodes as $promocode) {
+            $promocode_exist = PromocodeUser::find($promocode->id);
+            $remain = $promocode->remain;
+            if ($total <= $remain) {
+                $promocode_exist->spent += $total;
+                $discount += $total;
+                $total = 0;
+                $promocode_exist->save();
+                break;
 
-                } else {
-                    $total -= $remain;
-                    $promocode_exist->spent += $remain;
-                    $discount += $remain;
-                    $promocode_exist->save();
-                }
+            } else {
+                $total -= $remain;
+                $promocode_exist->spent += $remain;
+                $discount += $remain;
+                $promocode_exist->save();
             }
+
         }
         $order->discount = $discount;
         $order->save();
         $order->final = $order->total - $discount;
         $order->save();
-        if ($user) {
-            $price_rang=PromocodesRange::where('from','<=',DB::raw('"'.$order->total.'"'))->where('to','>=',DB::raw('"'.$order->total.'"'))->first();
 
-            if($price_rang){
-                $promocode = PromocodeController::pcGenerator(PromocodeController::generateRandomString());
-                $pcode = new Promocode();
-                $pcode->promocode = $promocode;
-                $pcode->value = $price_rang->value;
-                $pcode->save();
-            }
-        }
-        return redirect()->route('home')->with('success',__('front.success_order'));
+        return redirect()->route('purchase', $order->id)->with('success', __('front.success_order'));
 
     }
 
@@ -164,9 +139,103 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function send_email($order_id)
+    {
+        $user= Auth::user();
+        $order=Order::find($order_id);
+        $items=OrderItem::leftJoin('products', 'products.id', 'product_id')->where('order_id',$order_id)->select('order_items.*','products.name_ar as name')->get();
+        $message='
+        <h1>رقم الطلب: '.$order_id.'</h1>
+        <h2>إجمالي السعر: '.$order->total.'</h2>
+        <h2>إجمالي الخصم: '.$order->discount.'</h2>
+        <h2> السعر النهائي: '.$order->final.'</h2>
+        لقد قمت بعملية شراء للمنتجات التالية
+        <table style="border:1px solid gray;width:100%;text-align:center" border="1">
+        <thead>
+        <tr>
+        <th>الصنف</th>
+        <th>الكمية</th>
+        <th>السعر</th>
+        </tr>
+        </thead>
+        <tbody>
+        ';
+        foreach($items as $item){
+            $message.='
+            <tr>
+            <td>'.$item->name.'</td>
+            <td>'.$item->qty.'</td>
+            <td>'.$item->total.'</td>
+            </tr>
+            ';
+        }
+        $message.=
+        '
+        </tbody>
+        </table>
+        ';
+        $data = array(
+            'message' => $message,
+            'mail' => $user->email,
+            'subject' =>'إتمام عملية الشراء',
+        );
+
+        Mail::to($user->email)->send(new SendMail($data));
+
+    }
+
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+        $order->payment_type = request('payment_type');
+        $order->status = 1;
+        $order->save();
+
+        $this->send_email($id);
+
+        $items=OrderItem::leftJoin('products', 'products.id', 'product_id')->where('order_id',$id)->select('order_items.*','products.name_ar as product_name')->get();
+        $table = '
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>الصنف</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                    </tr>
+                </thead>
+                <tbody>
+        ';
+        foreach ($items as $item) {
+            $table .= '
+                <tr>
+                    <td>' . $item->product_name . '</td>
+                    <td>' . $item->qty . '</td>
+                    <td>' . $item->total . '</td>
+                </tr>';
+        }
+        $table .= '
+        </tbody>
+        </table>
+        ';
+
+        $message = '
+        <h3 class="text-center text-success">تم تنفيذ طلب الشراء بنجاح</h3>
+        <br>
+        <div class="text-center">
+            <h4>رقم الطلب : <span class="text-info">' . $order->id . '</span></h4>
+            
+            <br>
+            ' . $table . '<hr>
+             <p>إجمالي السعر : ' . $order->total . ' </p>' .
+        '<p>إجمالي الخصم : ' . $order->discount . ' </p>' .
+        '<p>السعر النهائي : ' . $order->final . ' </p><hr>
+            <span class="text-primary">يرجى الاحتفاظ برقم الطلب لمتابعة طلبك</span>
+        </div>
+
+        ';
+
+        return redirect()->route('home')->with('message',$message);
     }
 
     /**
