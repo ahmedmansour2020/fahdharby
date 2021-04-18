@@ -14,7 +14,7 @@ $home=true;
 <div class="container-fluid px-5 ">
     <div class="row h-100 siteWidthContainer ">
 
-        <div class="bannerContainer h-100 col-lg-2 col-md-3 text-break ">
+        <div class="bannerContainer h-100 col-lg-1 col-md-3 text-break ">
             <div class="row h-100 text-center">
                 <div class="col-12 h-75">
 
@@ -29,7 +29,7 @@ $home=true;
             </div>
         </div>
         @foreach(UserController::getParentCategory(11) as $category)
-        <div class="bannerContainer h-100 col-lg-2 col-md-3 text-break ">
+        <div class="bannerContainer h-100 col-lg-1 col-md-3 text-break ">
             <div class="row h-100 text-center">
                 <div class="col-12 h-75">
 
@@ -108,7 +108,6 @@ $home=true;
                 <div class="product-body">
                     <a href="{{route('product-details',$product->id)}}" class="text-decoration-none">
                         <h4>{{$product->name}}</h4>
-
                     </a>
                     <div class="stars-rate" dir="rtl">
                         <input type="hidden" class="products_rates" value="{{$product->id}}">

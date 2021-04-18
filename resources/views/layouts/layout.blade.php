@@ -16,6 +16,8 @@ App\Http\Controllers\ProductController::arrange_offers_status();
     @yield('page_css')
    
     @yield('home')
+
+    @yield('hasLogin')
 </head>
 <body>
     <div class="hidden">
@@ -27,6 +29,8 @@ App\Http\Controllers\ProductController::arrange_offers_status();
     </div>
     @if(isset($home))
     @include("layouts.navbar-home")
+    @elseif (isset($hasLogin))
+    @include("layouts.navbar-home-login")
     @else
     @include("layouts.navbar")
     @endif

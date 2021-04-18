@@ -1154,7 +1154,7 @@ input.code-phone {
 }
 
 
-/* Start checkout page */
+/* End checkout page */
 
 
 /* Start purchase page */
@@ -1187,7 +1187,7 @@ input.code-phone {
 }
 
 
-/* Start purchase page */
+/* End purchase page */
 
 .hidden {
     display: none !important;
@@ -1197,3 +1197,25 @@ input.code-phone {
     height: 400px;
     width: 100%;
 }
+
+/* Start contact us page */
+.header-contact-us {
+    margin-top: 120px;
+    margin-bottom: 50PX;
+}
+.header-contact-us h3 {
+    font-size: 50px;
+    font-weight: 700;
+    color: #000000;
+}
+.form-contact {
+    margin-top: 120px;
+}
+.form-contact input{
+    border-radius: unset;
+    -webkit-border-radius: unset;
+    -moz-border-radius: unset;
+    -ms-border-radius: unset;
+    -o-border-radius: unset;
+}
+/* End contact us page */
