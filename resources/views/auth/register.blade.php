@@ -36,7 +36,7 @@
                                 <input type="password" class="w-100" name="password_confirmation" placeholder="تأكيد كلمة المرور">
                             </div>
                             <div class="row">
-                            @foreach(App\Http\Controllers\HomeController::genders() as $gender)
+                            @foreach(App\Http\Controllers\DashboardController::genders() as $gender)
                                 <div class="col-6">
                                     <div class="group-radio">
                                         <input type="radio" name="gender" value="{{$gender->id}}">
