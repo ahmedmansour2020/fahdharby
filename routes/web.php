@@ -95,6 +95,9 @@ Route::get('complaints-withdraw-money', function () {
 Route::get('account', function () {
     return view('vendor/show/account');
 })->name('account');
+Route::get('navbar-home-login', function () {
+    return view('layouts/navbar-home-login');
+})->name('navbar-home-login');
 
 
 
