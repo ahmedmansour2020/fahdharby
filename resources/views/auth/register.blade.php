@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{{route('register')}}" method="POST">
+                <form action="{{route('register')}}" class="form-login" method="POST">
                 @csrf
                     <div class="card">
                         <div class="card-header">
@@ -47,6 +47,12 @@
                             </div>
                             <button type="submit" class="btn btn-primary">أنشئ حسابك</button>
                             <p class="or">او</p>
+                            <div class="social-form-register text-center">
+                                <a href="#"><img src="{{ URL::asset('resources/assets/images/Group 105.png') }}" class="img-fluid pl-2" alt=""></a>
+                                <a href="#"><img src="{{ URL::asset('resources/assets/images/Group 107.png') }}" class="img-fluid pl-2" alt=""></a>
+                                <a href="#"><img src="{{ URL::asset('resources/assets/images/Group 106.png') }}" class="img-fluid pl-2" alt=""></a>
+                                <a href="#"><img src="{{ URL::asset('resources/assets/images/Group 116.png') }}" class="img-fluid" alt=""></a>
+                            </div>
                             <div class="register-login text-center">
                                 <p> هل لديك حساب بالفعل ! <a href="{{route('login')}}">سجل الان</a> </p>
                             </div>
