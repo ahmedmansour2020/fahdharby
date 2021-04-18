@@ -15,9 +15,7 @@ $total=0;
         @if(count($products)>0)
         <div class="col-sm-12 col-md-12 col-lg-8">
             @foreach($products as $product)
-            <?php
-            $total+=$product->price*$product->cart_qty;
-            ?>
+          
             <input type="hidden" class="products_rates" value="{{$product->id}}">
             <div class="product-details">
                 <div class="container-image-detailsProduct border mb-5">
@@ -46,6 +44,10 @@ $total=0;
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <form action="">
+                            @if($product->qty-$product->cart_qty>0)
+                            <?php
+                            $total+=$product->price*$product->cart_qty;
+                            ?>
                                 <label for="" class="d-block"><strong>الكمية</strong></label>
                                 <select data-price="{{$product->price}}" data-id="{{$product->cart_id}}"
                                     class="change_cart_qty" style="width: 60px;
@@ -53,8 +55,11 @@ $total=0;
                                     height: 38px;">
                                     @for($i=1;$i<$product->qty/3;$i++)
                                         <option @if($product->cart_qty==$i) selected @endif>{{$i}}</option>
-                                        @endfor
+                                    @endfor
                                 </select>
+                            @else
+                            <span class="text-danger">لا توجد كمية متوفرة</span>
+                            @endif
                             </form>
                         </div>
                         <div class="col-12">

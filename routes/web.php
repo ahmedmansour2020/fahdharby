@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
@@ -23,12 +24,13 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 // Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 // });
 Route::resource('review',ReviewController::class);
+Route::resource('order',OrderController::class);
 
 Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_product'])->name('redirect_to_product')->middleware('auth');
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('auth');
-
+Route::get('purchase/{id}', [UserController::class, 'purchase'])->name('purchase')->middleware('auth');
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'user']], function () {
     Route::get('/', [DashboardController::class, 'orders'])->name('dashboard');
     Route::get('orders', [DashboardController::class, 'orders'])->name('orders');
@@ -102,9 +104,7 @@ Route::get('account', function () {
 
 
 
-Route::get('purchase', function () {
-    return view('home/purchase');
-})->name('purchase');
+
 
 Route::get('rate', function () {
     return view('home/rate');

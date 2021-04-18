@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\LangController;
 use App\Models\Cart;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\ProductImage;
-use App\Models\ProductOffer;
-use App\Models\Promocode;
+use App\Models\User;
+use App\Models\Order;
 use App\Models\Review;
 use App\Models\Slider;
-use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\OrderItem;
+use App\Models\Promocode;
+use App\Models\ProductImage;
+use App\Models\ProductOffer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\LangController;
 
 class UserController extends Controller
 {
@@ -288,10 +290,12 @@ class UserController extends Controller
         $all_cart = Cart::leftJoin('products', 'products.id', 'carts.product_id')
             ->where('carts.user_id', $user->id)
             ->where('carts.status', 0)
-            ->select('products.price', 'carts.qty', 'products.id')
+            ->select('products.price', 'carts.qty', 'products.id','products.qty as product_qty')
             ->get();
         foreach ($all_cart as $item) {
-
+            if($item->product_qty-$item->qty<=0){
+                $item->qty=0; 
+            }
             $offer = ProductOffer::where('product_id', $item->id)->whereStatus(1)->whereApproved(1)->first();
             if ($offer) {
                 $item->total = (int) ($item->price - ($item->price * $offer->offer / 100)) * $item->qty;
@@ -326,6 +330,7 @@ class UserController extends Controller
         $products = Cart::leftJoin('products', 'products.id', 'product_id')
             ->where('carts.user_id', $user->id)
             ->where('carts.status', 0)
+            ->where(DB::raw('products.qty-carts.qty'),'>',0)
             ->select('products.*', 'products.description_' . LangController::lang() . ' as description', 'products.name_' . LangController::lang() . ' as name', 'carts.id as cart_id', 'carts.qty as cart_qty')
             ->get();
         $subtotal = 0;
@@ -344,7 +349,7 @@ class UserController extends Controller
             } else {
                 $product->old_price = null;
             }
-            $subtotal += $product->price;
+            $subtotal += $product->price*$product->cart_qty;
         }
 
         $promocodes = $this->get_user_promocodes($subtotal);
@@ -358,6 +363,17 @@ class UserController extends Controller
         $total=$subtotal-$discount;
         return view('home/checkout', compact('title', 'products','subtotal','discount','total'));
     }
+    public function purchase($id){
+        $order=Order::find($id);
+        
+        $title="إتمام عملية الشراء";
+        if($order->status==0){
+
+            return view('home/purchase',compact('id','title'));
+        }else{
+            return redirect()->back();
+        }
+    }
     public function get_user_promocodes($price)
     {
         $user = Auth::user();
@@ -368,7 +384,7 @@ class UserController extends Controller
             ->where('promocodes.end', '>=', $date)
             ->where('promocodes.minimum', '<=', $price)
             ->where(DB::raw('(promocodes.value-promocode_users.spent)'), '>', 0)
-            ->select(DB::raw('(promocodes.value-promocode_users.spent) as remain'), 'promocode_users.id', 'promocode_users.spent')
+            ->select(DB::raw('(promocodes.value-promocode_users.spent) as remain'), 'promocode_users.id', 'promocode_users.spent','promocode_id')
             ->orderBy('remain', 'asc')
             ->get();
 
