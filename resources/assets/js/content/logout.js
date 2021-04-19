@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
-    $('#logout1').css('cursor', 'pointer');
-    $('#logout1').on('click', function() {
-        $('#logout2').click();
+    $('.logout').on('click', function(e) {
+        e.preventDefault();
+        console.log(22)
+        $('#logout').click();
     })
 })

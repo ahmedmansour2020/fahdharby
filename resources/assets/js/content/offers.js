@@ -85,6 +85,47 @@ $(document).ready(function() {
         }],
         ordering: false,
     });
+    var product_offers = $("#product_rates").DataTable({
+        dom: "lBfrtip",
+        processing: false,
+        serverSide: true,
+        destroy: true,
+        ajax: {
+            url: vendor_site + "/rates",
+            type: "GET",
+        },
+        language: {
+            url: language,
+        },
+        "pageLength": 100,
+        "bInfo": false,
+        "bFilter": false,
+        "bLengthChange": false,
+        columns: [{
+                data: "name",
+                name: "name"
+            },
+            {
+                data: "count",
+                name: "count"
+            },
+            {
+                data: "open",
+                name: "open",
+                render: function(d, t, r, m) {
+                    return `
+                        <a class="btn btn-info" href="${vendor_site}/rates/${r.id}"><i class="fa fa-bars"></i></a>
+                    `;
+                }
+            },
+
+        ],
+        columnDefs: [{
+            targets: [0, 1, 2],
+            searchable: false
+        }],
+        ordering: false,
+    });
     var approval_offers = $("#approval_offers").DataTable({
         dom: "lBfrtip",
         processing: false,

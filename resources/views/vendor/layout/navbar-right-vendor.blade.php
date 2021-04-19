@@ -43,7 +43,7 @@
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
         <a href="{{ route('complaints-department') }}" class="accordion-body">إدارة الشكاوي</a>
-        <a href="{{ route('rate') }}" class="accordion-body">التقييمات</a>
+        <a href="{{ route('vendor.rate') }}" class="accordion-body">التقييمات</a>
       </div>
     </div>
 

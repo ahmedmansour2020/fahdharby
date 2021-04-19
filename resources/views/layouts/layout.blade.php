@@ -20,13 +20,7 @@ App\Http\Controllers\ProductController::arrange_offers_status();
     @yield('hasLogin')
 </head>
 <body>
-    <div class="hidden">
-
-        <form  method="POST" action="{{route('logout')}}">
-            @csrf
-            <button id="logout" class="hidden"></button>
-        </form>
-    </div>
+    
     @if(isset($home))
     @include("layouts.navbar-home")
     @elseif (isset($hasLogin))

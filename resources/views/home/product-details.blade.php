@@ -176,7 +176,7 @@ $home=true;
                 <div class="col-12">
                     @foreach($reviews as $review)
                     <div class="box-right mt-5">
-                        <img src="{{ URL::asset('resources/assets/images/name.png') }}" alt="">
+                    <img class="review-avatar" @if($review->avatar!=null) src="{{asset('uploaded/'.$review->avatar)}}" @endif alt="">
                         <span class="name-user">{{$review->user}}</span>
                         <div class="date_rate">
                             <span class="date-rating-user">{{$review->date}}</span>

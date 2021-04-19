@@ -21,13 +21,13 @@
             
                         <li class="nav-item  dropdown profile-vendor float-left">
                             <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                فهد الحربي
+                               {{auth()->user()->name}}
                                 <img src="{{URL::asset('resources/assets/images/arrow-down.png')}}" class="mr-2 ml-2" alt="">
                                 <img src="{{URL::asset('resources/assets/images/icon-profile.png')}}"  alt="">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">الملف الشخصي</a>
-                                <a class="dropdown-item" href="" id="logout2">تسجيل الخروج</a>
+                                <a class="dropdown-item logout" href="" >تسجيل الخروج</a>
                             </div>
                         </li>
                     

@@ -82,9 +82,7 @@ Route::get('complaints-department', function () {
     return view('vendor/show/complaints-department');
 })->name('complaints-department');
 
-Route::get('rate', function () {
-    return view('vendor/show/rate');
-})->name('rate');
+
 
 Route::get('financial-account', function () {
     return view('vendor/show/financial-account');
@@ -169,6 +167,10 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['auth', 'vendor']], funct
     Route::get('main-add-product', function () {
         return view('vendor/show/main-add-product');
     })->name('main-add-product');
+
+    Route::get('rates', [ReviewController::class,'index'])->name('vendor.rate');
+    Route::get('rates/{id}', [ReviewController::class,'show'])->name('product.rate');
+    Route::put('pr/rates/{id}', [ReviewController::class,'change_status'])->name('change_status_review');
 
 });
 //end code here

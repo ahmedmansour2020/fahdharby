@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +16,17 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $title="التقييمات";
+        if(request()->ajax()){
+            $products=Product::
+            join('reviews','reviews.product_id','products.id')
+            ->select('products.id','products.name_ar as name',DB::raw('count(reviews.id) as count'))
+            ->groupBy('products.id','name')
+            ->get();
+
+            return datatables()->of($products)->addIndexColumn()->make(true);
+        }
+        return view('vendor/show/products_rates',compact('title'));
     }
 
     /**
@@ -55,9 +66,22 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
-        //
+        $rates=Review::leftJoin('users','user_id','users.id')->where('product_id',$id)->select('reviews.*','users.name as user','avatar')->orderBy('reviews.id','desc')->get();
+        $title="التقييمات";
+        return view('vendor.show.rate',compact('rates','title'));
     }
 
+    public function change_status(Request $request,$id){
+        $review=Review::find($id);
+        if($review->status == 0){
+            $review->status=1;
+        }else{
+            $review->status=0;
+        }
+        $review->save();
+
+        return redirect()->back();
+    }
     /**
      * Show the form for editing the specified resource.
      *

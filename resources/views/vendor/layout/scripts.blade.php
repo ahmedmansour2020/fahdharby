@@ -1,3 +1,9 @@
+<?php $user=auth()->user();
+
+?>
+<script>
+var user_role='{{$user->role_id}}';
+</script>
 <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -11,6 +17,8 @@
 
 
 <script src="{{asset('resources/assets/js/layout.js')}}"></script>
+<script src="{{ asset('resources/assets/js/content/logout.js') }}"></script>
+<script src="{{asset('resources/assets/js/notifications.js')}}"></script>
 
 
 

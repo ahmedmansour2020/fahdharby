@@ -196,7 +196,7 @@ class UserController extends Controller
             leftJoin('users', 'users.id', 'user_id')
             ->where('product_id', $product->id)
             ->whereStatus(1)
-            ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+            ->select('reviews.*', 'users.name as user','avatar' ,DB::raw('date(reviews.created_at) as date'))
             ->orderBy('reviews.id', 'desc')
             ->get();
         $check_review = false;

@@ -1006,3 +1006,11 @@ input:checked+.slider:before {
 .disabled {
     pointer-events: none !important;
 }
+
+.review-avatar {
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    border: 1px solid #ddd !important;
+    background-image: linear-gradient(to right, #ccc, #fff);
+}

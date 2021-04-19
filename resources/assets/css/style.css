@@ -1198,24 +1198,39 @@ input.code-phone {
     width: 100%;
 }
 
+.review-avatar {
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    border: 1px solid #ddd !important;
+    background-image: linear-gradient(to right, #ccc, #fff);
+}
+
+
 /* Start contact us page */
+
 .header-contact-us {
     margin-top: 120px;
     margin-bottom: 50PX;
 }
+
 .header-contact-us h3 {
     font-size: 50px;
     font-weight: 700;
     color: #000000;
 }
+
 .form-contact {
     margin-top: 120px;
 }
-.form-contact input{
+
+.form-contact input {
     border-radius: unset;
     -webkit-border-radius: unset;
     -moz-border-radius: unset;
     -ms-border-radius: unset;
     -o-border-radius: unset;
 }
+
+
 /* End contact us page */
