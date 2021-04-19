@@ -10,12 +10,14 @@
                 <div class="col-10">
                     <ul>
                         <li class="nav-item notification-vendor  dropdown">
-                            <a class="nav-link notification-vendor dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link notification-vendor dropdown-toggle position-relative" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{URL::asset('resources/assets/images/notification-vendor.png')}}" alt="">
+                                <span class="notify-alarm">{{App\Http\Controllers\NotificationController::get_user_notifications()['count']}}</span>
                             </a>
                             <div class="dropdown-menu dropdown-notification" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                            @foreach(App\Http\Controllers\NotificationController::get_user_notifications()['notifications'] as $notification)
+                                <a class="dropdown-item notify @if($notification->status==0) alert-primary @endif text-center" data-id="{{$notification->id}}" href="{{$notification->url}}">{{$notification->content}}</a>
+                            @endforeach
                             </div>
                         </li>
             

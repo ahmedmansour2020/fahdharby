@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
-use App\Models\Order;
+use App\Http\Controllers\UserController;
 use App\Mail\SendMail;
-use App\Models\Product;
+use App\Models\Cart;
+use App\Models\Notification;
+use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
+use App\Models\Product;
 use App\Models\PromocodeUser;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\UserController;
 
 class OrderController extends Controller
 {
@@ -142,14 +143,14 @@ class OrderController extends Controller
 
     public function send_email($order_id)
     {
-        $user= Auth::user();
-        $order=Order::find($order_id);
-        $items=OrderItem::leftJoin('products', 'products.id', 'product_id')->where('order_id',$order_id)->select('order_items.*','products.name_ar as name')->get();
-        $message='
-        <h1>رقم الطلب: '.$order_id.'</h1>
-        <h2>إجمالي السعر: '.$order->total.'</h2>
-        <h2>إجمالي الخصم: '.$order->discount.'</h2>
-        <h2> السعر النهائي: '.$order->final.'</h2>
+        $user = Auth::user();
+        $order = Order::find($order_id);
+        $items = OrderItem::leftJoin('products', 'products.id', 'product_id')->where('order_id', $order_id)->select('order_items.*', 'products.name_ar as name')->get();
+        $message = '
+        <h1>رقم الطلب: ' . $order_id . '</h1>
+        <h2>إجمالي السعر: ' . $order->total . '</h2>
+        <h2>إجمالي الخصم: ' . $order->discount . '</h2>
+        <h2> السعر النهائي: ' . $order->final . '</h2>
         لقد قمت بعملية شراء للمنتجات التالية
         <table style="border:1px solid gray;width:100%;text-align:center" border="1">
         <thead>
@@ -161,24 +162,24 @@ class OrderController extends Controller
         </thead>
         <tbody>
         ';
-        foreach($items as $item){
-            $message.='
+        foreach ($items as $item) {
+            $message .= '
             <tr>
-            <td>'.$item->name.'</td>
-            <td>'.$item->qty.'</td>
-            <td>'.$item->total.'</td>
+            <td>' . $item->name . '</td>
+            <td>' . $item->qty . '</td>
+            <td>' . $item->total . '</td>
             </tr>
             ';
         }
-        $message.=
-        '
+        $message .=
+            '
         </tbody>
         </table>
         ';
         $data = array(
             'message' => $message,
             'mail' => $user->email,
-            'subject' =>'إتمام عملية الشراء',
+            'subject' => 'إتمام عملية الشراء',
         );
 
         Mail::to($user->email)->send(new SendMail($data));
@@ -194,7 +195,7 @@ class OrderController extends Controller
 
         $this->send_email($id);
 
-        $items=OrderItem::leftJoin('products', 'products.id', 'product_id')->where('order_id',$id)->select('order_items.*','products.name_ar as product_name')->get();
+        $items = OrderItem::leftJoin('products', 'products.id', 'product_id')->where('order_id', $id)->select('order_items.*', 'products.name_ar as product_name', 'products.user_id')->get();
         $table = '
             <table class="table text-center">
                 <thead>
@@ -224,7 +225,7 @@ class OrderController extends Controller
         <br>
         <div class="text-center">
             <h4>رقم الطلب : <span class="text-info">' . $order->id . '</span></h4>
-            
+
             <br>
             ' . $table . '<hr>
              <p>إجمالي السعر : ' . $order->total . ' </p>' .
@@ -235,7 +236,15 @@ class OrderController extends Controller
 
         ';
 
-        return redirect()->route('home')->with('message',$message);
+        foreach ($items as $item) {
+            $notify = new Notification();
+            $notify->user_id=$item->user_id;
+            $notify->content='يوجد طلب جديد على المنتج '.$item->product_name;
+            $notify->url=route('orders-dashboard');
+            $notify->save();
+        }
+
+        return redirect()->route('home')->with('message', $message);
     }
 
     /**

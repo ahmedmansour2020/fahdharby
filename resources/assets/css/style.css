@@ -1206,6 +1206,13 @@ input.code-phone {
     background-image: linear-gradient(to right, #ccc, #fff);
 }
 
+.notify-alarm {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+}
+
 
 /* Start contact us page */
 

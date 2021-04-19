@@ -27,6 +27,7 @@ Route::resource('review',ReviewController::class);
 Route::resource('order',OrderController::class);
 
 Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_product'])->name('redirect_to_product')->middleware('auth');
+Route::post('notification_seen',[NotificationController::class,'notification_seen'])->name('notification_seen');
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('auth');
@@ -171,6 +172,8 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['auth', 'vendor']], funct
     Route::get('rates', [ReviewController::class,'index'])->name('vendor.rate');
     Route::get('rates/{id}', [ReviewController::class,'show'])->name('product.rate');
     Route::put('pr/rates/{id}', [ReviewController::class,'change_status'])->name('change_status_review');
+
+
 
 });
 //end code here

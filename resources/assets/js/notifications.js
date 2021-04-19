@@ -25,4 +25,22 @@ $(document).ready(function() {
             })
         }
     }
+    if ($('.notify-alarm').text() == 0) {
+        $('.notify-alarm').addClass('hidden');
+    } else {
+        $('.notify-alarm').removeClass('hidden');
+    }
+    $(document).on('click', '.notify', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        var id = $(this).data('id');
+        var data = {
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+            'id': id,
+        }
+
+        $.post(notification_seen, data, function(response) {});
+
+        window.location.href = href;
+    })
 })

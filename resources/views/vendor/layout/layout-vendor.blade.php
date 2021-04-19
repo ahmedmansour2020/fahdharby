@@ -24,6 +24,7 @@ App\Http\Controllers\ProductController::arrange_offers_status();
     var change_offer_status = "{{route('change_offer_status')}}";
     var get_current_notifications = "{{route('get_current_notifications')}}";
     var change_slider_status = "{{route('change_slider_status')}}";
+    var notification_seen = "{{route('notification_seen')}}";
     var language = "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json";
     </script>
 </head>

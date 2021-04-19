@@ -1014,3 +1014,17 @@ input:checked+.slider:before {
     border: 1px solid #ddd !important;
     background-image: linear-gradient(to right, #ccc, #fff);
 }
+
+.notify-alarm {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: 15px;
+    right: 7px;
+}

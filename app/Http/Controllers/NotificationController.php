@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Notification;
 use App\Models\ProductOffer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -35,4 +38,27 @@ class NotificationController extends Controller
         ]);
     }
 
+    public static function get_user_notifications(){
+        $user=Auth::user();
+        $notifications=Notification::where('user_id',$user->id)->orderBy('status','asc')->orderBy('id','desc')->limit(10)->get();
+        $count=count(Notification::where('user_id',$user->id)->where('status',0)->get());
+        
+        $output=[
+            'notifications'=>$notifications,
+            'count'=>$count,
+        ];
+
+        return $output;
+    }
+
+    public function notification_seen(Request $request){
+        $id=request('id');
+        $notification=Notification::find($id);
+        $notification->status=1;
+        $notification->save();
+
+        return response()->json([
+            'success'=>true,
+        ]);
+    }
 }
