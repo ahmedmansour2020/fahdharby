@@ -28,7 +28,7 @@ Route::resource('order',OrderController::class);
 
 Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_product'])->name('redirect_to_product')->middleware('auth');
 Route::post('notification_seen',[NotificationController::class,'notification_seen'])->name('notification_seen');
-
+Route::get('/search',[UserController::class, 'search'])->name('search');
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('auth');
 Route::get('purchase/{id}', [UserController::class, 'purchase'])->name('purchase')->middleware('auth');
@@ -71,9 +71,6 @@ Route::get('payments', function () {
     return view('vendor/show/payments');
 })->name('payments');
 
-Route::get('orders-dashboard', function () {
-    return view('vendor/show/orders-dashboard');
-})->name('orders-dashboard');
 
 Route::get('return-requests', function () {
     return view('vendor/show/return-requests');
@@ -174,6 +171,7 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['auth', 'vendor']], funct
     Route::put('pr/rates/{id}', [ReviewController::class,'change_status'])->name('change_status_review');
 
 
+    Route::get('orders',[VendorController::class,'orders'])->name('orders-dashboard');
 
 });
 //end code here

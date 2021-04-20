@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\LangController;
 use App\Models\Cart;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Review;
-use App\Models\Slider;
-use App\Models\Product;
 use App\Models\Category;
-use App\Models\OrderItem;
-use App\Models\Promocode;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductOffer;
+use App\Models\Promocode;
+use App\Models\Review;
+use App\Models\Slider;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\LangController;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -139,6 +138,13 @@ class UserController extends Controller
                 $product->description = substr($product->description, 100) . "...";
             }
             $product->description = str_replace("\n", "<br>", $product->description);
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
         }
         $this->product_main_image($products);
         return view('home.products', compact('title', 'sub_category', 'products'));
@@ -196,7 +202,7 @@ class UserController extends Controller
             leftJoin('users', 'users.id', 'user_id')
             ->where('product_id', $product->id)
             ->whereStatus(1)
-            ->select('reviews.*', 'users.name as user','avatar' ,DB::raw('date(reviews.created_at) as date'))
+            ->select('reviews.*', 'users.name as user', 'avatar', DB::raw('date(reviews.created_at) as date'))
             ->orderBy('reviews.id', 'desc')
             ->get();
         $check_review = false;
@@ -290,11 +296,11 @@ class UserController extends Controller
         $all_cart = Cart::leftJoin('products', 'products.id', 'carts.product_id')
             ->where('carts.user_id', $user->id)
             ->where('carts.status', 0)
-            ->select('products.price', 'carts.qty', 'products.id','products.qty as product_qty')
+            ->select('products.price', 'carts.qty', 'products.id', 'products.qty as product_qty')
             ->get();
         foreach ($all_cart as $item) {
-            if($item->product_qty-$item->qty<=0){
-                $item->qty=0; 
+            if ($item->product_qty - $item->qty <= 0) {
+                $item->qty = 0;
             }
             $offer = ProductOffer::where('product_id', $item->id)->whereStatus(1)->whereApproved(1)->first();
             if ($offer) {
@@ -330,7 +336,7 @@ class UserController extends Controller
         $products = Cart::leftJoin('products', 'products.id', 'product_id')
             ->where('carts.user_id', $user->id)
             ->where('carts.status', 0)
-            ->where(DB::raw('products.qty-carts.qty'),'>',0)
+            ->where(DB::raw('products.qty-carts.qty'), '>', 0)
             ->select('products.*', 'products.description_' . LangController::lang() . ' as description', 'products.name_' . LangController::lang() . ' as name', 'carts.id as cart_id', 'carts.qty as cart_qty')
             ->get();
         $subtotal = 0;
@@ -349,7 +355,7 @@ class UserController extends Controller
             } else {
                 $product->old_price = null;
             }
-            $subtotal += $product->price*$product->cart_qty;
+            $subtotal += $product->price * $product->cart_qty;
         }
 
         $promocodes = $this->get_user_promocodes($subtotal);
@@ -357,20 +363,21 @@ class UserController extends Controller
         foreach ($promocodes as $promocode) {
             $discount += $promocode->remain;
         }
-        if($discount>$subtotal){
-            $discount=$subtotal;
+        if ($discount > $subtotal) {
+            $discount = $subtotal;
         }
-        $total=$subtotal-$discount;
-        return view('home/checkout', compact('title', 'products','subtotal','discount','total'));
+        $total = $subtotal - $discount;
+        return view('home/checkout', compact('title', 'products', 'subtotal', 'discount', 'total'));
     }
-    public function purchase($id){
-        $order=Order::find($id);
-        
-        $title="إتمام عملية الشراء";
-        if($order->status==0){
+    public function purchase($id)
+    {
+        $order = Order::find($id);
 
-            return view('home/purchase',compact('id','title'));
-        }else{
+        $title = "إتمام عملية الشراء";
+        if ($order->status == 0) {
+
+            return view('home/purchase', compact('id', 'title'));
+        } else {
             return redirect()->back();
         }
     }
@@ -384,14 +391,44 @@ class UserController extends Controller
             ->where('promocodes.end', '>=', $date)
             ->where('promocodes.minimum', '<=', $price)
             ->where(DB::raw('(promocodes.value-promocode_users.spent)'), '>', 0)
-            ->select(DB::raw('(promocodes.value-promocode_users.spent) as remain'), 'promocode_users.id', 'promocode_users.spent','promocode_id')
+            ->select(DB::raw('(promocodes.value-promocode_users.spent) as remain'), 'promocode_users.id', 'promocode_users.spent', 'promocode_id')
             ->orderBy('remain', 'asc')
             ->get();
 
         return $promocodes;
     }
-    
 
+    public function search(Request $request)
+    {
+        $word = request('search');
+        $title=" نتائج بحث : ".$word;
+        $products = Product::
+            leftJoin('brands', 'brands.id', 'brand_id')
+            ->select('products.*', 'products.name_ar as name', 'products.description_ar as description')
+            ->whereStatus(1);
+        $products->where(function ($query) use ($word) {
+            $query->where('products.name_ar', 'like', '%' . $word . '%')
+                ->orWhere('products.description_ar', 'like', '%' . $word . '%')
+                ->orWhere('brands.name_ar', 'like', '%' . $word . '%');
+        });
+        $products = $products->get();
+
+        foreach ($products as $product) {
+            if (strlen($product->description) > 100) {
+                $product->description = substr($product->description, 100) . "...";
+            }
+            $product->description = str_replace("\n", "<br>", $product->description);
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
+        }
+        $this->product_main_image($products);
+        return view('home.products', compact('title', 'products'));
+    }
     public function redirect_to_product($id)
     {
         $user = Auth::user();

@@ -3,10 +3,11 @@
             <img src="{{URL::asset('resources/assets/images/logo.png')}}" class="img-fluid" alt="Logo">
         </a>
         <a href="{{route('home')}}" class="link-home">الرئيسية</a>
-        <form action="" class="search">
-            <input type="text" placeholder="ابحث  عن المنتج الذي تريده">
-            <div class="search-icon">
-                <img src="{{URL::asset('resources/assets/images/search.png')}}" class="img-fluid" alt="">
+        <form action="{{route('search')}}" method="GET" class="search position-relative">
+            <input type="text" name="search" placeholder="ابحث  عن المنتج الذي تريده">
+            <div class="search-icon  h-100 position-absolute d-flex justify-content-center align-items-center" style="top:0;left:0">
+                <!-- <img src="{{URL::asset('resources/assets/images/search.png')}}" class="img-fluid" alt=""> -->
+                <button type="submit" class="btn btn-transparent"><i class="fa fa-search text-primary"></i></button>
             </div>
         </form>
         <ul>
@@ -44,7 +45,7 @@
 
                 <div class="dropdown-menu text-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route($user->role_id==1?'admin':($user->role_id==2?'vendor':'dashboard'))}}"><i class="fas fa-user-alt pl-2 "></i>حسابي </a>
-                    <a class="dropdown-item logout" href=""><i class="fas fa-user-alt pl-2 logout "></i>تسجيل الخروج </a>
+                    <a class="dropdown-item logout" href=""><i class="fa fa-sign-out-alt pl-2 logout "></i>تسجيل الخروج </a>
                 </div>
             </li>
             @endauth

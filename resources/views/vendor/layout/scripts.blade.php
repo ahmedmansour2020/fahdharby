@@ -1,5 +1,5 @@
-script<?php $user=auth()->user();
-
+<?php
+ $user=auth()->user();
 ?>
 <script>
 var user_role='{{$user->role_id}}';

@@ -37,24 +37,24 @@
 
                 </div>
             </a>
-            <a href="#" class="link-sub-nav">
+            <!-- <a href="#" class="link-sub-nav">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/Icon material-favorite.png')}}" alt=""> المفضلة
 
                 </div>
-            </a>
+            </a> -->
             <a href="#" class="link-sub-nav">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/ic_record_voice_over_24px.png')}}" alt=""> حسابي
 
                 </div>
             </a>
-            <a href="#" class="link-sub-nav">
+            <!-- <a href="#" class="link-sub-nav">
                 <div class="sub-nav">
                     <img src="{{URL::asset('resources/assets/images/Icon feather-log-out.png')}}" alt=""> تسجيل الخروج
 
                 </div>
-            </a>
+            </a> -->
         </nav>
     </div>
     
