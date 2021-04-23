@@ -30,80 +30,45 @@
                             <h3>اخر الطلبات</h3>
                         </div>
                     </div>
+                    @foreach($order_items as $item)
                     <div class="col-12 box-lastOrder">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="details-order">
-                                    <div class="">
-                                        <h4>رقم الطلب</h4>
-                                        <p>12345</p>
+                                    <div class="row">
+                                        <h4 class="col-4">رقم الطلب</h4>
+                                        <p class="col-8">{{$item->order_id}}</p>
                                     </div>
-                                    <div class="">
-                                        <h4>اسم العميل</h4>
-                                        <p>محمود</p>
+                                    <div class="row">
+                                        <h4 class="col-4">اسم العميل</h4>
+                                        <p class="col-8">{{$item->user}}</p>
                                     </div>
-                                    <div class="">
-                                        <h4>الحالة</h4>
-                                        <p>جديد</p>
+                                    <div class="row">
+                                        <h4 class="col-4">المنتج</h4>
+                                        <p class="col-8">{{$item->product}}</p>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="details-order">
-                                    <div class="">
-                                        <h4>تاريخ الطلب</h4>
-                                        <p>12345</p>
+                                    <div class="row">
+                                        <h4 class="col-4">تاريخ الطلب</h4>
+                                        <p class="col-8">{{date('Y-m-d',strtotime($item->created_at))}}</p>
                                     </div>
-                                    <div class="">
-                                        <h4>الكمية</h4>
-                                        <p>3</p>
+                                    <div class="row">
+                                        <h4 class="col-4">الكمية</h4>
+                                        <p class="col-8">{{$item->qty}}</p>
                                     </div>
-                                    <div class="">
-                                        <h4>الإجمالي</h4>
-                                        <p>50</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 box-lastOrder">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="details-order">
-                                    <div class="">
-                                        <h4>رقم الطلب</h4>
-                                        <p>12345</p>
-                                    </div>
-                                    <div class="">
-                                        <h4>اسم العميل</h4>
-                                        <p>محمود</p>
-                                    </div>
-                                    <div class="">
-                                        <h4>الحالة</h4>
-                                        <p>جديد</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="details-order">
-                                    <div class="">
-                                        <h4>تاريخ الطلب</h4>
-                                        <p>12345</p>
-                                    </div>
-                                    <div class="">
-                                        <h4>الكمية</h4>
-                                        <p>3</p>
-                                    </div>
-                                    <div class="">
-                                        <h4>الإجمالي</h4>
-                                        <p>50</p>
+                                    <div class="row">
+                                        <h4 class="col-4">الإجمالي</h4>
+                                        <p class="col-8">{{$item->total}} $</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
  

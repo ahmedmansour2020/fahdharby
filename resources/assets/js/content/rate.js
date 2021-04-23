@@ -23,7 +23,7 @@ $(document).ready(function() {
                 $(rate_star[0]).addClass('far fa-star');
             } else if (total_rate <= 10) {
                 $(rate_star[0]).removeClass('far fa-star');
-                $(rate_star[0]).addClass('fa fa-star-half');
+                $(rate_star[0]).addClass('fa fa-star-half-alt flip');
             } else if (total_rate <= 20) {
                 $(rate_star[0]).removeClass('far fa-star');
                 $(rate_star[0]).removeClass('far fa-star-half');
@@ -33,7 +33,7 @@ $(document).ready(function() {
                 $(rate_star[0]).removeClass('far fa-star-half');
                 $(rate_star[0]).addClass('fa fa-star');
                 $(rate_star[1]).removeClass('far fa-star');
-                $(rate_star[1]).addClass('fa fa-star-half');
+                $(rate_star[1]).addClass('fa fa-star-half-alt flip');
             } else if (total_rate <= 40) {
                 $(rate_star[0]).removeClass('far fa-star');
                 $(rate_star[0]).removeClass('far fa-star-half');
@@ -49,7 +49,7 @@ $(document).ready(function() {
                 $(rate_star[1]).removeClass('far fa-star-half');
                 $(rate_star[1]).addClass('fa fa-star');
                 $(rate_star[2]).removeClass('far fa-star');
-                $(rate_star[2]).addClass('fa fa-star-half');
+                $(rate_star[2]).addClass('fa fa-star-half-alt flip');
             } else if (total_rate <= 60) {
                 $(rate_star[0]).removeClass('far fa-star');
                 $(rate_star[0]).removeClass('far fa-star-half');
@@ -71,7 +71,7 @@ $(document).ready(function() {
                 $(rate_star[2]).removeClass('far fa-star-half');
                 $(rate_star[2]).addClass('fa fa-star');
                 $(rate_star[3]).removeClass('far fa-star');
-                $(rate_star[3]).addClass('fa fa-star-half');
+                $(rate_star[3]).addClass('fa fa-star-half-alt flip');
             } else if (total_rate <= 80) {
                 $(rate_star[0]).removeClass('far fa-star');
                 $(rate_star[0]).removeClass('far fa-star-half');
@@ -99,7 +99,7 @@ $(document).ready(function() {
                 $(rate_star[3]).removeClass('far fa-star-half');
                 $(rate_star[3]).addClass('fa fa-star');
                 $(rate_star[4]).removeClass('far fa-star');
-                $(rate_star[4]).addClass('fa fa-star-half');
+                $(rate_star[4]).addClass('fa fa-star-half-alt flip');
             } else if (total_rate <= 100) {
                 $(rate_star[0]).removeClass('far fa-star');
                 $(rate_star[0]).removeClass('far fa-star-half');

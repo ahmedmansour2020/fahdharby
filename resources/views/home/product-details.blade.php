@@ -30,7 +30,7 @@ $home=true;
                         <tr>
                             <td>البائع</td>
                             <td>:</td>
-                            <td>{{$supplier->name}}</td>
+                            <td><a href="{{route('filter_by_vendor',$supplier->id)}}">{{$supplier->name}}</a></td>
                         </tr>
                         <tr>
                             <td>التقييم</td>
@@ -44,7 +44,8 @@ $home=true;
                                     <i class="far fa-star rate_star"></i>
                                     <i class="far fa-star rate_star"></i>
                                 </div>
-                                <span class="amount-comments">{{count($reviews)}} تعليق</span></td>
+                                <span class="amount-comments">{{count($reviews)}} تعليق</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>مكان الشحن</td>
@@ -72,13 +73,14 @@ $home=true;
                     <h3>{{$product->name}}</h3>
 
                     @if($product->old_price!=null)
-                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b></span>
+                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b
+                            class="text-success">{{$product->price}}$</b></span>
                     @else
                     <span>{{$product->price}}$</span>
                     @endif
                 </div>
                 <p>{{$product->description}}</p>
-                <a data-id="{{$product->id}}" 
+                <a data-id="{{$product->id}}"
                     class="btn btn-primary w-100 py-3 @if($check_auth) add_to_cart @else login @endif @if($check_cart) disabled @endif">
                     @if($check_auth)
                     @if($check_cart)
@@ -117,54 +119,44 @@ $home=true;
 
                 </div>
                 <div class="col-12 ">
-                    <div class="star-rate d-inline-block">
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
+
                     <div class="d-inline-block float-left">
                         <div class="status-rating">
-                            <img src="{{ URL::asset('resources/assets/images/5.png') }}" alt="">
-                            <span class="d-inline-block"
-                                style="width: 500px; height: 10px; border-radius: 10px; background-color: #E4DEDE;">
-                                <span class="d-block"
-                                    style="width: 430px; height: 10px; border-radius: 10px; background-color: #306EFF; "></span>
-                            </span>
+                            <i class="fa fa-star" style="font-size:12px;"></i> <b>5</b>
+                            <div class="progress d-inline-flex" style="width: 500px;height:0.6rem !important">
+                                <div class="progress-bar rounded" role="progressbar" style="width: {{$rate_5}}%" aria-valuenow="{{$rate_5}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <div class="status-rating">
-                            <img src="{{ URL::asset('resources/assets/images/4.png') }}" alt="">
-                            <span class="d-inline-block"
-                                style="width: 500px; height: 10px; border-radius: 10px; background-color: #E4DEDE;">
-                                <span class="d-block"
-                                    style="width: 390px; height: 10px; border-radius: 10px; background-color: #306EFF; "></span>
-                            </span>
+                            <i class="fa fa-star" style="font-size:12px;"></i> <b>4</b>
+                            <div class="progress d-inline-flex" style="width: 500px;height:0.6rem !important">
+                                <div class="progress-bar rounded" role="progressbar" style="width: {{$rate_4}}%" aria-valuenow="{{$rate_4}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <div class="status-rating">
-                            <img src="{{ URL::asset('resources/assets/images/3.png') }}" alt="">
-                            <span class="d-inline-block"
-                                style="width: 500px; height: 10px; border-radius: 10px; background-color: #E4DEDE;">
-                                <span class="d-block"
-                                    style="width: 330px; height: 10px; border-radius: 10px; background-color: #306EFF; "></span>
-                            </span>
+                            <i class="fa fa-star" style="font-size:12px;"></i> <b>3</b>
+                            <div class="progress d-inline-flex" style="width: 500px;height:0.6rem !important">
+                                <div class="progress-bar rounded" role="progressbar" style="width: {{$rate_3}}%" aria-valuenow="{{$rate_3}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <div class="status-rating">
-                            <img src="{{ URL::asset('resources/assets/images/2.png') }}" alt="">
-                            <span class="d-inline-block"
-                                style="width: 500px; height: 10px; border-radius: 10px; background-color: #E4DEDE;">
-                                <span class="d-block"
-                                    style="width: 230px; height: 10px; border-radius: 10px; background-color: #306EFF; "></span>
-                            </span>
+                            <i class="fa fa-star" style="font-size:12px;"></i> <b>2</b>
+                            <div class="progress d-inline-flex" style="width: 500px;height:0.6rem !important">
+                                <div class="progress-bar rounded" role="progressbar" style="width: {{$rate_2}}%" aria-valuenow="{{$rate_2}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <div class="status-rating">
-                            <img src="{{ URL::asset('resources/assets/images/1.png') }}" alt="">
-                            <span class="d-inline-block"
-                                style="width: 500px; height: 10px; border-radius: 10px; background-color: #E4DEDE;">
-                                <span class="d-block"
-                                    style="width: 130px; height: 10px; border-radius: 10px; background-color: #306EFF; "></span>
-                            </span>
+                            <i class="fa fa-star" style="font-size:12px;"></i> <b>1</b>
+                            <div class="progress d-inline-flex" style="width: 500px;height:0.6rem !important">
+                                <div class="progress-bar rounded" role="progressbar" style="width: {{$rate_1}}%" aria-valuenow="{{$rate_1}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -176,7 +168,8 @@ $home=true;
                 <div class="col-12">
                     @foreach($reviews as $review)
                     <div class="box-right mt-5">
-                    <img class="review-avatar" @if($review->avatar!=null) src="{{asset('uploaded/'.$review->avatar)}}" @endif alt="">
+                        <img class="review-avatar" @if($review->avatar!=null)
+                        src="{{asset('uploaded/'.$review->avatar)}}" @endif alt="">
                         <span class="name-user">{{$review->user}}</span>
                         <div class="date_rate">
                             <span class="date-rating-user">{{$review->date}}</span>
@@ -204,7 +197,6 @@ $home=true;
                                     cols="5"></textarea>
                             </div>
                             <div class="col-4 text-warning">
-                                {{-- <i data-value="1" class="rate fa fa-star-half"></i> --}}
                                 <i data-value="1" class="rate fa fa-star"></i>
                                 <i data-value="2" class="rate far fa-star"></i>
                                 <i data-value="3" class="rate far fa-star"></i>
@@ -230,23 +222,28 @@ $home=true;
         @foreach($related_products as $item)
         <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="box-product latest-product">
-                <a href="#" class="product-header d-block">
+                <a href="{{route('product-details',$item->id)}}" class="product-header d-block">
                     <img src="{{ $item->image }}" alt="">
                 </a>
                 <div class="product-body">
-                    <a href="#" class="text-decoration-none">
+                    <a href="{{route('product-details',$item->id)}}" class="text-decoration-none">
                         <h4>{{$item->name}}</h4>
 
                     </a>
-                    <div class="stars-rate">
-                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                        <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+                    <div class="stars-rate" dir="rtl">
+                        <input type="hidden" class="products_rates" value="{{$item->id}}">
+                        <input type="hidden" id="rate_star_{{$item->id}}" value="{{$item->reviews_stars}}">
+                        <div class="text-primary d-inline-block">
+                            <i class="far fa-star rate_star_{{$item->id}}"></i>
+                            <i class="far fa-star rate_star_{{$item->id}}"></i>
+                            <i class="far fa-star rate_star_{{$item->id}}"></i>
+                            <i class="far fa-star rate_star_{{$item->id}}"></i>
+                            <i class="far fa-star rate_star_{{$item->id}}"></i>
+                        </div>
                     </div>
                     @if($item->old_price!=null)
-                    <span><del style="font-size:20px">{{$item->old_price}}$</del> <b class="text-success">{{$item->price}}$</b></span>
+                    <span><del style="font-size:20px">{{$item->old_price}}$</del> <b
+                            class="text-success">{{$item->price}}$</b></span>
                     @else
                     <span>{{$item->price}}$</span>
                     @endif

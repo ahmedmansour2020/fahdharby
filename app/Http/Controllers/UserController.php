@@ -73,12 +73,59 @@ class UserController extends Controller
         }
         $this->product_main_image($latest_products);
 
+        $high_sales = Product::
+        leftJoin('order_items','product_id','products.id')
+        ->whereStatus(1)
+        ->select(DB::raw('count(order_items.id) as sales'),'products.id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')
+        ->groupBy('products.id','name','price','description',)
+        ->orderBy('sales', 'desc')
+        ->limit(10)
+        ->get()->shuffle();
+        foreach ($high_sales as $product) {
+            $reviews = Review::
+                leftJoin('users', 'users.id', 'user_id')
+                ->where('product_id', $product->id)
+                ->whereStatus(1)
+                ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+                ->orderBy('reviews.id', 'desc')
+                ->get();
+            $total = 5 * count($reviews);
+            $total_reviews = 0;
+            foreach ($reviews as $review) {
+                $total_reviews += $review->rate;
+            }
+            if (count($reviews) == 0) {
+                $reviews_stars = 0;
+            } else {
+                $reviews_stars = (100 * $total_reviews / $total);
+            }
+            $product->reviews_stars = $reviews_stars;
+            $product->reviews = count($reviews);
+
+            $check_cart_related = false;
+            if ($user) {
+                $cart_item = Cart::where('user_id', $user->id)->where('product_id', $product->id)->whereStatus(0)->first();
+                if ($cart_item) {
+                    $check_cart_related = true;
+                }
+            }
+            $product->check_cart_related = $check_cart_related;
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
+        }
+        $this->product_main_image($high_sales);
+
         $offers_products = Product::join('product_offers', 'product_id', 'products.id')->whereApproved(1)->where('products.status', 1)->where('product_offers.status', 1)->select('products.id', 'name_ar as name', 'price as old_price', 'offer')->get();
         $this->product_main_image($offers_products);
         foreach ($offers_products as $product) {
             $product->price = (int) ($product->old_price - ($product->old_price * $product->offer / 100));
         }
-        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth', 'offers_products'));
+        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth', 'offers_products','high_sales'));
     }
     public static function getParentCategory($limit)
     {
@@ -202,6 +249,25 @@ class UserController extends Controller
             } else {
                 $item->old_price = null;
             }
+            $re_reviews = Review::
+                leftJoin('users', 'users.id', 'user_id')
+                ->where('product_id', $item->id)
+                ->whereStatus(1)
+                ->select('reviews.*', 'users.name as user', DB::raw('date(reviews.created_at) as date'))
+                ->orderBy('reviews.id', 'desc')
+                ->get();
+            $re_total = 5 * count($re_reviews);
+            $total_re_reviews = 0;
+            foreach ($re_reviews as $review) {
+                $total_re_reviews += $review->rate;
+            }
+            if (count($re_reviews) == 0) {
+                $re_reviews_stars = 0;
+            } else {
+                $re_reviews_stars = (100 * $total_re_reviews / $re_total);
+            }
+            $item->reviews_stars = $re_reviews_stars;
+            $item->reviews = count($re_reviews);
         }
         $reviews = Review::
             leftJoin('users', 'users.id', 'user_id')
@@ -210,6 +276,36 @@ class UserController extends Controller
             ->select('reviews.*', 'users.name as user', 'avatar', DB::raw('date(reviews.created_at) as date'))
             ->orderBy('reviews.id', 'desc')
             ->get();
+        $rate_1 = 0;
+        $rate_2 = 0;
+        $rate_3 = 0;
+        $rate_4 = 0;
+        $rate_5 = 0;
+        foreach ($reviews as $review) {
+            if ($review->rate == 1) {
+                $rate_1++;
+            }
+            if ($review->rate == 2) {
+                $rate_2++;
+            }
+            if ($review->rate == 3) {
+                $rate_3++;
+            }
+            if ($review->rate == 4) {
+                $rate_4++;
+            }
+            if ($review->rate == 5) {
+                $rate_5++;
+            }
+        }
+        if (count($reviews) > 0) {
+            $rate_1 = (int) (($rate_1 / count($reviews)) * 100);
+            $rate_2 = (int) (($rate_2 / count($reviews)) * 100);
+            $rate_3 = (int) (($rate_3 / count($reviews)) * 100);
+            $rate_4 = (int) (($rate_4 / count($reviews)) * 100);
+            $rate_5 = (int) (($rate_5 / count($reviews)) * 100);
+        }
+
         $check_review = false;
 
         if ($user) {
@@ -232,7 +328,7 @@ class UserController extends Controller
 
             $reviews_stars = (100 * $total_reviews / $total);
         }
-        return view('home.product-details', compact('reviews_stars', 'check_review', 'title', 'reviews', 'images', 'product', 'supplier', 'check_auth', 'check_cart', 'related_products'));
+        return view('home.product-details', compact('reviews_stars', 'check_review', 'title', 'reviews', 'images', 'product', 'supplier', 'check_auth', 'check_cart', 'related_products', 'rate_1', 'rate_2', 'rate_3', 'rate_4', 'rate_5'));
     }
 
     public function add_to_cart(Request $request)
@@ -417,6 +513,32 @@ class UserController extends Controller
                 ->orWhere('brands.name_ar', 'like', '%' . $word . '%');
         });
         $products = $products->get();
+
+        foreach ($products as $product) {
+            if (strlen($product->description) > 100) {
+                $product->description = substr($product->description, 100) . "...";
+            }
+            $product->description = str_replace("\n", "<br>", $product->description);
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
+        }
+        $this->product_main_image($products);
+        return view('home.products', compact('title', 'products'));
+    }
+    public function filter_by_vendor($id)
+    {
+        $user=User::find($id);
+        $title = " منتجات التاجر : " . $user->name;
+        $products = Product::
+            where('user_id', $id)
+            ->select('products.*', 'products.name_ar as name', 'products.description_ar as description')
+            ->whereStatus(1)
+            ->get();
 
         foreach ($products as $product) {
             if (strlen($product->description) > 100) {

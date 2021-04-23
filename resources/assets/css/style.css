@@ -1213,6 +1213,10 @@ input.code-phone {
     background-color: red;
 }
 
+.flip {
+    transform: scaleX(-1) !important;
+}
+
 
 /* Start contact us page */
 

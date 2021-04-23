@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,13 @@ class VendorController extends Controller
     public function dashboard()
     {
         $title = "لوحة تحكم التاجر";
-        return view('vendor/show/home-vendor', compact('title'));
+        $order_items=OrderItem::leftJoin('orders','orders.id','order_id')
+        ->leftJoin('users','users.id','user_id')
+        ->leftJoin('products','products.id','product_id')
+        ->select('order_id','orders.created_at','users.name as user','products.name_ar as product','order_items.qty','order_items.total')
+        ->orderBy('orders.id', 'desc')
+        ->get();
+        return view('vendor/show/home-vendor', compact('title','order_items'));
     }
     public function dashboard_admin()
     {

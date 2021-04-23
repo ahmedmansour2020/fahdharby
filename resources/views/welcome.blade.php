@@ -121,14 +121,15 @@ $home=true;
                         </div>
                     </div>
                     @if($product->old_price!=null)
-                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b></span>
+                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b
+                            class="text-success">{{$product->price}}$</b></span>
                     @else
                     <span>{{$product->price}}$</span>
                     @endif
                     <p>{{$product->description}}</p>
                 </div>
                 <div class="product-footer">
-                    <a data-id="{{$product->id}}" 
+                    <a data-id="{{$product->id}}"
                         class="btn btn-primary w-100  @if($check_auth) add_to_cart @else login @endif @if($product->check_cart_related) disabled @endif">
                         @if($check_auth)
                         @if($product->check_cart_related)
@@ -160,197 +161,78 @@ $home=true;
             @foreach($offers_products as $product)
             <div class="box-product  special-orders">
                 <div class="product-header">
-                    <img style="max-width:200px;max-height:200px" class="m-auto"
-                        src="{{ $product->image}}" alt="">
+                    <img style="max-width:200px;max-height:200px" class="m-auto" src="{{ $product->image}}" alt="">
                 </div>
                 <div class="product-body">
                     <span class="text-special-order">{{$product->name}}</span>
-                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b class="text-success">{{$product->price}}$</b></span>
+                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b
+                            class="text-success">{{$product->price}}$</b></span>
                 </div>
                 <div class="product-footer">
-                    <a  href="{{route('product-details',$product->id)}}">تفاصيل المنتج</a>
+                    <a href="{{route('product-details',$product->id)}}">تفاصيل المنتج</a>
                 </div>
             </div>
             @endforeach
 
         </div>
-      
 
-<div class="col-12">
-    <div class="header-home-products">
-        <h2>الأكثر مبيعا</h2>
-    </div>
-</div>
 
-<div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
-
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
-
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+        <div class="col-12">
+            <div class="header-home-products">
+                <h2>الأكثر مبيعا</h2>
             </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
         </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
 
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
+        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+
+            @foreach($high_sales as $product)
+            <div class="box-product latest-product item">
+                <a href="{{route('product-details',$product->id)}}" class="product-header d-block">
+                    <img src="{{$product->image }}" alt="">
+                </a>
+                <div class="product-body">
+                    <a href="{{route('product-details',$product->id)}}" class="text-decoration-none">
+                        <h4>{{$product->name}}</h4>
+                    </a>
+                    <div class="stars-rate" dir="rtl">
+                        <input type="hidden" class="products_rates" value="h{{$product->id}}">
+                        <input type="hidden" id="rate_star_h{{$product->id}}" value="{{$product->reviews_stars}}">
+                        <div class="text-primary d-inline-block">
+                            <i class="far fa-star rate_star_h{{$product->id}}"></i>
+                            <i class="far fa-star rate_star_h{{$product->id}}"></i>
+                            <i class="far fa-star rate_star_h{{$product->id}}"></i>
+                            <i class="far fa-star rate_star_h{{$product->id}}"></i>
+                            <i class="far fa-star rate_star_h{{$product->id}}"></i>
+                        </div>
+                    </div>
+                    @if($product->old_price!=null)
+                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b
+                            class="text-success">{{$product->price}}$</b></span>
+                    @else
+                    <span>{{$product->price}}$</span>
+                    @endif
+                    <p>{{$product->description}}</p>
+                </div>
+                <div class="product-footer">
+                    <a data-id="{{$product->id}}"
+                        class="btn btn-primary w-100  @if($check_auth) add_to_cart @else login @endif @if($product->check_cart_related) disabled @endif">
+                        @if($check_auth)
+                        @if($product->check_cart_related)
+                        المنتج موجود بالعربة
+                        @else
+                        أضف إلى سلة المشتريات
+                        @endif
+                        @else
+                        سجل الدخول أولا
+                        @endif
+                    </a>
+                </div>
             </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
-        </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
+            @endforeach
 
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-            </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
         </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
 
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-            </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
-        </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
-
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-            </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
-        </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
-
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-            </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
-        </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-
-    <div class="box-product latest-product item">
-        <a href="#" class="product-header d-block">
-            <img src="{{ URL::asset('resources/assets/images/camera.png') }}" alt="">
-        </a>
-        <div class="product-body">
-            <a href="#" class="text-decoration-none">
-                <h4>إبريق صيني</h4>
-
-            </a>
-            <div class="stars-rate">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-                <img src="{{ URL::asset('resources/assets/images/ic_star_24px.png') }}" alt="">
-            </div>
-            <span>50$</span>
-            <p>تستعمل هذه الكاميرا للتصوير الفوتوغرافي والإنتاج السينامائي</p>
-        </div>
-        <div class="product-footer">
-            <button type="button">أضف إلى سلة المشتريات</button>
-        </div>
-    </div>
-
-</div>
-
-{{-- <footer class="footer">
+        {{-- <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6 col-md-4 col-lg-2">
@@ -383,7 +265,7 @@ $home=true;
         </footer> --}}
 
 
-</div>
+    </div>
 </div>
 
 
