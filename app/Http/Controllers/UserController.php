@@ -71,9 +71,14 @@ class UserController extends Controller
                 $product->old_price = null;
             }
         }
-
         $this->product_main_image($latest_products);
-        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth'));
+
+        $offers_products = Product::join('product_offers', 'product_id', 'products.id')->whereApproved(1)->where('products.status', 1)->where('product_offers.status', 1)->select('products.id', 'name_ar as name', 'price as old_price', 'offer')->get();
+        $this->product_main_image($offers_products);
+        foreach ($offers_products as $product) {
+            $product->price = (int) ($product->old_price - ($product->old_price * $product->offer / 100));
+        }
+        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth', 'offers_products'));
     }
     public static function getParentCategory($limit)
     {
@@ -401,7 +406,7 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $word = request('search');
-        $title=" نتائج بحث : ".$word;
+        $title = " نتائج بحث : " . $word;
         $products = Product::
             leftJoin('brands', 'brands.id', 'brand_id')
             ->select('products.*', 'products.name_ar as name', 'products.description_ar as description')
