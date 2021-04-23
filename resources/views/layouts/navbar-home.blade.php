@@ -31,7 +31,7 @@
             </li>
             @guest
             <a href="#" class="btn btn-primary login btn-chart ml-3">تسجيل دخول</a>
-            <a href="#" class="btn btn-chart bg-white border-primary ml-3" style="color: #306EFF">حساب جديد</a>
+            <a href="#" class="btn btn-chart bg-white border-primary ml-3 register-modal" style="color: #306EFF">حساب جديد</a>
             @endguest
             @auth
             <?php

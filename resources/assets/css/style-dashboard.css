@@ -100,7 +100,7 @@ select {
 
 .container-navbar-right {
     background-color: #222;
-    height: 100vh;
+    height: 100%;
 }
 
 .container-navbar-right .home-page {

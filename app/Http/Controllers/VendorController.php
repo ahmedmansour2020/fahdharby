@@ -20,7 +20,7 @@ class VendorController extends Controller
         ->leftJoin('products','products.id','product_id')
         ->select('order_id','orders.created_at','users.name as user','products.name_ar as product','order_items.qty','order_items.total')
         ->orderBy('orders.id', 'desc')
-        ->get();
+        ->paginate(10);
         return view('vendor/show/home-vendor', compact('title','order_items'));
     }
     public function dashboard_admin()

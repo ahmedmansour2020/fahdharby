@@ -70,8 +70,24 @@
                     </div>
                     @endforeach
                 </div>
+        <div class="text-center page_navigation" dir="ltr">{{$order_items->links()}}</div>
             </div>
- 
 
     @endsection
+    @section('page_js')
+    <script>
+    $(document).ready(function(){
+
+        $('.page_navigation span').each(function(e){
+            $(this).addClass('mx-5')
+            $(this).text($(this).text().replace('Next',''))
+            $(this).text($(this).text().replace('Previous',''))
+        })
+        $('.page_navigation a').each(function(e){
+            $(this).text($(this).text().replace('Next',''))
+            $(this).text($(this).text().replace('Previous',''))
+        })
+    })
+        </script>
+        @endsection
 

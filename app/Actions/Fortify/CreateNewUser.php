@@ -23,6 +23,7 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role'=>['required'],
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -31,6 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'gender_id' => $input['gender'],
             'password' => Hash::make($input['password']),
+            'role_id'=>$input['role'],
 
         ]);
     }

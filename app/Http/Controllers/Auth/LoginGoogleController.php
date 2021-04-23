@@ -66,6 +66,7 @@ class LoginGoogleController extends Controller
             $user->email = $data->email;
             $user->google_id = $data->id;
             $user->avatar = $data->avatar;
+            $user->role_id=3;
             $user->save();
         }
 

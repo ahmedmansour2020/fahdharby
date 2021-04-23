@@ -19,7 +19,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script>
 var login_url = "{{route('login')}}";
+var register_url = "{{route('register')}}";
 var csrf = '@csrf'
+
+var facebook="{{route('login.facebook')}}";
+var google="{{route('login.google')}}";
 </script>
 <script src="{{ asset('resources/assets/js/content/login.js') }}"></script>
 <script src="{{ asset('resources/assets/js/content/logout.js') }}"></script>

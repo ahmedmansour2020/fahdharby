@@ -33,13 +33,13 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://localhost/ecommerce/login/google/callback',
+        'redirect' => 'http://localhost/fahdharby/login/google/callback',
     ],
 
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'http://localhost/ecommerce/login/facebook/callback',
+        'redirect' => 'http://localhost/fahdharby/login/facebook/callback',
     ],
 
 ];
