@@ -127,9 +127,10 @@ var type = 1;
 var $lat = 25.637181280126878;
 var $lng = 39.41930005645501;
 </script>
-<script src="{{ asset('resources/assets/js/content/location.js') }}"></script>
+
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry"></script>
 <script src="{{ URL::asset('resources/assets/js/intlTelInput.js') }}"></script>
+<script src="{{ asset('resources/assets/js/content/location.js') }}"></script>
 <script>
 var input = document.querySelector("#phone");
 window.intlTelInput(input, {

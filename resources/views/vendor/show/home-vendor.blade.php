@@ -30,6 +30,7 @@
                             <h3>اخر الطلبات</h3>
                         </div>
                     </div>
+                    @if(auth()->user()->role_id!=1)
                     @foreach($order_items as $item)
                     <div class="col-12 box-lastOrder">
                         <div class="row">
@@ -71,6 +72,7 @@
                     @endforeach
                 </div>
         <div class="text-center page_navigation" dir="ltr">{{$order_items->links()}}</div>
+                    @endif
             </div>
 
     @endsection

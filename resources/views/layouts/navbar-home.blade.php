@@ -38,8 +38,10 @@
             $user=auth()->user();
             ?>
             <li class="nav-item   dropdown">
-                <a class="nav-link  dropdown-toggle d-inline-block " style="font-size: 19px;font-weight: 700;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a  class="nav-link  dropdown-toggle d-inline-block " style="font-size: 19px;font-weight: 700;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <span id="ahmed">
                     {{$user->name}}
+                   </span>
                 </a>
                 <img src="{{URL::asset('resources/assets/images/Group 1225.png')}}" class="img-fluid px-1 d-inline-block" style="width: 25%"  alt="">
 
@@ -51,5 +53,7 @@
             @endauth
         
         </ul>
+        @auth
         <a href="{{route('cart')}}" class="btn btn-primary btn-chart">سلة الشراء <img src="{{URL::asset('resources/assets/images/shopping-chart.png')}}" class="img-fluid" alt=""></a>
+        @endauth
 </nav>

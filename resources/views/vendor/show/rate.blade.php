@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="box-right">
-                            <img class="review-avatar" @if($rate->avatar!=null) src="{{asset('uploaded/'.$rate->avatar)}}" @endif alt="">
+                            <img class="review-avatar" @if($rate->avatar!=null) src="{{$rate->avatar}}" @endif alt="">
                             <span class="name-user">{{$rate->user}}</span>
                             <div class="date_rate">
                                 <span class="date-rating-user">{{date('d/m/Y',strtotime($rate->created_at))}}</span>

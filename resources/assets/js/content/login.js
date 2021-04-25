@@ -25,10 +25,10 @@ $(document).ready(function() {
                             <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
                             <p class="or">او</p>
                             <div class="social-form-register text-center mb-0" dir="ltr">
-                                <a href="#" class="btn btn-info"><i class="fab fa-microsoft"></i></a>
-                                <a href="${google}" class="btn btn-danger"><i class="fab fa-google"></i></a>
-                                <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
-                                <a href="${facebook}" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
+                              <!-- <a href="#" class="btn btn-info"><i class="fab fa-microsoft"></i></a> -->
+                                <a href="${google_url}" class="btn btn-danger"><i class="fab fa-google"></i></a>
+                              <!--  <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a> -->
+                                <a href="${facebook_url}" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
                             </div>
                             <div class="register text-center mt-5">
                                 <p> هل ليس لديك حساب ! <a class="register-modal" href="#">أنشئ حساب</a> </p>
@@ -121,10 +121,10 @@ $(document).ready(function() {
                         <button type="submit" class="btn btn-primary mt-0">أنشئ حسابك</button>
                         <p class="or">او</p>
                         <div class="social-form-register text-center mb-0" dir="ltr">
-                            <a href="#" class="btn btn-info"><i class="fab fa-microsoft"></i></a>
-                            <a href="${google}" class="btn btn-danger"><i class="fab fa-google"></i></a>
-                            <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
-                            <a href="${facebook}" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
+                           <!-- <a href="#" class="btn btn-info"><i class="fab fa-microsoft"></i></a> -->
+                            <a href="${google_url}" class="btn btn-danger"><i class="fab fa-google"></i></a>
+                           <!-- <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a> -->
+                            <a href="${facebook_url}" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
                         </div>
                         <div class="register-login text-center">
                             <p> هل لديك حساب بالفعل ! <a href="#" class="login">سجل الان</a> </p>

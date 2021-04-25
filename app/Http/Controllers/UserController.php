@@ -74,13 +74,13 @@ class UserController extends Controller
         $this->product_main_image($latest_products);
 
         $high_sales = Product::
-        leftJoin('order_items','product_id','products.id')
-        ->whereStatus(1)
-        ->select(DB::raw('count(order_items.id) as sales'),'products.id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')
-        ->groupBy('products.id','name','price','description',)
-        ->orderBy('sales', 'desc')
-        ->limit(10)
-        ->get()->shuffle();
+            leftJoin('order_items', 'product_id', 'products.id')
+            ->whereStatus(1)
+            ->select(DB::raw('count(order_items.id) as sales'), 'products.id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')
+            ->groupBy('products.id', 'name', 'price', 'description', )
+            ->orderBy('sales', 'desc')
+            ->limit(10)
+            ->get()->shuffle();
         foreach ($high_sales as $product) {
             $reviews = Review::
                 leftJoin('users', 'users.id', 'user_id')
@@ -125,7 +125,7 @@ class UserController extends Controller
         foreach ($offers_products as $product) {
             $product->price = (int) ($product->old_price - ($product->old_price * $product->offer / 100));
         }
-        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth', 'offers_products','high_sales'));
+        return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth', 'offers_products', 'high_sales'));
     }
     public static function getParentCategory($limit)
     {
@@ -273,7 +273,7 @@ class UserController extends Controller
             leftJoin('users', 'users.id', 'user_id')
             ->where('product_id', $product->id)
             ->whereStatus(1)
-            ->select('reviews.*', 'users.name as user', 'avatar', DB::raw('date(reviews.created_at) as date'))
+            ->select('reviews.*', 'users.name as user', 'facebook_id', 'twitter_id', 'microsoft_id', 'google_id', 'avatar', DB::raw('date(reviews.created_at) as date'))
             ->orderBy('reviews.id', 'desc')
             ->get();
         $rate_1 = 0;
@@ -282,6 +282,14 @@ class UserController extends Controller
         $rate_4 = 0;
         $rate_5 = 0;
         foreach ($reviews as $review) {
+            if ($review->avatar != null) {
+
+                if ($review->facebook_id != null || $review->twitter_id != null || $review->microsoft_id != null || $review->google_id != null) {
+                    $review->avatar = $review->avatar;
+                } else {
+                    $review->avatar = asset('uploaded/' . $review->avatar);
+                }
+            }
             if ($review->rate == 1) {
                 $rate_1++;
             }
@@ -532,7 +540,7 @@ class UserController extends Controller
     }
     public function filter_by_vendor($id)
     {
-        $user=User::find($id);
+        $user = User::find($id);
         $title = " منتجات التاجر : " . $user->name;
         $products = Product::
             where('user_id', $id)

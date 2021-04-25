@@ -22,8 +22,8 @@ var login_url = "{{route('login')}}";
 var register_url = "{{route('register')}}";
 var csrf = '@csrf'
 
-var facebook="{{route('login.facebook')}}";
-var google="{{route('login.google')}}";
+var facebook_url="{{route('login.facebook')}}";
+var google_url="{{route('login.google')}}";
 </script>
 <script src="{{ asset('resources/assets/js/content/login.js') }}"></script>
 <script src="{{ asset('resources/assets/js/content/logout.js') }}"></script>
@@ -69,4 +69,11 @@ owl.owlCarousel({
     }
 
 });
+var username=$('#ahmed').text().trim();
+
+if(username.length>10){
+    $('#ahmed').text(username.substr(0,10)+"...")
+}else{
+    $('#ahmed').text(username)
+}
 </script>
