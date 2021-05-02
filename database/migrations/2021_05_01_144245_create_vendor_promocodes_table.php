@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePromocodesTable extends Migration
+class CreateVendorPromocodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePromocodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('promocodes', function (Blueprint $table) {
+        Schema::create('vendor_promocodes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('code')->nullable();
             $table->integer('value')->nullable();
             $table->string('minimum')->nullable();
