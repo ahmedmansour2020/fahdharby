@@ -65,8 +65,10 @@ $user=auth()->user();
                                     </thead>
                                     <tbody>
                                         @foreach($products as $product)
+                                       
                                         <input type="hidden" name="items[]" multiple value="{{$product->id}}">
                                         <input type="hidden" name="qty_{{$product->id}}" value="{{$product->cart_qty}}">
+                                        <input type="hidden" name="discount_{{$product->id}}" value="{{$product->discount}}">
                                         <input type="hidden" name="total_{{$product->id}}"
                                             value="{{$product->cart_qty*$product->price}}">
                                         <tr>
@@ -87,6 +89,9 @@ $user=auth()->user();
                                         <hr>
                                     </div>
                                 </div>
+                                @foreach($used_coupones as $used)
+                                <input type="hidden" name="coupones[]" multiple value="{{$used['id'].'/'.$used['spent']}}">
+                                @endforeach
                                 <table class="w-100">
                                     <tbody>
                                         <tr>

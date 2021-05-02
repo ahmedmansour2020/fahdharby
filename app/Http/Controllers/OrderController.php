@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\UserController;
-use App\Mail\SendMail;
 use App\Models\Cart;
-use App\Models\Notification;
 use App\Models\Order;
-use App\Models\OrderItem;
+use App\Mail\SendMail;
 use App\Models\Product;
-use App\Models\PromocodeUser;
+use App\Models\OrderItem;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use App\Models\PromocodeUser;
+use App\Models\VendorPromocodeUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\UserController;
 
 class OrderController extends Controller
 {
@@ -44,6 +45,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        
         $user = Auth::user();
         $order = new Order();
         $order->user_id = $user->id;
@@ -53,8 +55,9 @@ class OrderController extends Controller
         $order->map = request('lng') . '/' . request('lat');
         $order->street = request('street');
         $order->home_job = request('home_job');
-
+        
         $order->save();
+        $discount = 0;
         $total = 0;
         $qty = 1;
         if (request('items')) {
@@ -65,8 +68,10 @@ class OrderController extends Controller
                 $new_item->product_id = $item;
                 $new_item->qty = request('qty_' . $item);
                 $new_item->total = request('total_' . $item);
+                $new_item->discount = request('discount_' . $item);
                 $new_item->save();
                 $total += $new_item->total;
+                $discount+=$new_item->discount;
                 $qty = request('qty_' . $item);
             }
             foreach ($items as $item) {
@@ -81,7 +86,6 @@ class OrderController extends Controller
         }
 
         $order->total = $total;
-        $discount = 0;
         $pc = new UserController();
         $promocodes = $pc->get_user_promocodes($total);
         foreach ($promocodes as $promocode) {
@@ -104,9 +108,20 @@ class OrderController extends Controller
         }
         $order->discount = $discount;
         $order->save();
+
         $order->final = $order->total - $discount;
         $order->save();
 
+        if(request('coupones')){
+            $coupones=request('coupones');
+            foreach($coupones as $coupon){
+                $coupone_id=explode('/',$coupon)[0];
+                $spent=explode('/',$coupon)[1];
+                $user_coupone=VendorPromocodeUser::find($coupone_id);
+                $user_coupone->spent += $spent;
+                $user_coupone->save();
+            }
+        }
         return redirect()->route('purchase', $order->id)->with('success', __('front.success_order'));
 
     }

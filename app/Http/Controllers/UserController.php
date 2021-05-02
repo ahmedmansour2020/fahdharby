@@ -13,6 +13,7 @@ use App\Models\Promocode;
 use App\Models\Review;
 use App\Models\Slider;
 use App\Models\User;
+use App\Models\VendorPromocode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,7 @@ class UserController extends Controller
             $slider->content = str_replace(" ", "&nbsp;", $slider->content);
             $slider->content = str_replace("\n", "<br>", $slider->content);
         }
-        $latest_products = Product::whereStatus(1)->select('id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')->orderBy('id', 'desc')->limit(20)->get();
+        $latest_products = Product::whereStatus(1)->select('id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')->orderBy('id', 'desc')->limit(4)->get();
         foreach ($latest_products as $product) {
             $reviews = Review::
                 leftJoin('users', 'users.id', 'user_id')
@@ -79,7 +80,7 @@ class UserController extends Controller
             ->select(DB::raw('count(order_items.id) as sales'), 'products.id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')
             ->groupBy('products.id', 'name', 'price', 'description', )
             ->orderBy('sales', 'desc')
-            ->limit(10)
+            ->limit(4)
             ->get()->shuffle();
         foreach ($high_sales as $product) {
             $reviews = Review::
@@ -120,7 +121,7 @@ class UserController extends Controller
         }
         $this->product_main_image($high_sales);
 
-        $offers_products = Product::join('product_offers', 'product_id', 'products.id')->whereApproved(1)->where('products.status', 1)->where('product_offers.status', 1)->select('products.id', 'name_ar as name', 'price as old_price', 'offer')->get();
+        $offers_products = Product::join('product_offers', 'product_id', 'products.id')->whereApproved(1)->where('products.status', 1)->where('product_offers.status', 1)->select('products.id', 'name_ar as name', 'price as old_price', 'offer')->limit(4)->get();
         $this->product_main_image($offers_products);
         foreach ($offers_products as $product) {
             $product->price = (int) ($product->old_price - ($product->old_price * $product->offer / 100));
@@ -449,7 +450,14 @@ class UserController extends Controller
             ->select('products.*', 'products.description_' . LangController::lang() . ' as description', 'products.name_' . LangController::lang() . ' as name', 'carts.id as cart_id', 'carts.qty as cart_qty')
             ->get();
         $subtotal = 0;
+        $vendors = [];
+        foreach ($products as $oi) {
+            array_push($vendors, $oi->user_id);
+        }
+        $vendors = array_unique($vendors);
+        $used_coupones=[];
         foreach ($products as $product) {
+            $product->discount=0;
             $reviews = Review::
                 leftJoin('users', 'users.id', 'user_id')
                 ->where('product_id', $product->id)
@@ -465,10 +473,46 @@ class UserController extends Controller
                 $product->old_price = null;
             }
             $subtotal += $product->price * $product->cart_qty;
-        }
 
+        }
+        foreach ($vendors as $vendor) {
+            $total_items_price = 0;
+            foreach ($products as $oi) {
+                if ($oi->user_id == $vendor) {
+                    $total_items_price += ($oi->price*$oi->cart_qty);
+                }
+            }
+            $coupones = $this->get_vendor_promocodes($total_items_price,$vendor);
+            $coupone_discount=0;
+            foreach ($coupones as $coupone){
+                $remain=$coupone->remain;
+                foreach($products as $pr){
+                    if($pr->discount==0&&$pr->user_id==$vendor){
+                        $product_total=$pr->price*$pr->cart_qty;
+                        if ($product_total <= $remain) {
+                            $pr->discount=$product_total;
+                            $remain-=$product_total;
+                            // break;
+                            $coupone_discount+=$pr->discount;
+                            
+                        } else {
+                            $pr->discount=$remain;
+                            $remain=0;
+                            $coupone_discount+=$pr->discount;
+                        }
+                    }
+                }
+                $coupone_data=['id'=>$coupone->id,'spent'=>$coupone_discount];
+                array_push($used_coupones,$coupone_data);
+    
+            }
+        }
+    
         $promocodes = $this->get_user_promocodes($subtotal);
         $discount = 0;
+        foreach($products as $product){
+            $discount+=$product->discount;
+        }
         foreach ($promocodes as $promocode) {
             $discount += $promocode->remain;
         }
@@ -476,7 +520,7 @@ class UserController extends Controller
             $discount = $subtotal;
         }
         $total = $subtotal - $discount;
-        return view('home/checkout', compact('title', 'products', 'subtotal', 'discount', 'total'));
+        return view('home/checkout', compact('title', 'products', 'subtotal', 'discount', 'total','used_coupones'));
     }
     public function purchase($id)
     {
@@ -501,6 +545,23 @@ class UserController extends Controller
             ->where('promocodes.minimum', '<=', $price)
             ->where(DB::raw('(promocodes.value-promocode_users.spent)'), '>', 0)
             ->select(DB::raw('(promocodes.value-promocode_users.spent) as remain'), 'promocode_users.id', 'promocode_users.spent', 'promocode_id')
+            ->orderBy('remain', 'asc')
+            ->get();
+
+        return $promocodes;
+    }
+    public function get_vendor_promocodes($price, $vendor_id)
+    {
+        $user = Auth::user();
+        $date = date('Y-m-d');
+        $promocodes = VendorPromocode::leftJoin('vendor_promocode_users', 'vendor_promocode_users.promocode_id', 'vendor_promocodes.id')
+            ->where('vendor_promocode_users.user_id', $user->id)
+            ->where('vendor_promocodes.start', '<=', $date)
+            ->where('vendor_promocodes.end', '>=', $date)
+            ->where('vendor_promocodes.minimum', '<=', $price)
+            ->where('vendor_promocodes.user_id', $vendor_id)
+            ->where(DB::raw('(vendor_promocodes.value-vendor_promocode_users.spent)'), '>', 0)
+            ->select(DB::raw('(vendor_promocodes.value-vendor_promocode_users.spent) as remain'), 'vendor_promocode_users.id', 'vendor_promocode_users.spent', 'promocode_id')
             ->orderBy('remain', 'asc')
             ->get();
 

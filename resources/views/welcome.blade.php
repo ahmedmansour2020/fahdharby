@@ -99,9 +99,10 @@ $home=true;
             </div>
         </div>
 
-        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <!-- <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr"> -->
+        <div class="row" dir="ltr">
             @foreach($latest_products as $product)
-            <div class="box-product latest-product item">
+            <div class="box-product latest-product item col-sm-4 col-md-4 col-lg-3 col-xl-2 m-2 position-relative">
                 <a href="{{route('product-details',$product->id)}}" class="product-header d-block">
                     <img src="{{$product->image }}" alt="">
                 </a>
@@ -128,7 +129,8 @@ $home=true;
                     @endif
                     <p>{{$product->description}}</p>
                 </div>
-                <div class="product-footer">
+                <br>
+                <div class="product-footer position-absolute w-100 p-2 " style="left:0;bottom:0" >
                     <a data-id="{{$product->id}}"
                         class="btn btn-primary w-100  @if($check_auth) add_to_cart @else login @endif @if($product->check_cart_related) disabled @endif">
                         @if($check_auth)
@@ -156,20 +158,27 @@ $home=true;
             </div>
         </div>
 
-        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <!-- <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr"> -->
+        <div class="row  w-100" dir="ltr">
 
             @foreach($offers_products as $product)
-            <div class="box-product  special-orders">
-                <div class="product-header">
-                    <img style="max-width:200px;max-height:200px" class="m-auto" src="{{ $product->image}}" alt="">
+            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-2 m-3 box-product d-flex special-orders row position-relative">
+                <div class="product-header col-12">
+                    <img style="max-height: 125px; width: auto; height: 125px;" class="m-auto"
+                        src="{{ $product->image}}" alt="">
                 </div>
-                <div class="product-body">
-                    <span class="text-special-order">{{$product->name}}</span>
-                    <span><del style="font-size:20px">{{$product->old_price}}$</del> <b
-                            class="text-success">{{$product->price}}$</b></span>
+                <div class="product-body col-12 p-0 row m-0 my-1" dir="rtl">
+                    <div class="col-9">
+                        <span class="text-special-order">{{$product->name}}</span>
+                    </div>
+                    <div class="col-3">
+                        <span class="d-inline-block"><del
+                                style="font-size:20px">{{$product->old_price}}$</del> <b
+                                class="text-success">{{$product->price}}$</b></span>
+                    </div>
                 </div>
-                <div class="product-footer">
-                    <a href="{{route('product-details',$product->id)}}">تفاصيل المنتج</a>
+                <div class="p-0 product-footer col-12 position-absolute mt-1" style="bottom:0 !important;">
+                    <a class="w-100" href="{{route('product-details',$product->id)}}">تفاصيل المنتج</a>
                 </div>
             </div>
             @endforeach
@@ -183,10 +192,11 @@ $home=true;
             </div>
         </div>
 
-        <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr">
+        <!-- <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr"> -->
+        <div class="row" dir="ltr">
 
             @foreach($high_sales as $product)
-            <div class="box-product latest-product item">
+            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-2 m-3 box-product latest-product item position-relative"  >
                 <a href="{{route('product-details',$product->id)}}" class="product-header d-block">
                     <img src="{{$product->image }}" alt="">
                 </a>
@@ -213,7 +223,8 @@ $home=true;
                     @endif
                     <p>{{$product->description}}</p>
                 </div>
-                <div class="product-footer">
+                <br>
+                <div class="product-footer position-absolute w-100 p-2 " style="left:0;bottom:0" >
                     <a data-id="{{$product->id}}"
                         class="btn btn-primary w-100  @if($check_auth) add_to_cart @else login @endif @if($product->check_cart_related) disabled @endif">
                         @if($check_auth)

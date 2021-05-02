@@ -9,6 +9,7 @@ $(document).ready(function() {
                 $('#notification-users').text();
                 $('#notification-products').text(response.products_approval);
                 $('#notification-offers').text(response.offers_approval);
+                $('#notification-coupones').text(response.coupones_approval);
                 set_notifications()
             })
             set_notifications()

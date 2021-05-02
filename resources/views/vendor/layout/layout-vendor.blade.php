@@ -22,6 +22,7 @@ App\Http\Controllers\ProductController::arrange_offers_status();
     var brand_delete_image = "{{route('brand_delete_image')}}";
     var change_product_status = "{{route('change_product_status')}}";
     var change_offer_status = "{{route('change_offer_status')}}";
+    var change_coupones_status = "{{route('change_coupones_status')}}";
     var get_current_notifications = "{{route('get_current_notifications')}}";
     var change_slider_status = "{{route('change_slider_status')}}";
     var notification_seen = "{{route('notification_seen')}}";

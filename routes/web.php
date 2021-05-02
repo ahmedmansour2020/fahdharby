@@ -12,6 +12,7 @@ use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PromocodeController;
+use App\Http\Controllers\VpromocodeController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -135,6 +136,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/product/delete/{id}', [ProductController::class, 'destroy']);
     Route::post('/change_product_status', [ApprovalController::class, 'change_product_status'])->name('change_product_status');
     Route::post('/change_offer_status', [ApprovalController::class, 'change_offer_status'])->name('change_offer_status');
+    Route::post('/change_coupones_status', [ApprovalController::class, 'change_coupones_status'])->name('change_coupones_status');
     Route::get('/offer/delete/{id}', [ProductController::class, 'delete_offer']);
     Route::get('/settings/info', [SettingController::class, 'to_info'])->name('setting.info');
     Route::get('/settings/sliders', [SettingController::class, 'to_sliders'])->name('setting.sliders');
@@ -146,12 +148,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/settings/slider/delete/image', [SettingController::class, 'slider_delete_image'])->name('slider_delete_image');
     Route::post('/change_slider_status', [SettingController::class, 'change_slider_status'])->name('change_slider_status');
 
+    Route::get('/coupone/delete/{id}', [VpromocodeController::class, 'destroy']);
 
     Route::post('/save_info', [SettingController::class, 'save_info'])->name('info.save');
 });
 
 Route::group(['prefix' => 'supplier', 'middleware' => ['auth', 'vendor']], function () {
     Route::resource('product', ProductController::class);
+    Route::resource('coupone', VpromocodeController::class);
+    // Route::post('add_coupone',[VpromocodeController::class,'add_promocode'])->name('add_coupone');
+    Route::get('/coupone/delete/{id}', [VpromocodeController::class, 'destroy']);
+
     Route::get('/', [VendorController::class, 'dashboard'])->name('vendor');
     Route::get('/product?stored=true', [ProductController::class, 'index'])->name('product.stored');
     Route::get('/product/delete/{id}', [ProductController::class, 'destroy']);

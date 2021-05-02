@@ -21,6 +21,19 @@
         <a href="{{ route('inventory') }}" class="accordion-body ">تعديل المخزون</a>
       </div>
     </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+
+        
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne1" aria-expanded="false" aria-controls="flush-collapseOne1">
+          <img src="{{URL::asset('resources/assets/images/shipping.png')}}" alt=""> كوبونات الخصم
+        </button>
+      </h2>
+      <div id="flush-collapseOne1" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <a href="{{ route('coupone.index') }}" class="accordion-body">إدارة كوبونات الخصم</a>
+        <a href="{{ route('coupone.create') }}" class="accordion-body ">إضافة كوبون خصم</a>
+      </div>
+    </div>
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingTwo">

@@ -6,7 +6,9 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductOffer;
 use Illuminate\Http\Request;
+use App\Models\VendorPromocode;
 use Illuminate\Support\Facades\DB;
+use App\Models\VendorPromocodeUser;
 use App\Http\Controllers\LangController;
 
 class ApprovalController extends Controller
@@ -92,6 +94,27 @@ class ApprovalController extends Controller
                         $item->name=$product->name_ar;
                     }
                     break;
+                case 'coupones':
+                    $items = VendorPromocode::leftJoin('users','users.id','user_id')->select('vendor_promocodes.*','users.name as user')->orderBy('vendor_promocodes.id', 'desc');
+                    
+                    if($status!=""){
+                        $items->where('vendor_promocodes.status',$status);
+                    }
+                    
+                    $items=$items->get();
+                    foreach ($items as $promocode) {
+                        $count = count(VendorPromocodeUser::where('promocode_id', $promocode->id)->get());
+                        $promocode->count = $count;
+                        $date = date('Y-m-d');
+                        if ($date >= $promocode->start && $date <= $promocode->end) {
+                            $promocode->status_type = 1;
+                        } elseif ($date < $promocode->start) {
+                            $promocode->status_type = 0;
+                        } elseif ($date > $promocode->start) {
+                            $promocode->status_type = 2;
+                        }
+                    }
+                    break;
             }
             return datatables()->of($items)->addIndexColumn()->make(true);
         }
@@ -137,6 +160,28 @@ class ApprovalController extends Controller
                 break;
             case 0:
                 $message = "تم إيقاف هذا العرض";
+                break;
+        }
+        return response()->json([
+            'success' => true,
+            'message'=>$message
+        ]);
+    }
+    public function change_coupones_status(Request $request)
+    {
+        $id = request('id');
+        $status = request('status');
+
+        $promo = VendorPromocode::find($id);
+        $promo->status = $status;
+        $promo->save();
+        $message = "";
+        switch ($status) {
+            case 1:
+                $message = "تمت الموافقة على هذا الكوبون";
+                break;
+            case 0:
+                $message = "تم إيقاف هذا الكوبون";
                 break;
         }
         return response()->json([

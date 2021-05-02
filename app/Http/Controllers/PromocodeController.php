@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Promocode;
 use Illuminate\Http\Request;
 use App\Models\PromocodeUser;
+use App\Models\VendorPromocode;
+use App\Models\VendorPromocodeUser;
 use Illuminate\Support\Facades\Auth;
 
 class PromocodeController extends Controller
@@ -16,26 +18,26 @@ class PromocodeController extends Controller
      */
     public function index()
     {
-        $title="كوبونات الخصم";
+        $title = "كوبونات الخصم";
         if (request()->ajax()) {
-            $promocodes = Promocode::orderBy('id','desc')->get();
+            $promocodes = Promocode::orderBy('id', 'desc')->get();
             $index = 1;
             foreach ($promocodes as $promocode) {
                 $promocode->index = $index++;
-                $count=count(PromocodeUser::where('promocode_id',$promocode->id)->get());
-                $promocode->count=$count;
-                $date=date('Y-m-d');
-                if($date>=$promocode->start&&$date<=$promocode->end){
-                    $promocode->status=1;
-                }elseif($date<$promocode->start){
-                    $promocode->status=0;
-                }elseif($date>$promocode->start){
-                    $promocode->status=2;
+                $count = count(PromocodeUser::where('promocode_id', $promocode->id)->get());
+                $promocode->count = $count;
+                $date = date('Y-m-d');
+                if ($date >= $promocode->start && $date <= $promocode->end) {
+                    $promocode->status = 1;
+                } elseif ($date < $promocode->start) {
+                    $promocode->status = 0;
+                } elseif ($date > $promocode->start) {
+                    $promocode->status = 2;
                 }
             }
             return datatables()->of($promocodes)->addIndexColumn()->make(true);
         }
-        return view('admin.show.promocodes',compact('title'));
+        return view('admin.show.promocodes', compact('title'));
     }
 
     /**
@@ -45,7 +47,7 @@ class PromocodeController extends Controller
      */
     public function create()
     {
-        $title="إضافة كوبون خصم";
+        $title = "إضافة كوبون خصم";
         $action = 'add';
         return view('admin.add.promocode', compact('action', 'title'));
     }
@@ -58,12 +60,12 @@ class PromocodeController extends Controller
      */
     public function store(Request $request)
     {
-        $promocode=new Promocode();
-        $promocode->code=request('code');
-        $promocode->value=request('value');
-        $promocode->minimum=request('minimum');
-        $promocode->start=request('start');
-        $promocode->end=request('end');
+        $promocode = new Promocode();
+        $promocode->code = request('code');
+        $promocode->value = request('value');
+        $promocode->minimum = request('minimum');
+        $promocode->start = request('start');
+        $promocode->end = request('end');
 
         $promocode->save();
         return redirect()->route('promocode.index')->with('success', __('items.success_add'));
@@ -77,10 +79,10 @@ class PromocodeController extends Controller
      */
     public function show($id)
     {
-        $title="تعديل كوبون خصم";
+        $title = "تعديل كوبون خصم";
         $action = 'update';
-        $saved=Promocode::find($id);
-        return view('admin.add.promocode', compact('action', 'title','saved'));
+        $saved = Promocode::find($id);
+        return view('admin.add.promocode', compact('action', 'title', 'saved'));
     }
 
     /**
@@ -103,12 +105,12 @@ class PromocodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $promocode= Promocode::find($id);
-        $promocode->code=request('code');
-        $promocode->value=request('value');
-        $promocode->minimum=request('minimum');
-        $promocode->start=request('start');
-        $promocode->end=request('end');
+        $promocode = Promocode::find($id);
+        $promocode->code = request('code');
+        $promocode->value = request('value');
+        $promocode->minimum = request('minimum');
+        $promocode->start = request('start');
+        $promocode->end = request('end');
 
         $promocode->save();
         return redirect()->route('promocode.index')->with('success', __('items.success_add'));
@@ -122,38 +124,59 @@ class PromocodeController extends Controller
      */
     public function destroy($id)
     {
-       PromocodeUser::where('promocode_id',$id)->delete();
-       Promocode::find($id)->delete();
-       return redirect()->back()->with('success', __('items.success_delete'));
+        PromocodeUser::where('promocode_id', $id)->delete();
+        Promocode::find($id)->delete();
+        return redirect()->back()->with('success', __('items.success_delete'));
     }
-    public function add_promocode(Request $request){
-        $promocode=request('promocode');
-        $date=date('Y-m-d');
-        $user=Auth::user();
-        $exist=Promocode::where('code',$promocode)->first();
-       
-        if($exist){
-            if($date>$exist->end){
+    public function add_promocode(Request $request)
+    {
+        $promocode = request('promocode');
+        $date = date('Y-m-d');
+        $user = Auth::user();
+        $exist = VendorPromocode::where('code', $promocode)->whereStatus(1)->first();
+
+        if ($exist) {
+            if ($date > $exist->end) {
                 return response()->json([
-                    'success'=>false,
-                    'message'=>'هذا الكوبون منتهي',
+                    'success' => false,
+                    'message' => 'هذا الكوبون منتهي',
                 ]);
-            }else{
-                $user_promocode=new PromocodeUser();
-                $user_promocode->user_id=$user->id;
-                $user_promocode->promocode_id=$exist->id;
+            } else {
+                $user_promocode = new VendorPromocodeUser();
+                $user_promocode->user_id = $user->id;
+                $user_promocode->promocode_id = $exist->id;
                 $user_promocode->save();
 
                 return response()->json([
-                    'success'=>true,
-                    'message'=>'تم إضافة الكوبون بنجاح',
+                    'success' => true,
+                    'message' => 'تم إضافة الكوبون بنجاح',
                 ]);
             }
-        }else{
-            return response()->json([
-                'success'=>false,
-                'message'=>'هذا الكوبون غير صحيح',
-            ]);
+        } else {
+            $exist_2 = Promocode::where('code', $promocode)->first();
+            if ($exist_2) {
+                if ($date > $exist_2->end) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'هذا الكوبون منتهي',
+                    ]);
+                } else {
+                    $user_promocode = new PromocodeUser();
+                    $user_promocode->user_id = $user->id;
+                    $user_promocode->promocode_id = $exist_2->id;
+                    $user_promocode->save();
+    
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'تم إضافة الكوبون بنجاح',
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'هذا الكوبون غير صحيح',
+                ]);
+            }
         }
     }
 }

@@ -51,13 +51,14 @@ use App\Http\Controllers\NotificationController;
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingThree">
         <button class="accordion-button collapsed nav-approval" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-          <img src="{{URL::asset('resources/assets/images/Path 164.png')}}" alt=""> مركز الموافقة <span class="notification hidden" id="notification-all">{{NotificationController::approval_counts()}}</span>
+          <img src="{{URL::asset('resources/assets/images/Path 164.png')}}" alt=""> مركز الموافقة <span class="notification hidden" id="notification-all"></span>
         </button>
       </h2>
       <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
         <a href="#" class="accordion-body nav-approval">مستخدمين <span class="notification" id="notification-users"></span></a>
-        <a href="{{route('approval.show','products')}}" class="accordion-body nav-approval">منتجات <span class="notification hidden" id="notification-products">{{NotificationController::products_approval_counts()}}</span></a>
-        <a href="{{route('approval.show','offers')}}" class="accordion-body nav-approval">عروض <span class="notification hidden" id="notification-offers">{{NotificationController::offers_approval_counts()}}</span></a>
+        <a href="{{route('approval.show','products')}}" class="accordion-body nav-approval">منتجات <span class="notification hidden" id="notification-products"></span></a>
+        <a href="{{route('approval.show','offers')}}" class="accordion-body nav-approval">عروض <span class="notification hidden" id="notification-offers"></span></a>
+        <a href="{{route('approval.show','coupones')}}" class="accordion-body nav-approval">كوبونات الخصم <span class="notification hidden" id="notification-coupones"></span></a>
       </div>
     </div>
 
