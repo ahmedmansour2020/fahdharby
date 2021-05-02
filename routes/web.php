@@ -98,6 +98,9 @@ Route::get('account', function () {
 Route::get('contact-us', function () {
     return view('home/contact-us');
 })->name('contact-us');
+Route::get('register-vendor', function () {
+    return view('auth/register-vendor');
+})->name('register-vendor');
 
 
 
