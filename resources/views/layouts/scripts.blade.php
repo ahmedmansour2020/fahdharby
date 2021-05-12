@@ -20,6 +20,7 @@
 <script>
 var login_url = "{{route('login')}}";
 var register_url = "{{route('register')}}";
+var register_vendor_url = "{{route('register-vendor')}}";
 var csrf = '@csrf'
 
 var facebook_url="{{route('login.facebook')}}";

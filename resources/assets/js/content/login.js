@@ -63,7 +63,7 @@ $(document).ready(function() {
                          <a href="#" class="btn btn-block btn-primary register-user">مشتري</a>
                          </div>
                          <div class="col-6">
-                         <a href="#" class="btn btn-block btn-outline-primary">تاجر</a>
+                         <a href="${register_vendor_url}" class="btn btn-block btn-outline-primary">تاجر</a>
                          </div>
                          </div>
                         </div>

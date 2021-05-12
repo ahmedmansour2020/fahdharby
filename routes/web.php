@@ -29,8 +29,11 @@ Route::resource('order',OrderController::class);
 
 Route::get('redirect_to_product/{id}',[UserController::class,'redirect_to_product'])->name('redirect_to_product')->middleware('auth');
 Route::post('notification_seen',[NotificationController::class,'notification_seen'])->name('notification_seen');
+Route::post('read_notifications',[NotificationController::class,'read_notifications'])->name('read_notifications');
 Route::get('/search',[UserController::class, 'search'])->name('search');
 Route::get('/products/supplier/{id}',[UserController::class, 'filter_by_vendor'])->name('filter_by_vendor');
+Route::get('/all/{type}',[UserController::class, 'see_more'])->name('see_more');
+
 Route::get('/', [UserController::class, 'home'])->name('home');
 Route::get('cart', [UserController::class, 'cart'])->name('cart')->middleware('auth');
 Route::get('purchase/{id}', [UserController::class, 'purchase'])->name('purchase')->middleware('auth');

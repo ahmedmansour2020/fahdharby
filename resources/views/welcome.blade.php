@@ -93,6 +93,7 @@ $home=true;
             </a>
         </div>
         @endforeach
+        @if(count($latest_products)!=0)
         <div class="col-12">
             <div class="header-home-products">
                 <h2>أحدث المنتجات</h2>
@@ -148,10 +149,10 @@ $home=true;
             @endforeach
 
         </div>
+        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','latest')}}" class="btn btn-lg btn-outline-info"> رؤية المزيد</a></h3>
+        @endif
 
-
-
-
+        @if(count($offers_products)!=0)
         <div class="col-12">
             <div class="header-home-products">
                 <h2>عروض خاصة</h2>
@@ -184,7 +185,10 @@ $home=true;
             @endforeach
 
         </div>
+        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','offers')}}" class="btn btn-lg btn-outline-info"> رؤية المزيد</a></h3>
 
+            @endif
+            @if(count($high_sales)!=0)
 
         <div class="col-12">
             <div class="header-home-products">
@@ -242,6 +246,9 @@ $home=true;
             @endforeach
 
         </div>
+        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','high_sale')}}" class="btn btn-lg btn-outline-info"> رؤية المزيد</a></h3>
+
+        @endif
 
         {{-- <footer class="footer">
             <div class="container-fluid">

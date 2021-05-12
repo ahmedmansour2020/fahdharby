@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\ProductOffer;
 use Illuminate\Http\Request;
 use App\Models\VendorPromocode;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
@@ -64,6 +65,14 @@ class NotificationController extends Controller
         $notification=Notification::find($id);
         $notification->status=1;
         $notification->save();
+
+        return response()->json([
+            'success'=>true,
+        ]);
+    }
+    public function read_notifications(Request $request){
+        $user=auth()->user();
+        DB::update('update notifications set status=1 where user_id=?',[$user->id]);
 
         return response()->json([
             'success'=>true,

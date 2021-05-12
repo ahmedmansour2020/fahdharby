@@ -44,4 +44,13 @@ $(document).ready(function() {
 
         window.location.href = href;
     })
+
+    $(document).on('click', '#read_notifications', function() {
+        $('.notify-alarm').addClass('hidden');
+        $('.notify').removeClass('alert-primary');
+        var data = {
+            '_token': $('meta[name="csrf-token"]').attr('content')
+        };
+        $.post(read_notifications, data, function(response) {});
+    });
 })

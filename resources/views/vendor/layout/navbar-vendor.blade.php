@@ -9,15 +9,16 @@
                 </div>
                 <div class="col-10">
                     <ul>
-                        <li class="nav-item notification-vendor  dropdown">
+                        <li class="nav-item notification-vendor  dropdown ">
                             <a class="nav-link notification-vendor dropdown-toggle position-relative" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{URL::asset('resources/assets/images/notification-vendor.png')}}" alt="">
                                 <span class="notify-alarm">{{App\Http\Controllers\NotificationController::get_user_notifications()['count']}}</span>
                             </a>
-                            <div class="dropdown-menu dropdown-notification" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-notification pb-0" aria-labelledby="navbarDropdown">
                             @foreach(App\Http\Controllers\NotificationController::get_user_notifications()['notifications'] as $notification)
                                 <a class="dropdown-item notify @if($notification->status==0) alert-primary @endif text-center" data-id="{{$notification->id}}" href="{{$notification->url}}">{{$notification->content}}</a>
                             @endforeach
+                            <button type="button" id="read_notifications" class="btn btn-primary btn-block m-0">تعيين الكل كمقروءة</button>
                             </div>
                         </li>
             

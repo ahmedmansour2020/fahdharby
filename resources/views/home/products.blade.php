@@ -1,10 +1,10 @@
 <?php
-use App\Http\Controllers\UserController; ?>
+use App\Http\Controllers\UserController;?>
 @extends('layouts.layout')
 @section('title', isset($title) ? $title : '')
 @section('home')
 <?php
-$home=true;
+$home = true;
 
 ?>
 @endsection
@@ -53,10 +53,28 @@ $home=true;
 
         </div>
         @endforeach
-
     </div>
+</div>
+<div class="text-center page_navigation" dir="ltr">
+    {{$products->links()}}
 </div>
 
 
 
+@endsection
+@section('page_js')
+<script>
+$(document).ready(function() {
+
+    $('.page_navigation span').each(function(e) {
+        $(this).addClass('mx-5')
+        $(this).text($(this).text().replace('Next', ''))
+        $(this).text($(this).text().replace('Previous', ''))
+    })
+    $('.page_navigation a').each(function(e) {
+        $(this).text($(this).text().replace('Next', ''))
+        $(this).text($(this).text().replace('Previous', ''))
+    })
+})
+</script>
 @endsection

@@ -128,6 +128,44 @@ class UserController extends Controller
         }
         return view('welcome', compact('title', 'sliders', 'latest_products', 'check_auth', 'offers_products', 'high_sales'));
     }
+    public function see_more($type){
+        $products;
+        $title="";
+        switch($type){
+            case 'offers':
+                $title=" العروض";
+                $products = Product::join('product_offers', 'product_id', 'products.id')->whereApproved(1)->where('products.status', 1)->where('product_offers.status', 1)->select('products.id', 'name_ar as name', 'price as old_price', 'offer');
+                break;
+                case 'latest':
+                $title=" المنتجات";
+                $products = Product::whereStatus(1)->select('id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')->orderBy('id', 'desc');
+                break;
+                case 'high_sale':
+                $title="  المنتجات الأعلى مبيعًا";
+                $products = Product::
+                leftJoin('order_items', 'product_id', 'products.id')
+                ->whereStatus(1)
+                ->select(DB::raw('count(order_items.id) as sales'), 'products.id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')
+                ->groupBy('products.id', 'name', 'price', 'description' )
+                ->orderBy('sales', 'desc');
+                break;
+        }
+
+        $products=$products->paginate(10);
+
+        foreach($products as $product){
+            $related_offer = ProductOffer::where('product_id', $product->id)->whereStatus(1)->whereApproved(1)->first();
+            if ($related_offer) {
+                $product->old_price = $product->price;
+                $product->price = (int) ($product->price - ($product->price * $related_offer->offer / 100));
+            } else {
+                $product->old_price = null;
+            }
+        }
+        $this->product_main_image($products);
+
+        return view('home.products',compact('products','title'));
+    }
     public static function getParentCategory($limit)
     {
         $categories = Category::whereNull('parent_id')->select('id', 'name_' . LangController::lang() . ' as name', 'image')->limit($limit)->get();
@@ -185,7 +223,7 @@ class UserController extends Controller
             ->where('sub_category', $id)
             ->select('id', 'name_' . LangController::lang() . ' as name', 'price', 'description_' . LangController::lang() . ' as description')
             ->orderBy('id', 'desc')
-            ->get();
+            ->paginate(10);
         foreach ($products as $product) {
             if (strlen($product->description) > 100) {
                 $product->description = substr($product->description, 100) . "...";
@@ -581,7 +619,7 @@ class UserController extends Controller
                 ->orWhere('products.description_ar', 'like', '%' . $word . '%')
                 ->orWhere('brands.name_ar', 'like', '%' . $word . '%');
         });
-        $products = $products->get();
+        $products = $products->paginate(10);
 
         foreach ($products as $product) {
             if (strlen($product->description) > 100) {
@@ -607,7 +645,7 @@ class UserController extends Controller
             where('user_id', $id)
             ->select('products.*', 'products.name_ar as name', 'products.description_ar as description')
             ->whereStatus(1)
-            ->get();
+            ->paginate(10);
 
         foreach ($products as $product) {
             if (strlen($product->description) > 100) {
