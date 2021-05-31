@@ -23,7 +23,7 @@ $home=true;
                             alt="">
                     </a>
                 </div>
-                <div class="col-12 h-25 ">
+                <div class="col-12 h-25 " style="font-size: 20px; font-weight: 700;">
                     جميع التصنيفات
                 </div>
             </div>
@@ -37,7 +37,7 @@ $home=true;
                         <img src="{{$category->image}}" class="category-img" alt="">
                     </a>
                 </div>
-                <div class="col-12 h-25 ">
+                <div class="col-12 h-25 " style="font-size: 20px; font-weight: 700;">
                     {{$category->name}}
                 </div>
             </div>
@@ -149,7 +149,7 @@ $home=true;
             @endforeach
 
         </div>
-        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','latest')}}" class="btn btn-lg btn-outline-info"> رؤية المزيد</a></h3>
+        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','latest')}}" class="btn btn-lg btn-outline-primary"> رؤية المزيد</a></h3>
         @endif
 
         @if(count($offers_products)!=0)
@@ -185,7 +185,7 @@ $home=true;
             @endforeach
 
         </div>
-        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','offers')}}" class="btn btn-lg btn-outline-info"> رؤية المزيد</a></h3>
+        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','offers')}}" class="btn btn-lg btn-outline-primary"> رؤية المزيد</a></h3>
 
             @endif
             @if(count($high_sales)!=0)
@@ -246,45 +246,156 @@ $home=true;
             @endforeach
 
         </div>
-        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','high_sale')}}" class="btn btn-lg btn-outline-info"> رؤية المزيد</a></h3>
+        <h3 class="text-center w-100 mt-2"><a href="{{route('see_more','high_sale')}}" class="btn btn-lg btn-outline-primary"> رؤية المزيد</a></h3>
 
         @endif
 
-        {{-- <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6 col-md-4 col-lg-2">
-                        <div class="head-footer">
-                            <h5>أقسام الموقع</h5>
-                        </div>
-                        <ul>
-                            <li>
-                                <a href="#">الرئيسية</a>
-                            </li>
-                            <li>
-                                <a href="#">الرئيسية</a>
-                            </li>
-                            <li>
-                                <a href="#">الرئيسية</a>
-                            </li>
-                            <li>
-                                <a href="#">الرئيسية</a>
-                            </li>
-                            <li>
-                                <a href="#">الرئيسية</a>
-                            </li>
-                            <li>
-                                <a href="#">الرئيسية</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer> --}}
+
 
 
     </div>
 </div>
+<footer class="footer w-100">
+    <div class="container-fluid">
+        <div class="row pl-5 pr-5" style="padding-bottom: 70px">
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <div class="head-footer">
+                    <h5>أقسام الموقع</h5>
+                </div>
+                <ul class="footer-list">
+                    <li>
+                        <a href="#">الرئيسية</a>
+                    </li>
+                    <li>
+                        <a href="#">من نحن</a>
+                    </li>
+                    <li>
+                        <a href="#">اتصل بنا</a>
+                    </li>
+                    <li>
+                        <a href="#">خدماتنا</a>
+                    </li>
+                    <li>
+                        <a href="#">السياسات</a>
+                    </li>
+                    <li>
+                        <a href="#">المساعدة</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <div class="head-footer">
+                    <h5>إلكترونيات</h5>
+                </div>
+                <ul class="footer-list">
+                    <li>
+                        <a href="#">موبايلات وتابلت</a>
+                    </li>
+                    <li>
+                        <a href="#">تيليفزيونات</a>
+                    </li>
+                    <li>
+                        <a href="#">سماعات الراس</a>
+                    </li>
+                    <li>
+                        <a href="#">ألعاب الفيديو</a>
+                    </li>
+                    <li>
+                        <a href="#">أجهزة الكمبيوتر</a>
+                    </li>
+                    <li>
+                        <a href="#">الكاميرات</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="head-footer">
+                    <h5>المطبخ والأجهزة المنزلية</h5>
+                </div>
+                <ul class="footer-list">
+                    <li>
+                        <a href="#">مستلزمات الحمام</a>
+                    </li>
+                    <li>
+                        <a href="#">الغسالات</a>
+                    </li>
+                    <li>
+                        <a href="#">البرادات</a>
+                    </li>
+                    <li>
+                        <a href="#">المرواح</a>
+                    </li>
+                    <li>
+                        <a href="#">الأثاث</a>
+                    </li>
+                    <li>
+                        <a href="#">الزجاجيات</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="head-footer">
+                    <h5> الصحة و الجمال</h5>
+                </div>
+                <ul class="footer-list">
+                    <li>
+                        <a href="#">العطور</a>
+                    </li>
+                    <li>
+                        <a href="#">المرطبات</a>
+                    </li>
+                    <li>
+                        <a href="#">الإكسسوارت</a>
+                    </li>
+                    <li>
+                        <a href="#">العناية بالشعر</a>
+                    </li>
+                    <li>
+                        <a href="#">العناية بالبشرة</a>
+                    </li>
+                    <li>
+                        <a href="#">العناية الصحية</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <div class="head-footer">
+                    <h5>طرق الدفع المتاحة</h5>
+                </div>
+                <ul class="footer-list text-left">
+                    <li>
+                        <a href="#">
+                            <img src="{{ URL::asset('resources/assets/images/footer-paypal.png') }}" class="img-fluid" alt="paypal">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ URL::asset('resources/assets/images/footer-visa.png') }}" class="img-fluid" alt="visa">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ URL::asset('resources/assets/images/footer-mastercard.png') }}" class="img-fluid" alt="mastercard">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ URL::asset('resources/assets/images/footer-pay.png') }}" class="img-fluid" alt="pay">
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="copyright text-center w-100">
+                <hr>
+                <h4> جميع الحقوق محفوظة &copy; 2021</h4>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
 

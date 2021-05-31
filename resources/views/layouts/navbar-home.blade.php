@@ -46,7 +46,7 @@
                 <img src="{{URL::asset('resources/assets/images/Group 1225.png')}}" class="img-fluid px-1 d-inline-block" style="width: 25%"  alt="">
 
                 <div class="dropdown-menu text-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route($user->role_id==1?'admin':($user->role_id==2?'vendor':'dashboard'))}}"><i class="fas fa-user-alt pl-2 "></i>حسابي </a>
+                    <a class="dropdown-item" href="{{route($user->role_id==1?'admin':($user->role_id==2?'vendor':'my-account'))}}"><i class="fas fa-user-alt pl-2 "></i>حسابي </a>
                     <a class="dropdown-item logout" href=""><i class="fa fa-sign-out-alt pl-2 logout "></i>تسجيل الخروج </a>
                 </div>
             </li>

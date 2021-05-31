@@ -102,9 +102,17 @@ Route::get('account', function () {
 Route::get('contact-us', function () {
     return view('home/contact-us');
 })->name('contact-us');
+
 Route::get('register-vendor', function () {
     return view('auth/register-vendor');
 })->name('register-vendor');
+
+Route::get('favorite', function () {
+    return view('home/favorite');
+})->name('favorite');
+Route::get('my-account', function () {
+    return view('home/my-account');
+})->name('my-account');
 
 
 
