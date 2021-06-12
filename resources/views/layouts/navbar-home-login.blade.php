@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-bg-white">
         <a class="navbar-brand" href="{{route('home')}}">
-            <img src="{{URL::asset('resources/assets/images/logo.png')}}" class="img-fluid" alt="Logo">
+            <img src="{{URL::asset('resources/assets/images/logo.jpeg')}}" class="img-fluid" alt="Logo">
         </a>
         <a href="{{route('home')}}" class="link-home">الرئيسية</a>
         <form action="" class="search">
@@ -29,7 +29,7 @@
                 </div>
             </li>
             <li class="nav-item   dropdown">
-                <a class="nav-link  dropdown-toggle d-inline-block " style="font-size: 19px;font-weight: 700;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link nav-name-users  dropdown-toggle d-inline-block " style="font-size: 19px;font-weight: 700;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     فهد الحربي
                 </a>
                 <img src="{{URL::asset('resources/assets/images/Group 1225.png')}}" class="img-fluid px-1 d-inline-block" style="width: 25%"  alt="">

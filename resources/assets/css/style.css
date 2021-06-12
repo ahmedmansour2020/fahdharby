@@ -17,9 +17,9 @@ body {
 .jconfirm-closeIcon {
     display: block;
     background: #fff !important;
-    border: 1px solid #306EFF !important;
+    border: 1px solid #733289 !important;
     border-radius: 50%;
-    color: #306EFF !important;
+    color: #733289 !important;
     width: 35px !important;
     height: 35px !important;
     padding-top: 8px !important;
@@ -34,7 +34,7 @@ body {
 
 .jconfirm-closeIcon:hover {
     color: #fff !important;
-    background: #306EFF !important;
+    background: #733289 !important;
 }
 
 .jconfirm .jconfirm-box {
@@ -48,7 +48,7 @@ body {
 .jconfirm.jconfirm-white .jconfirm-box,
 .jconfirm.jconfirm-light .jconfirm-box {
     padding: 0 !important;
-    border: 1px solid #306eff;
+    border: 1px solid #733289;
     border-radius: 30px !important;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -80,7 +80,7 @@ body {
 .form-login .card-header h2 {
     font-weight: 700;
     font-size: 39px;
-    color: #306eff;
+    color: #733289;
 }
 .text-break{
     font-size: 32px;
@@ -136,7 +136,7 @@ body {
     justify-content: center;
     width: 100%;
     height: 60px;
-    background-color: #306eff;
+    background-color: #733289;
     font-size: 25px;
     color: #fff;
     font-weight: 700;
@@ -180,7 +180,7 @@ body {
 .register a,
 .register-login a {
     text-decoration: none;
-    color: #306eff;
+    color: #733289;
     margin-right: 30px;
 }
 .card-header p
@@ -200,8 +200,8 @@ body {
     display: none;
 }
 .upload-id .custom-file-upload {
-    border: 1px solid #306EFF;
-    background-color: #306EFF;
+    border: 1px solid #733289;
+    background-color: #733289;
     color: #fff;
     display: inline-block;
     padding: 8px 16px;
@@ -236,7 +236,7 @@ body {
 .link-home {
     font-size: 27px;
     font-weight: 700;
-    color: #306eff;
+    color: #71328c;
     text-decoration: none !important;
     margin-right: 80px;
     margin-left: 40px;
@@ -247,11 +247,14 @@ body {
     width: 40%;
 }
 
+.nav-name-users {
+    color: #71328c;
+}
 
 .search input {
     width: 100%;
     height: 58px;
-    border: 1px solid #306eff;
+    border: 1px solid #71328c;
     border-radius: 29px;
     -webkit-border-radius: 29px;
     -moz-border-radius: 29px;
@@ -261,14 +264,14 @@ body {
     padding-right: 30px;
     font-size: 23px;
     font-weight: 400;
-    color: #306eff;
+    color: #71328c;
     padding-left: 45px;
 }
 
 .search input::placeholder {
     font-size: 23px;
     font-weight: 400;
-    color: #306eff;
+    color: #71328c;
 }
 
 .search-icon {
@@ -294,13 +297,14 @@ body {
 .language {
     font-size: 27px;
     font-weight: 700;
-    color: #306eff;
+    color: #71328c;
     margin: 13px 40px 0;
 }
 
 .btn-chart {
     width: 146px;
-    background-color: #306eff;
+    background-color: #71328c;
+    border: 1px solid #71328c;
     border-radius: 29px;
     -webkit-border-radius: 29px;
     -moz-border-radius: 29px;
@@ -311,7 +315,11 @@ body {
     font-size: 16px;
     font-weight: 700;
 }
+.btn-chart:hover {
+    background-color: #71328c;
+    border: 1px solid #71328c;
 
+}
 .btn-chart img {
     padding-right: 10px;
 }
@@ -364,7 +372,7 @@ body {
 
 .link-sub-nav:hover .sub-nav,
 .active .sub-nav {
-    color: #306eff;
+    color: #733289;
 }
 
 .social-form-register a {
@@ -491,7 +499,7 @@ a.box-home-category {
 }
 
 .product-footer button {
-    background: #306eff;
+    background: #733289;
     padding: 10px 0;
     font-size: 16px;
     font-weight: 700;
@@ -501,7 +509,7 @@ a.box-home-category {
 }
 
 .special-orders {
-    border: 3px solid #306eff !important;
+    border: 3px solid #733289 !important;
     padding: 20px 0 0 !important;
 }
 
@@ -547,7 +555,7 @@ a.box-home-category {
 
 .footer {
     margin-top: 100px;
-    background-color: #306EFF;
+    background-color: #00a8a9;
     padding: 150px 0 0 0;
     color: #fff;
 }
@@ -644,7 +652,8 @@ a.box-home-category {
 
 .product-footer p,
 .product-footer a {
-    background-color: #306eff;
+    background-color: #733289;
+    border: 1px solid #733289;
     font-size: 16px;
     font-weight: 700;
     color: #fff;
@@ -654,7 +663,16 @@ a.box-home-category {
     margin: 0;
     padding-top: 7px;
 }
-
+.product-footer p:hover,
+.product-footer a:hover{
+    background-color: #733289;
+    border: 1px solid #733289;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #733289;
+    border: 1px solid #733289;
+}
 .product-footer a {
     display: block;
     text-decoration: none;
@@ -684,7 +702,7 @@ a.box-home-category {
 
 .section-center .btn-primary,
 .section-center .btn-success {
-    background-color: #306eff;
+    background-color: #733289;
     color: #fff;
     font-size: 26px;
     font-weight: 700;
@@ -789,7 +807,7 @@ a.box-home-category {
 }
 
 .btn-save {
-    background-color: #306eff;
+    background-color: #733289;
     color: #fff;
     width: 228px;
     margin-left: 14px;
@@ -895,11 +913,11 @@ a.box-home-category {
 
 .navTabs .nav-link.active {
     background-color: unset;
-    border-bottom: 3px solid #306eff;
+    border-bottom: 3px solid #733289;
 }
 
 .btn-create-order {
-    background-color: #306eff;
+    background-color: #733289;
     color: #fff !important;
     padding: 10px 19px;
     height: 50px;
@@ -988,8 +1006,8 @@ a.box-home-category {
 }
 
 .container-btn button {
-    background-color: #306eff;
-    border: 1px solid #306eff;
+    background-color: #733289;
+    border: 1px solid #733289;
     height: 50px;
     width: 191px;
     float: left;
@@ -1106,7 +1124,7 @@ a.box-home-category {
 .title-money {
     font-size: 23px;
     font-weight: 700;
-    color: #306EFF;
+    color: #733289;
 }
 .container-money {
     font-size: 16px;
@@ -1293,7 +1311,7 @@ input.code-phone {
 }
 
 .write-ph button:hover {
-    color: #306eff;
+    color: #733289;
 }
 
 .product-details .fotorama__thumb .fotorama__img {
@@ -1475,7 +1493,7 @@ input.code-phone {
     border: none;
     font-size: 17px;
     font-weight: 700;
-    background: #306EFF;
+    background: #733289;
     transition: all .2s ease-in-out;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;

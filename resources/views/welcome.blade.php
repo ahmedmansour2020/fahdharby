@@ -103,7 +103,7 @@ $home=true;
         <!-- <div class="owl-home owl-carousel owl-theme owl-loaded owl-drag" dir="ltr"> -->
         <div class="row" dir="ltr">
             @foreach($latest_products as $product)
-            <div class="box-product latest-product item col-sm-4 col-md-4 col-lg-3 col-xl-2 m-2 position-relative">
+            <div class="box-product latest-product item col-sm-4 col-md-4 col-lg-3 col-xl-3 m-2 position-relative">
                 <a href="{{route('product-details',$product->id)}}" class="product-header d-block">
                     <img src="{{$product->image }}" alt="">
                 </a>
@@ -163,7 +163,7 @@ $home=true;
         <div class="row  w-100" dir="ltr">
 
             @foreach($offers_products as $product)
-            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-2 m-3 box-product d-flex special-orders row position-relative">
+            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 m-3 box-product d-flex special-orders row position-relative">
                 <div class="product-header col-12">
                     <img style="max-height: 125px; width: auto; height: 125px;" class="m-auto"
                         src="{{ $product->image}}" alt="">
@@ -200,7 +200,7 @@ $home=true;
         <div class="row" dir="ltr">
 
             @foreach($high_sales as $product)
-            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-2 m-3 box-product latest-product item position-relative"  >
+            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 m-3 box-product latest-product item position-relative"  >
                 <a href="{{route('product-details',$product->id)}}" class="product-header d-block">
                     <img src="{{$product->image }}" alt="">
                 </a>

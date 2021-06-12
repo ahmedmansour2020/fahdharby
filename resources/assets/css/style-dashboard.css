@@ -184,7 +184,7 @@ a.accordion-body {
 }
 
 .cl-be {
-    border-top: 14px solid #306EFF;
+    border-top: 14px solid #733289;
 }
 
 .cl-lb {
@@ -208,7 +208,7 @@ a.accordion-body {
 
 .cl-be h3,
 .cl-be span {
-    color: #306EFF;
+    color: #733289;
 }
 
 .cl-lb h3,
@@ -288,13 +288,13 @@ a.accordion-body {
 
 .section-search-product .form-group input {
     width: 74%;
-    border: 1px solid #306EFF;
-    color: #306EFF;
+    border: 1px solid #733289;
+    color: #733289;
     border-radius: 29px;
 }
 
 .section-search-product .form-group input::placeholder {
-    color: #306EFF;
+    color: #733289;
 }
 
 .table-management {
@@ -543,7 +543,7 @@ a.accordion-body {
     padding: 20px 0;
     margin-top: 60px;
     margin-bottom: 15px;
-    color: #306EFF;
+    color: #733289;
 }
 
 
@@ -705,7 +705,7 @@ a.accordion-body {
 .add-product button {
     font-size: 20px;
     font-weight: 700;
-    background-color: #306EFF;
+    background-color: #733289;
     border: none;
     color: #fff;
     padding: 9px 25px;
@@ -795,8 +795,8 @@ input.choose-img {
     color: #fff;
     padding: 15px 20px !important;
     display: inline-block;
-    background: #306EFF;
-    border: 1px solid #306EFF;
+    background: #733289;
+    border: 1px solid #733289;
     outline: none;
     white-space: nowrap;
     -webkit-user-select: none;
@@ -843,7 +843,7 @@ input.choose-img {
     justify-content: center;
     align-items: center;
     margin: 30px auto 0;
-    background-color: #306EFF;
+    background-color: #733289;
     font-size: 19px;
     color: #fff;
     font-weight: 700;
