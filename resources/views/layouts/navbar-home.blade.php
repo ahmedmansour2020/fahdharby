@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-bg-white">
         <a class="navbar-brand" href="{{route('home')}}">
-            <img src="{{URL::asset('resources/assets/images/logo.jpeg')}}" class="img-fluid" alt="Logo">
+            <img src="{{URL::asset('resources/assets/images/logo.png')}}" class="img-fluid" alt="Logo">
         </a>
         <a href="{{route('home')}}" class="link-home">الرئيسية</a>
         <form action="{{route('search')}}" method="GET" class="search position-relative">
