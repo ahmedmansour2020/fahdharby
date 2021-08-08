@@ -21,14 +21,14 @@
                     <a class="dropdown-item" href="#"><i class="fas fa-comment-dollar  pl-2"></i> تمت عملية شراء مسخن كهربائي بنجاح</a>
                 </div>
             </li>
-            <li class="nav-item  dropdown">
+            <!-- <li class="nav-item  dropdown">
                 <a class="nav-link language dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     العربية
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">English</a>
                 </div>
-            </li>
+            </li> -->
             @guest
             <a href="#" class="btn btn-primary login btn-chart ml-3">تسجيل دخول</a>
             <a href="#" class="btn btn-chart bg-white border-primary ml-3 register-modal" style="color: #306EFF">حساب جديد</a>

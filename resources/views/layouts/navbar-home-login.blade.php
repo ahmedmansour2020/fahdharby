@@ -20,14 +20,14 @@
                     <a class="dropdown-item" href="#"><i class="fas fa-comment-dollar  pl-2"></i> تمت عملية شراء مسخن كهربائي بنجاح</a>
                 </div>
             </li>
-            <li class="nav-item  dropdown">
+            <!-- <li class="nav-item  dropdown">
                 <a class="nav-link language dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     العربية
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">English</a>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item   dropdown">
                 <a class="nav-link nav-name-users  dropdown-toggle d-inline-block " style="font-size: 19px;font-weight: 700;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     فهد الحربي
