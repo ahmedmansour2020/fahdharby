@@ -60,7 +60,7 @@ class ApprovalController extends Controller
                 case 'products':
                     $items = Product::
                         leftJoin('categories', 'categories.id', 'sub_category')
-                        ->select('duration', DB::raw('date(products.updated_at) as update_date'), 'price', 'qty', 'products.id', 'status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description')
+                        ->select('duration', DB::raw('date(products.updated_at) as update_date'), 'price', 'qty', 'products.id', 'products.status as status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description')
                         ->orderBy('products.id', 'desc');
                         
                         if($status!=""){
