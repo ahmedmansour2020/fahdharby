@@ -172,20 +172,19 @@ $(document).ready(function() {
                 name: "duration"
             },
             {
-                data: "pr_status",
-                name: "pr_status",
+                data: "status",
+                name: "status",
                 render: function(d, t, r, m) {
                     switch (d) {
-                        case 0:
+                        case '0':
                             return `<span class="text-success">قيد المراجعة</span>`;
-                        case 1:
+                        case '1':
                             return `<span class="text-primary">تمت الموافقة</span>`;
-                        case 2:
+                        case '2':
                             return `<span class="text-warning">متوقف مؤقتا</span>`;
-                        case 3:
+                        case '3':
                             return `<span class="text-danger">مرفوض</span>`;
-                        default:
-                            return '';
+
                     }
                 }
             },
@@ -194,9 +193,9 @@ $(document).ready(function() {
                 name: "change",
                 render: function(d, t, r, m) {
                     return `
-                    <button type="button" class="btn mx-2 change_status" data-to_status="1" data-status="${r.pr_status}" data-id="${r.id}"><i class="text-primary fa fa-check"></i></button>
-                    <button type="button" class="btn mx-2 change_status" data-to_status="2" data-status="${r.pr_status}" data-id="${r.id}"><i class="text-warning fa fa-pause"></i></button>
-                    <button type="button" class="btn mx-2 change_status" data-to_status="3" data-status="${r.pr_status}" data-id="${r.id}"><i class="text-danger fa fa-times"></i></button>
+                    <button type="button" class="btn mx-2 change_status" data-to_status="1" data-status="${r.status}" data-id="${r.id}"><i class="text-primary fa fa-check"></i></button>
+                    <button type="button" class="btn mx-2 change_status" data-to_status="2" data-status="${r.status}" data-id="${r.id}"><i class="text-warning fa fa-pause"></i></button>
+                    <button type="button" class="btn mx-2 change_status" data-to_status="3" data-status="${r.status}" data-id="${r.id}"><i class="text-danger fa fa-times"></i></button>
                     `;
                 }
             },
