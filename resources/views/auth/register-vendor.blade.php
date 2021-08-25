@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ URL::asset('resources/assets/css/demo.css') }}">
 
     <link rel="stylesheet" href="{{ URL::asset('resources/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('resources/assets/css/media.css') }}">
 </head>
 
 <body>
@@ -25,7 +26,7 @@
             <div class="col-12">
                 <form action="{{ route('register') }}" class="form-login" method="POST">
                     @csrf
-                    <div class="card" style="margin: auto !important">
+                    <div class="card">
                         <div class="card-header">
                             <h2>إنشاء حساب كتاجر</h2>
                             <P class="mt-5 text-break">عن طريق</P>
