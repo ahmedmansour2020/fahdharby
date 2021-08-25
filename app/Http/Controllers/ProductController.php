@@ -33,7 +33,7 @@ class ProductController extends Controller
                 $products = Product::
                 leftJoin('categories', 'categories.id', 'sub_category')
                 ->where('user_id', $user->id)
-                ->select('duration', DB::raw('date(products.updated_at) as update_date'), 'price', 'qty', 'products.id', 'products.status as status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description')
+                ->select('duration', DB::raw('date(products.updated_at) as update_date'), 'price', 'qty', 'products.id', 'products.status as pr_status', 'products.name_' . LangController::lang() . ' as name', 'products.description_' . LangController::lang() . ' as description')
                 ->orderBy('products.id', 'desc');
                 
                 switch ($tab) {

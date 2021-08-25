@@ -172,8 +172,8 @@ $(document).ready(function() {
                 name: "duration"
             },
             {
-                data: "status",
-                name: "status",
+                data: "pr_status",
+                name: "pr_status",
                 render: function(d, t, r, m) {
                     switch (d) {
                         case 0:
@@ -192,9 +192,9 @@ $(document).ready(function() {
                 name: "change",
                 render: function(d, t, r, m) {
                     return `
-                    <button type="button" class="btn mx-2 change_status" data-to_status="1" data-status="${r.status}" data-id="${r.id}"><i class="text-primary fa fa-check"></i></button>
-                    <button type="button" class="btn mx-2 change_status" data-to_status="2" data-status="${r.status}" data-id="${r.id}"><i class="text-warning fa fa-pause"></i></button>
-                    <button type="button" class="btn mx-2 change_status" data-to_status="3" data-status="${r.status}" data-id="${r.id}"><i class="text-danger fa fa-times"></i></button>
+                    <button type="button" class="btn mx-2 change_status" data-to_status="1" data-status="${r.pr_status}" data-id="${r.id}"><i class="text-primary fa fa-check"></i></button>
+                    <button type="button" class="btn mx-2 change_status" data-to_status="2" data-status="${r.pr_status}" data-id="${r.id}"><i class="text-warning fa fa-pause"></i></button>
+                    <button type="button" class="btn mx-2 change_status" data-to_status="3" data-status="${r.pr_status}" data-id="${r.id}"><i class="text-danger fa fa-times"></i></button>
                     `;
                 }
             },
