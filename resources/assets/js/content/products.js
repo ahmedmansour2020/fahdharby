@@ -63,7 +63,14 @@ $(document).ready(function() {
             },
             {
                 data: "name",
-                name: "name"
+                name: "name",
+                render: function(d, t, r, m) {
+                    if (d.length > 70) {
+                        return d.substr(0, 70) + " ...";
+                    } else {
+                        return d;
+                    }
+                }
             },
             {
                 data: "price",
@@ -139,7 +146,14 @@ $(document).ready(function() {
             },
             {
                 data: "name",
-                name: "name"
+                name: "name",
+                render: function(d, t, r, m) {
+                    if (d.length > 70) {
+                        return d.substr(0, 70) + " ...";
+                    } else {
+                        return d;
+                    }
+                }
             },
             {
                 data: "price",
@@ -162,14 +176,15 @@ $(document).ready(function() {
                 name: "status",
                 render: function(d, t, r, m) {
                     switch (d) {
-                        case 0:
+                        case '0':
                             return `<span class="text-success">قيد المراجعة</span>`;
-                        case 1:
+                        case '1':
                             return `<span class="text-primary">تمت الموافقة</span>`;
-                        case 2:
+                        case '2':
                             return `<span class="text-warning">متوقف مؤقتا</span>`;
-                        case 3:
+                        case '3':
                             return `<span class="text-danger">مرفوض</span>`;
+
                     }
                 }
             },
