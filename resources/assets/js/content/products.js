@@ -184,6 +184,8 @@ $(document).ready(function() {
                             return `<span class="text-warning">متوقف مؤقتا</span>`;
                         case 3:
                             return `<span class="text-danger">مرفوض</span>`;
+                        default:
+                            return '';
                     }
                 }
             },
