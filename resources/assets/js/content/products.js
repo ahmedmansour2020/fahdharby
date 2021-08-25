@@ -63,7 +63,14 @@ $(document).ready(function() {
             },
             {
                 data: "name",
-                name: "name"
+                name: "name",
+                render: function(d, t, r, m) {
+                    if (d.length > 100) {
+                        return d.substr(0, 100) + " ...";
+                    } else {
+                        return d;
+                    }
+                }
             },
             {
                 data: "price",
@@ -139,7 +146,14 @@ $(document).ready(function() {
             },
             {
                 data: "name",
-                name: "name"
+                name: "name",
+                render: function(d, t, r, m) {
+                    if (d.length > 100) {
+                        return d.substr(0, 100) + " ...";
+                    } else {
+                        return d;
+                    }
+                }
             },
             {
                 data: "price",
