@@ -38,19 +38,19 @@ class ProductController extends Controller
                 
                 switch ($tab) {
                     case 1:
-                    $products->where('status', 1);
+                    $products->where('products.status', 1);
                     break;
                     case 2:
-                        $products->where('status', 0);
+                        $products->where('products.status', 0);
                     break;
                     case 3:
-                        $products->where('status', 1)->where('qty', 0);
+                        $products->where('products.status', 1)->where('qty', 0);
                         break;
                 case 4:
-                    $products->where('status', 2);
+                    $products->where('products.status', 2);
                     break;
                     case 5:
-                        $products->where('status', 3);
+                        $products->where('products.status', 3);
                     break;
                     
             }

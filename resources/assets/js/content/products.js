@@ -65,8 +65,8 @@ $(document).ready(function() {
                 data: "name",
                 name: "name",
                 render: function(d, t, r, m) {
-                    if (d.length > 100) {
-                        return d.substr(0, 100) + " ...";
+                    if (d.length > 70) {
+                        return d.substr(0, 70) + " ...";
                     } else {
                         return d;
                     }
@@ -148,8 +148,8 @@ $(document).ready(function() {
                 data: "name",
                 name: "name",
                 render: function(d, t, r, m) {
-                    if (d.length > 100) {
-                        return d.substr(0, 100) + " ...";
+                    if (d.length > 70) {
+                        return d.substr(0, 70) + " ...";
                     } else {
                         return d;
                     }
