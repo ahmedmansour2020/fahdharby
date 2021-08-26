@@ -24,7 +24,7 @@ $total=0;
                             <img src="{{ $product->image }}" class="img-fluid" style="width: 30%; margin-left: 20px"
                                 alt="">
                             <div class="d-inline-block title-products">
-                                <h3 dir="rtl">{{$product->name}}
+                                <h3 dir="rtl" >{{$product->name}}
                                     @if($product->old_price!=null)
                                     (<del style="font-size:20px">{{$product->old_price}}$</del> <b
                                         class="text-success">{{$product->price}}$</b>)

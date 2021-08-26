@@ -21,13 +21,13 @@ $home = true;
                 </div>
                 <div class="col-sm-12 col-lg-6">
                     <a href="{{route('product-details',$product->id)}}" class="title-product">
-                        <h2 class="itemTitle">
+                        <h2 class="itemTitle shorting-title">
                             {{$product->name}}
 
                         </h2>
                     </a>
                     <div class="content-products pr-3 mt-3">
-                        <p>{!!$product->description!!}</p>
+                        <p class="shorting-desc">{!!$product->description!!}</p>
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-3 buy">

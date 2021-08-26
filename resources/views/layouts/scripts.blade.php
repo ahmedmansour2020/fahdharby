@@ -28,6 +28,7 @@ var google_url="{{route('login.google')}}";
 </script>
 <script src="{{ asset('resources/assets/js/content/login.js') }}"></script>
 <script src="{{ asset('resources/assets/js/content/logout.js') }}"></script>
+<script src="{{ asset('resources/assets/js/content/shorting.js') }}"></script>
 <script>
 // $('.owl-carousel').owlCarousel({
 //     loop:true,
