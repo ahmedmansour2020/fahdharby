@@ -538,7 +538,7 @@ a.box-home-category {
 }
 
 .latest-product .product-header img {
-    width: 65% !important;
+    /* width: 65% !important; */
     display: inline-block !important;
 }
 
@@ -599,13 +599,20 @@ a.box-home-category {
 /* End home page */
 
 /* Start Orders page  */
-
+.bg-container-product {
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center center;
+    max-height: 400px;
+    height: 400px;
+}
 .box-product {
     background-color: #fff;
     padding: 20px;
     border: 1px solid #707070;
     margin-bottom: 20px;
     display: block;
+    overflow: hidden;
     text-decoration: none !important;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
