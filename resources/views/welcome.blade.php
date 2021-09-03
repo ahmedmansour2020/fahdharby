@@ -110,7 +110,7 @@ $home=true;
                 </a>
                 <div class="product-body">
                     <a href="{{route('product-details',$product->id)}}" class="text-decoration-none">
-                        <h4>{{$product->name}}</h4>
+                        <h4 class="shorting-title">{{$product->name}}</h4>
                     </a>
                     <div class="stars-rate" dir="rtl">
                         <input type="hidden" class="products_rates" value="{{$product->id}}">
@@ -129,7 +129,7 @@ $home=true;
                     @else
                     <span>{{$product->price}}$</span>
                     @endif
-                    <p>{{$product->description}}</p>
+                    <p class="shorting-desc">{{$product->description}}</p>
                 </div>
                 <br>
                 <div class="product-footer position-absolute w-100 p-2 " style="left:0;bottom:0" >
