@@ -1,5 +1,5 @@
 @media(max-width:992px) {
-    .navbar-bg-white .navbar-brand {
+    .navbar .navbar-brand {
         width: 20% !important;
         margin: 0;
     }
@@ -24,4 +24,9 @@
     .form-login .card-body {
         padding: 10px;
     }
+    /* Start login page */
+    .form-login .card {
+        width: 100%;
+    }
+    /* End login page */
 }
